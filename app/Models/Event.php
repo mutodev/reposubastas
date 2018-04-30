@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Event extends Model
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'start_at',
+        'end_at',
+        'is_active',
+    ];
+
+    public function properties()
+    {
+        return $this->belongsToMany('App\Models\Property', 'property_event', 'event_id', 'property_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_event', 'event_id', 'user_id')
+            ->withPivot('number', 'original_deposit', 'remaining_deposit', 'is_active');
+    }
+}
