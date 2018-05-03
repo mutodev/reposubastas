@@ -46,11 +46,28 @@
 
         .image-container img {
             max-width: none;
-            width: 370px;
+            width: 350px;
             position: absolute;
             left: 0;
             right: 0;
             top: 0;
+        }
+
+        .properties-index th {
+            border-bottom: 2px solid black;
+            padding: 2px 20px;
+        }
+
+        .properties-index tbody tr:nth-child(even) {
+            background: #ddffda
+        }
+
+        .properties-index tbody tr td {
+            padding: 10px 20px;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 
@@ -68,7 +85,7 @@
             @if ($count == 0)
             <tr>
             @endif
-                <td style="height: 280px; border-bottom: 1px solid black;">
+                <td valign="top" style="height: 310px; @if($count == 0) padding-right: 10px @else padding-left: 10px @endif">
                     <div class="image-container">
                         <img src="https://s3.amazonaws.com/reposubastas/{{ $property->image1 }}" height="180" />
                         <div class="property-number">
@@ -121,36 +138,40 @@
 
     <div style="page-break-after: always;"></div>
 
-    <table width="100%">
-        <tr>
-            <th>
-                {{ __('Ciudad') }}
-            </th>
-            <th>
-                {{ __('Dirección') }}
-            </th>
-            <th>
-                {{ __('Inspección') }}
-            </th>
-            <th>
-                #
-            </th>
-        </tr>
-        @foreach($propertiesByCity as $property)
-        <tr>
-            <td>
-                {{ $property->city }}
-            </td>
-            <td>
-                {{ $property->address }}
-            </td>
-            <td>
-                {{ $property->open_house }}
-            </td>
-            <td>
-                {{ $property->number }}
-            </td>
-        </tr>
-        @endforeach
+    <table class="properties-index" width="100%">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    {{ __('Ciudad') }}
+                </th>
+                <th>
+                    {{ __('Dirección') }}
+                </th>
+                <th class="text-center">
+                    {{ __('Inspección') }}
+                </th>
+                <th class="text-center">
+                    #
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($propertiesByCity as $property)
+            <tr>
+                <td class="text-center" width="1">
+                    {{ $property->city }}
+                </td>
+                <td>
+                    {{ $property->address }}
+                </td>
+                <td class="text-center" width="1">
+                    {{ $property->open_house }}
+                </td>
+                <td class="text-center" width="1">
+                    {{ $property->number }}
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
 @endsection
