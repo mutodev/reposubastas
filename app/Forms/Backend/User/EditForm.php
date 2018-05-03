@@ -28,7 +28,25 @@ class EditForm extends Form
         //Event fields
         if ($event) {
             $this
-                ->add('number', 'number')
+                ->add('source', 'text')
+                ->add('type', 'select', [
+                    'choices' => [
+                        'Broker' => __('Broker'),
+                        'Client' => __('Client')
+                    ]
+                ])
+                ->add('broker_name', 'text')
+                ->add('martial_status', 'text')
+                ->add('spouse_name', 'text')
+                ->add('address', 'text')
+                ->add('city', 'text')
+                ->add('postal_code', 'text')
+                ->add('phone', 'text')
+                ->add('phone2', 'text')
+                ->add('company', 'text')
+                ->add('license', 'text')
+                ->add('expiration_date', 'date')
+                ->add('number', 'number', ['label' => __('Bidder number')])
                 ->add('deposit', 'number', ['label' => __('Deposit')]);
         }
 

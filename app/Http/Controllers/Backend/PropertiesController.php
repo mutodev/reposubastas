@@ -15,6 +15,8 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDF;
+use URL;
+use Storage;
 
 class PropertiesController extends Controller
 {
@@ -72,6 +74,15 @@ class PropertiesController extends Controller
             $model = new Model;
         }
 
+        foreach ((array)$formValues['images'] as $i => $image) {
+            $index = $i+1;
+            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
+
+            if (Storage::disk('s3')->put($imageFilename, file_get_contents($image), 'public')) {
+                $formValues["image{$index}"] = $imageFilename;
+            }
+        }
+
         $model->fill($formValues);
         $model->save();
         $model->addToEvent($event->id, $formValues['number']);
@@ -79,18 +90,10 @@ class PropertiesController extends Controller
         return redirect()->route('backend.properties.index', ['event' => $event->id]);
     }
 
-    public function auction(FormBuilder $formBuilder, Event $event, Model $model)
+    public function auction(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
     {
-        $modelEvent = DB::table('property_event')
-            ->where('property_id', '=', $model->id)
-            ->where('event_id', '=', $event->id)->first();
-
-        $bids = Bid::select('bid.*', 'users.name', 'user_event.number')
-            ->where('property_id', '=', $model->id)
-            ->where('bid.event_id', '=', $event->id)
-            ->join('users', 'users.id', '=', 'bid.user_id')
-            ->join('user_event', 'user_event.user_id', '=', 'bid.user_id')
-            ->orderBy('bid.created_at', 'desc')->get();
+        $modelEvent = $model->getEventData($event->id);
+        $bids = $model->getBids($event->id);
 
         //Get winner
         $winner = false;
@@ -111,6 +114,11 @@ class PropertiesController extends Controller
             'class' => 'form-horizontal',
             'url'    => route('backend.properties.bid.store', ['event' => $event->id, 'model' => $model->id]),
         ]);
+
+        //Broadcast
+        if (!$request->has('bidding')) {
+            event(new \App\Events\Auction($model, $modelEvent));
+        }
 
         return view('backend.properties.auction', compact('form', 'model', 'event', 'modelEvent', 'bids', 'winner', 'users'));
     }
@@ -142,6 +150,7 @@ class PropertiesController extends Controller
         $formValues = $form->getFieldValues();
 
         $userEvent = DB::table('user_event')
+            ->leftJoin('users', 'users.id', '=', 'user_event.user_id')
             ->where('number', '=', $formValues['number'])
             ->where('event_id', '=', $event->id)->first();
 
@@ -154,12 +163,15 @@ class PropertiesController extends Controller
             $bid->is_winner = false;
             $bid->save();
 
+            //Broadcast
+            event(new \App\Events\Bid($bid, $userEvent));
+
             Session::flash('success', __('Offer saved successfully!'));
         } else {
             Session::flash('error', __("User with number {$formValues['number']} not found"));
         }
 
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id]);
+        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
     }
 
     public function finishAuction(Event $event, Model $model)
@@ -172,7 +184,10 @@ class PropertiesController extends Controller
             Session::flash('success', "Auction closed without winner!");
         }
 
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id]);
+        //Broadcast
+        event(new \App\Events\Bid($bid));
+
+        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
     }
 
     public function registerToEvent(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
@@ -205,7 +220,18 @@ class PropertiesController extends Controller
 
     public function generatePdf(Event $event)
     {
-        $pdf = PDF::loadView('backend.properties.pdf', compact('event'));
+        $baseQuery = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
+            ->join('property_event', function($join) use ($event) {
+                $join->on('property_event.property_id', '=', 'properties.id');
+                $join->on('property_event.event_id', '=', DB::raw($event->id));
+            })
+            ->where('property_event.is_active', '=', 1);
+
+        $propertiesByCity = (clone $baseQuery)->orderBy('properties.city', 'asc')->get();
+        $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
+
+        set_time_limit(-1);
+        $pdf = PDF::loadView('backend.properties.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'));
         return $pdf->download('properties.pdf');
     }
 }

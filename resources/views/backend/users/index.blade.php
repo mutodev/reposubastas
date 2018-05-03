@@ -16,7 +16,7 @@
             <tr>
                 @if ($event)
                 <th>
-                    {{ __('Number') }}
+                    {{ __('Bidder number') }}
                 </th>
                 @endif
                 <th>

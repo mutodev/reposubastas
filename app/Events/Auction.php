@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Property;
+use App\Models\Bid;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,22 +13,24 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Event;
 
-class PropertyStatusUpdated extends Event implements ShouldBroadcast
+class Auction extends Event implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data = [];
+    public $property = null;
+    public $propertyEvent = null;
+    public $bids = [];
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Property $property, $propertyEvent)
     {
-        $this->data = [
-            'power' => 1
-        ];
+        $this->property = $property;
+        $this->propertyEvent = $propertyEvent;
+        $this->bids = $property->getBids($propertyEvent->event_id)->toArray();
     }
 
     /**
@@ -36,6 +40,6 @@ class PropertyStatusUpdated extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['test-channel'];
+        return ['local'];
     }
 }

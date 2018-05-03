@@ -22,12 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'role:System Admin'])->group(function () {
     Route::prefix('backend')->group(function () {
 
-        Route::get('fire', function () {
-            // this fires the event
-            broadcast(new App\Events\PropertyStatusUpdated());
-            return "event fired";
-        });
-
         Route::prefix('events')->group(function () {
             Route::get('auction/live/{model}', 'Backend\EventsController@live')->name('backend.event.live');
             Route::get('/', 'Backend\EventsController@index')->name('backend.events.index');

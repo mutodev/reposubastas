@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -19,15 +18,27 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('live-component', require('./components/LiveComponent.vue'));
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        auction: {
-          property: null
-        }
+  el: '#app',
+  data: {
+    auction: {
+      property: null,
+      bids: [],
+      finished: false
     }
+  }
 });
 
-Echo.channel('test-channel')
-  .listen('PropertyStatusUpdated', (e) => {
-  app.property = e.data.power;
-});
+Echo.channel('local')
+  .listen('Auction', (e) => {
+    console.log('auction', e);
+    app.auction = Object.assign(app.auction, e, {finished: false});
+  })
+  .listen('Bid', (e) => {
+    console.log('bid', e);
+
+    app.auction.finished = e.bid.is_winner;
+
+    if (!app.auction.finished) {
+      app.auction.bids = [e.bid].concat(app.auction.bids);
+    }
+  });

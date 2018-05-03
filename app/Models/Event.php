@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Event extends Model
 {
@@ -27,5 +28,13 @@ class Event extends Model
     {
         return $this->belongsToMany('App\User', 'user_event', 'event_id', 'user_id')
             ->withPivot('number', 'original_deposit', 'remaining_deposit', 'is_active');
+    }
+
+    public function getRegisteredUsers()
+    {
+        return User::select('users.*', 'users.name', 'user_event.number')
+            ->where('user_event.event_id', '=', $this->id)
+            ->where('user_event.is_active', '=', true)
+            ->join('user_event', 'user_event.user_id', '=', 'users.id')->get();
     }
 }

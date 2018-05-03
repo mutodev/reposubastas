@@ -18,7 +18,7 @@ class CreateBidTable extends Migration
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('user_id');
-            $table->decimal('offer');
+            $table->decimal('offer', 16);
             $table->boolean('is_winner');
             $table->timestamps();
 
