@@ -73,7 +73,7 @@ class FrontendController extends Controller
 
         //dd($query->toSql());
 
-        $properties = $query->paginate(9);
+        $properties = $query->orderBy('property_event.number')->paginate(9);
 
         return compact('types', 'properties');
     }
