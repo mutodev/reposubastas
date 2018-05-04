@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('stylesheets')
+    <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+@endsection
+
 @section('main')
     @if (!Auth::guest())
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">

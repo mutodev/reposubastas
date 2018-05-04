@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -61,3 +57,16 @@ Route::middleware(['auth', 'role:System Admin'])->group(function () {
         });
     });
 });
+
+Route::get('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page');
+
+Route::get('/', function () {
+    $request = Request::create('es', 'GET', array());
+    return Route::dispatch($request);
+});
+
+//Route::get('/{pageSlug}', function ($pageSlug) {
+//
+//    dd($pageSlug);
+//
+//})->where('pageSlug', '.*');

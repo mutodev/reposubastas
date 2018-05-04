@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\User;
+use App\Models\Base as Model;
 
 class Page extends Model
 {
@@ -17,5 +16,7 @@ class Page extends Model
         'title_en',
         'content_es',
         'content_en',
+        'slug_es',
+        'slug_en'
     ];
 }
