@@ -25,8 +25,8 @@ class EventsController extends Controller
     public function edit(FormBuilder $formBuilder, Model $model = null)
     {
         if ($model) {
-            $model->start_at = current(explode(' ', $model->start_at));
-            $model->end_at = current(explode(' ', $model->end_at));
+            $model->start_at = date("Y-m-d\TH:i:s", strtotime($model->start_at));
+            $model->end_at = date("Y-m-d\TH:i:s", strtotime($model->end_at));
         }
 
         $form = $formBuilder->create(EditForm::class, [
@@ -52,8 +52,8 @@ class EventsController extends Controller
             $model = new Model;
         }
 
-        $formValues['start_at'] = "{$formValues['start_at']} 00:00:00";
-        $formValues['end_at'] = "{$formValues['end_at']} 23:59:59";
+        $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
+        $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
 
         $model->fill($formValues);
         $model->save();

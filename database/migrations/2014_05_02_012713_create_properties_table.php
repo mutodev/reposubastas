@@ -18,23 +18,26 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('type_id');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('status_id')->nullable();
             $table->string('address');
             $table->integer('bedrooms')->nullable();
             $table->integer('bathrooms')->nullable();
             $table->decimal('price', 16)->nullable();
             $table->decimal('deposit', 16)->nullable();
-            $table->text('open_house')->nullable();
+            $table->decimal('reserve', 16)->nullable();
+            $table->text('open_house_es')->nullable();
+            $table->text('open_house_en')->nullable();
             $table->decimal('sqf_area')->nullable();
             $table->decimal('sqm_area')->nullable();
             $table->decimal('cuerdas')->nullable();
             $table->string('internal_number')->nullable();
-            $table->decimal('latitude')->nullable();
-            $table->decimal('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->string('city')->nullable();
             $table->text('description_es')->nullable();
             $table->text('description_en')->nullable();
-            $table->string('zonification')->nullable();
+            $table->string('zonification_es')->nullable();
+            $table->string('zonification_en')->nullable();
             $table->string('roof_height')->nullable();
             $table->string('lot_size')->nullable();
             $table->string('levels')->nullable();
@@ -53,6 +56,8 @@ class CreatePropertiesTable extends Migration
             $table->string('image8')->nullable();
             $table->string('image9')->nullable();
             $table->string('image10')->nullable();
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable();
             $table->timestamps();
 
             $table->foreign('status_id')->references('id')->on('property_status');

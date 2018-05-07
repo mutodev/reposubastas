@@ -87,7 +87,7 @@
             @endif
                 <td valign="top" style="height: 310px; @if($count == 0) padding-right: 10px @else padding-left: 10px @endif">
                     <div class="image-container">
-                        <img src="https://s3.amazonaws.com/reposubastas/{{ $property->image1 }}" height="180" />
+                        <img src="{{ $property->getImage() }}" height="180" />
                         <div class="property-number">
                             {{ $property->number }}
                         </div>
@@ -98,10 +98,10 @@
                     <table width="100%">
                         <tr>
                             <td valign="top">
-                                <strong>{{ __('Tipo') }}:</strong> {{ $property->type->name_es }}
+                                <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}
                             </td>
                             <td valign="top">
-                                <strong>{{ __('Precio') }}:</strong> ${{ number_format($property->price) }}
+                                <strong>{{ __('Price') }}:</strong> ${{ number_format($property->price) }}
                             </td>
                         </tr>
                         <tr>
@@ -118,8 +118,13 @@
                                 @endif
                             </td>
                             <td valign="top">
-                                <strong>{{ __('Inspección') }}:</strong><br />
+                                @if($property->deposit)
+                                    <strong>{{ __('Deposit') }}:</strong> ${{ number_format($property->deposit) }}
+                                @endif
+                                @if($property->open_house)
+                                <strong>{{ __('Open House') }}:</strong><br />
                                 {{ $property->open_house }}
+                                @endif
                             </td>
                         </tr>
                     </table>
@@ -138,17 +143,17 @@
 
     <div style="page-break-after: always;"></div>
 
-    <table class="properties-index" width="100%">
+    <table class="properties-index" width="485">
         <thead>
             <tr>
                 <th class="text-center">
-                    {{ __('Ciudad') }}
+                    {{ __('City') }}
                 </th>
                 <th>
-                    {{ __('Dirección') }}
+                    {{ __('Address') }}
                 </th>
                 <th class="text-center">
-                    {{ __('Inspección') }}
+                    {{ __('Open House') }}
                 </th>
                 <th class="text-center">
                     #

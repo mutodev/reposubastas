@@ -10,8 +10,8 @@ class EditForm extends Form
     {
         $this
             ->add('name', 'text', ['rules' => 'required'])
-            ->add('start_at', 'date', ['rules' => 'required'])
-            ->add('end_at', 'date', ['rules' => 'required'])
+            ->add('start_at', 'datetime-local', ['rules' => 'required'])
+            ->add('end_at', 'datetime-local', ['rules' => 'required'])
             ->add('is_active', 'checkbox', [
                 'value' => 1,
                 'checked' => true,

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use PDF;
 use URL;
 use Storage;
+use App;
 
 class PropertiesController extends Controller
 {
@@ -81,6 +82,14 @@ class PropertiesController extends Controller
             if (Storage::disk('s3')->put($imageFilename, file_get_contents($image), 'public')) {
                 $formValues["image{$index}"] = $imageFilename;
             }
+        }
+
+        if (!$formValues['start_at']) {
+            $formValues['start_at'] = $event->start_at;
+            $formValues['end_at'] = $event->end_at;
+        } else {
+            $formValues['start_at'] = "{$formValues['start_at']} 00:00:00";
+            $formValues['end_at'] = "{$formValues['end_at']} 23:59:59";
         }
 
         $model->fill($formValues);
@@ -218,8 +227,10 @@ class PropertiesController extends Controller
         return view('backend.users.register-to-event', compact('form', 'model'));
     }
 
-    public function generatePdf(Event $event)
+    public function generatePdf(Event $event, $locale = 'es')
     {
+        App::setLocale($locale);
+
         $baseQuery = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
             ->join('property_event', function($join) use ($event) {
                 $join->on('property_event.property_id', '=', 'properties.id');

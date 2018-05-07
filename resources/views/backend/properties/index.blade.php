@@ -13,8 +13,11 @@
                 <a  class="dropdown-item" href="{{ route('backend.properties.edit', ['event' => $event->id]) }}">
                     {{ __('Add New Property')  }}
                 </a>
-                <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.pdf', ['event' => $event->id]) }}">
-                    {{ __('Generate PDF') }}
+                <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.pdf', ['event' => $event->id, 'locale' => 'es']) }}">
+                    {{ __('Generate PDF (Spanish)') }}
+                </a>
+                <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.pdf', ['event' => $event->id, 'locale' => 'en']) }}">
+                    {{ __('Generate PDF (English)') }}
                 </a>
             </div>
         </div>

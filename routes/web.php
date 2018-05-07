@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth', 'role:System Admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::prefix('backend')->group(function () {
 
         Route::prefix('events')->group(function () {
@@ -35,6 +35,12 @@ Route::middleware(['auth', 'role:System Admin'])->group(function () {
             Route::post('register-to-event/{model?}', 'Backend\UsersController@registerToEvent')->name('backend.users.register-to-event-post');
         });
 
+        Route::prefix('pages')->group(function () {
+            Route::get('/', 'Backend\PagesController@index')->name('backend.pages.index');
+            Route::get('edit/{model?}', 'Backend\PagesController@edit')->name('backend.pages.edit');
+            Route::post('store/{model?}', 'Backend\PagesController@store')->name('backend.pages.store');
+        });
+
         Route::prefix('{event}')->group(function () {
             Route::prefix('properties')->group(function () {
                 Route::get('/', 'Backend\PropertiesController@index')->name('backend.properties.index');
@@ -46,7 +52,7 @@ Route::middleware(['auth', 'role:System Admin'])->group(function () {
                 Route::get('auction-next', 'Backend\PropertiesController@nextAuction')->name('backend.properties.auction.next');
                 Route::get('register-to-event/{model?}', 'Backend\PropertiesController@registerToEvent')->name('backend.properties.register-to-event');
                 Route::post('register-to-event/{model?}', 'Backend\PropertiesController@registerToEvent')->name('backend.properties.register-to-event-post');
-                Route::get('pdf', 'Backend\PropertiesController@generatePdf')->name('backend.properties.pdf');
+                Route::get('pdf/{locale?}', 'Backend\PropertiesController@generatePdf')->name('backend.properties.pdf');
             });
 
             Route::prefix('users')->group(function () {

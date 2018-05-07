@@ -2,21 +2,31 @@
 
 @section('sub_header')
     <div class="properties-search position-relative overflow-hidden text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
-                <h1 class="display-5 font-weight-normal">{{ __('Real Estate Auctions') }}</h1>
-                <div class="input-group mb-2 mr-sm-2">
-                    <select name="type" class="custom-select">
-                        @foreach($types as $value => $label)
-                            <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
-                        @endforeach
-                    </select>
-                    <input value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, city, Property ID') }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+        <div class="col-md-5 p-lg-5 mx-auto my-4 my-sm-5">
+            <div class="bg-dark-blue p-2 p-sm-4 mx-auto rounded properties-search-box mw-75">
+                <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
+                    <h1 class="display-5 font-weight-normal">{{ __('YOUR INTELLIGENT INVESTMENT BEGINS') }}</h1>
+                    <div class="input-group mr-sm-2">
+                        <select name="type" class="custom-select">
+                            @foreach($types as $value => $label)
+                                <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        <input value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, city, Property ID') }}">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary bg-light-red border-0">{{ __('Search') }}</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+@endsection
+
+@section('content_top')
+    @if($event)
+    <div class="bg-light-blue text-center p-2 display-6 text-uppercase">
+        <strong>{{ __('NEXT EVENT') }}:</strong> {{ Jenssegers\Date\Date::parse($event->start_at)->format('l j F Y') }}
+    </div>
+    @endif
 @endsection

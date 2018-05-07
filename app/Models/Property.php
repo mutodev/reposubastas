@@ -19,7 +19,8 @@ class Property extends Model
         'bedrooms',
         'bathrooms',
         'price',
-        'open_house',
+        'open_house_es',
+        'open_house_en',
         'sqf_area',
         'sqm_area',
         'cuerdas',
@@ -30,7 +31,8 @@ class Property extends Model
         'description_es',
         'description_en',
         'deposit',
-        'zonification',
+        'zonification_es',
+        'zonification_en',
         'roof_height',
         'lot_size',
         'levels',
@@ -64,6 +66,12 @@ class Property extends Model
     public function type()
     {
         return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
+    }
+
+    public function getImage($index = 1)
+    {
+        $image = $this["image{$index}"];
+        return $image ? env('AWS_S3_URL') . $image : null;
     }
 
     public function getEventData($eventId)

@@ -2,21 +2,27 @@
     max-width: 960px;
 }
 
+body {
+    color: #3A3A3A;
+}
+
 /*
  * Custom translucent site header
  */
 
 .site-header {
-    background-color: rgba(0, 0, 0, .85);
+    background-color: white;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
 }
 .site-header a {
-    color: #999;
+    color: #3A3A3A;
     transition: ease-in-out color .15s;
+    line-height: 32px;
+    height: 51px;
 }
 .site-header a:hover {
-    color: #fff;
+    color: #1072B3;
     text-decoration: none;
 }
 
@@ -81,4 +87,70 @@
 .properties-search {
     background-image: url('http://fortuneweavers.com/wp-content/uploads/2017/03/RealEstateInvestments.jpg');
     background-size: cover;
+}
+
+.bg-light-blue {
+    background-color: #20ABD5;
+    color: white;
+}
+
+.bg-dark-blue {
+    background-color: #1072B3;
+    color: white;
+}
+
+.bg-light-red {
+    background-color: #F7292F;
+    color: white;
+}
+
+.bg-dark-red {
+    background-color: #D00A15;
+    color: white;
+}
+
+.bg-light-grey {
+    background-color: #E8E8E8;
+}
+
+.text-dark-blue {
+    color: #1072B3;
+}
+
+.properties-search-box {
+    background: rgb(16, 114, 179);
+    background: rgba(16, 114, 179, 0.5);
+}
+
+.properties-search-box h1 {
+    font-size: 1.6rem;
+}
+
+.properties-results .card {
+    color: #3A3A3A;
+    -webkit-box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
+}
+
+.properties-results .card {
+    text-decoration: none !important;
+}
+
+.property-remaining .unit {
+    font-size: 2.5rem;
+}
+
+.property .unit {
+    font-size: 2rem;
+}
+
+.display-5 {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.display-6 {
+    font-size: 1.5rem;
+    font-weight: 300;
 }

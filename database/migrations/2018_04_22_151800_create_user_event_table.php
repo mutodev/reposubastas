@@ -17,8 +17,8 @@ class CreateUserEventTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
-            $table->decimal('original_deposit');
-            $table->decimal('remaining_deposit');
+            $table->decimal('original_deposit')->nullable();
+            $table->decimal('remaining_deposit')->nullable();
             $table->integer('number')->nullable();
             $table->boolean('is_active');
             $table->timestamps();

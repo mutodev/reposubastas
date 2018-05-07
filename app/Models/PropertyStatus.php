@@ -18,4 +18,14 @@ class PropertyStatus extends Model
         'name_es',
         'name_en'
     ];
+
+    public static function forSelect() {
+        $statuses = [];
+        $statuses[''] = __('-- Select One --');
+        foreach (self::all() as $status) {
+            $statuses[$status->id] = $status->name;
+        }
+
+        return $statuses;
+    }
 }

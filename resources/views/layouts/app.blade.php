@@ -51,7 +51,9 @@
                     </div>
                 @endif
 
-                @yield('content')
+                <div class="mb-4">
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>

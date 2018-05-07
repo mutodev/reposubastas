@@ -18,4 +18,14 @@ class PropertyType extends Model
         'name_es',
         'name_en'
     ];
+
+    public static function forSelect() {
+        $types = [];
+        $types[''] = __('-- Select One --');
+        foreach (self::all() as $type) {
+            $types[$type->id] = $type->name;
+        }
+
+        return $types;
+    }
 }
