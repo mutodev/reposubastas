@@ -83,4 +83,7 @@
   'icons' => array(
     'normal' => $fontDir . '/76b6d0656c21bedf40e6ee502e737141',
   ),
+  'montserrat' => array(
+    'normal' => $fontDir . '/9b97b4078968aa15e19697e76aafda21',
+  ),
 ) ?>

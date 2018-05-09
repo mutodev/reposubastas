@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('stylesheets')
+    <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
+@endsection
+
 @section('main')
     <style>
         .image-container {
@@ -75,69 +79,19 @@
         $count = 0;
         $pageCount = 0;
     ?>
+    <?php
+    $perRow = 3;
+    $perRowCount = 0;
+    ?>
     @foreach($propertiesByNumber as $property)
-        @if ($pageCount == 0)
-        @if (!$loop->first)
-        <div style="page-break-after: always;"></div>
-        @endif
-        <table width="100%">
-        @endif
-            @if ($count == 0)
-            <tr>
-            @endif
-                <td valign="top" style="height: 310px; @if($count == 0) padding-right: 10px @else padding-left: 10px @endif">
-                    <div class="image-container">
-                        <img src="{{ $property->getImage() }}" height="180" />
-                        <div class="property-number">
-                            {{ $property->number }}
-                        </div>
-                        <div class="property-city"></div>
-                        <div class="property-city-text">{{ $property->city }}</div>
-                    </div>
-                    {{ $property->address }}
-                    <table width="100%">
-                        <tr>
-                            <td valign="top">
-                                <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}
-                            </td>
-                            <td valign="top">
-                                <strong>{{ __('Price') }}:</strong> ${{ number_format($property->price) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <strong>{{ __('Area') }}:</strong>
-                                @if ((int)$property->sqm_area)
-                                    <br />{{ number_format($property->sqm_area) }} {{ __('m2') }}
-                                @endif
-                                @if ((int)$property->sqf_area)
-                                    <br />{{ number_format($property->sqf_area) }} {{ __('p2') }}
-                                @endif
-                                @if ((int)$property->cuerdas)
-                                    <br />{{ number_format($property->cuerdas) }} {{ __('cuerdas') }}
-                                @endif
-                            </td>
-                            <td valign="top">
-                                @if($property->deposit)
-                                    <strong>{{ __('Deposit') }}:</strong> ${{ number_format($property->deposit) }}
-                                @endif
-                                @if($property->open_house)
-                                <strong>{{ __('Open House') }}:</strong><br />
-                                {{ $property->open_house }}
-                                @endif
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            <?php $count++; $pageCount++; ?>
-            @if ($loop->last || $count == 2)
-            <?php $count = 0; ?>
-            </tr>
-            @endif
-
-        @if ($loop->last || $pageCount == 6)
-        <?php $pageCount = 0; ?>
-        </table>
+        @if ($loop->first || $perRowCount == 0)
+            <div class="card-deck mt-2 mb-4">
+                @endif
+                @include('frontend.partials.property', compact('property'))
+                <?php $perRowCount++; ?>
+                @if ($loop->last || $perRowCount == $perRow)
+                    <?php $perRowCount = 0; ?>
+            </div>
         @endif
     @endforeach
 

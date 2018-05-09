@@ -164,7 +164,8 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Jenssegers\Date\DateServiceProvider::class
+        Jenssegers\Date\DateServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*
@@ -216,8 +217,9 @@ return [
 
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'Menu' => Lavary\Menu\Facade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Date' => Jenssegers\Date\Date::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],
 
 ];
