@@ -52,6 +52,9 @@ class PropertiesController extends Controller
             }
         }
 
+        $model->start_at = date("Y-m-d\TH:i:s", strtotime($event->start_at));
+        $model->end_at = date("Y-m-d\TH:i:s", strtotime($event->end_at));
+
         $form = $formBuilder->create(EditForm::class, [
             'method' => 'POST',
             'url'    => route('backend.properties.store', ['event' => $event->id, 'model' => $model ? $model->id : null]),

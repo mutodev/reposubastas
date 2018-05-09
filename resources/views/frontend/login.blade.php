@@ -4,7 +4,7 @@
     <div class="bg-light-grey p-4">
         <div class="container">
             <div>
-                <h1 class="text-center display-6 text-uppercase m-0">{{ __('Sign Up') }}</h1>
+                <h1 class="text-center display-6 text-uppercase m-0">{{ __('Sign In') }}</h1>
             </div>
         </div>
     </div>

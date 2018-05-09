@@ -58,6 +58,7 @@ class CreatePropertiesTable extends Migration
             $table->string('image10')->nullable();
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
+            $table->boolean('is_cash_only');
             $table->timestamps();
 
             $table->foreign('status_id')->references('id')->on('property_status');

@@ -86,9 +86,8 @@ class Property extends Model
         return Bid::select('bid.*', 'users.name', 'user_event.number')
             ->where('property_id', '=', $this->id)
             ->where('bid.event_id', '=', $eventId)
-            ->where('user_event.event_id', '=', $eventId)
             ->join('users', 'users.id', '=', 'bid.user_id')
-            ->join('user_event', 'user_event.user_id', '=', 'bid.user_id')
+            ->leftJoin('user_event', 'user_event.user_id', '=', 'bid.user_id')
             ->orderBy('bid.created_at', 'desc')->get();
     }
 

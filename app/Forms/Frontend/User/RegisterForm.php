@@ -9,9 +9,10 @@ class RegisterForm extends Form
     public function buildForm()
     {
         $this
-            ->add('name', 'text', ['label' => __('Name')])
-            ->add('email', 'text', ['label' => __('Email')])
-            ->add('password', 'password', ['label' => __('Password')])
+            ->add('name', 'text', ['label' => __('Name'), 'rules' => 'required'])
+            ->add('email', 'text', ['label' => __('Email'), 'rules' => 'required|string|email|max:255|unique:users'])
+            ->add('password', 'password', ['label' => __('Password'), 'rules' => 'required|string|min:6|confirmed'])
+            ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => 'required'])
             ->add('type', 'select', [
                 'choices' => [
                     'Broker' => __('Broker'),

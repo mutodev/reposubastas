@@ -27,7 +27,7 @@
                 <strong class="text-dark-blue">{{ __('Transaction') }}</strong>
 
                 <div class="mb-3">
-                    <strong>{{ __('Payment method') }}:</strong> <span>{{ __('Cash only') }}</span>
+                    <strong>{{ __('Payment method') }}:</strong> <span>{{ $property->is_cash_only ? __('Cash only') : __('Cash, Financed') }}</span>
                 </div>
 
                 <strong class="text-dark-blue">{{ __('Event') }}</strong>
@@ -41,10 +41,13 @@
                         <strong>{{ __('Auction place') }}:</strong> <span>{{ __('blag') }}</span>
                     </div>
 
+                    <?php $daysLeft = (new Carbon\Carbon($property->end_at))->diffInDays(); ?>
+                    @if($daysLeft > 0)
                     <div class="mt-4">
                         <span>{{ __('Event begins in') }}:</span><br />
-                        <stron class="unit">{{ number_format((new Carbon\Carbon($property->event_end_at))->diffInHours()) }} {{ __('days') }}</stron>
+                        <strong class="unit">{{ number_format($daysLeft) }} {{ __('days') }}</strong>
                     </div>
+                    @endif
                 @endif
             </div>
         </div>

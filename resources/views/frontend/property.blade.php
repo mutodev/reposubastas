@@ -3,26 +3,7 @@
 @section('page_title', "{$property->address}, {$property->city} {$property->region}")
 
 @section('sub_header')
-    <div class="properties-search position-relative overflow-hidden text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <div class="bg-dark-blue p-4 w-75 mx-auto rounded properties-search-box">
-                <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
-                    <h1 class="display-5 font-weight-normal">{{ __('YOUR INTELLIGENT INVESTMENT BEGINS') }}</h1>
-                    <div class="input-group mb-2 mr-sm-2">
-                        <select name="type" class="custom-select">
-                            @foreach($types as $value => $label)
-                                <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
-                            @endforeach
-                        </select>
-                        <input value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, city, Property ID') }}">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary bg-light-red border-0">{{ __('Search') }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('frontend.partials.search')
 @endsection
 
 @section('content')
@@ -30,6 +11,18 @@
 
     <div class="property pt-4 pb-4">
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <strong class="text-dark-blue">{{ __('Property') }}</strong>
             <h2 class="m-0">{{ $property->address }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
@@ -64,6 +57,18 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
+                        </div>
+
+                        <div class="property-badges">
+                            @if($property->number)
+                                <span class="badge badge-dark">{{ $property->number }}</span>
+                            @else
+                                <span class="badge badge-dark"><span class="oi oi-globe"></span></span>
+                            @endif
+
+                            @if($property->status_id)
+                                <span class="badge badge-danger">{{ $property->status->name }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
@@ -100,13 +105,17 @@
                                         <span>m</span>
                                     @endif
                                 </div>
-                            @endif
 
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Sale price') }}</strong>
-                                <br />
-                                <strong class="unit">${{ number_format($property->price) }}</strong>
-                            </div>
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
+                                    <br />
+                                    <strong class="unit">${{ number_format(intval($bid->offer ?? $property->price)) }}</strong>
+                                </div>
+
+                                <div class="mt-3">
+                                    {!! form($form) !!}
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>

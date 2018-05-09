@@ -1,5 +1,6 @@
 {
   "All": "Todos",
+  "-- Select One --": "-- Seleccione uno --",
   "Address, city, Property ID": "Dirección, ciudad, # Propiedad",
   "Search": "Buscar",
   "Sale price": "Precio de venta",
@@ -40,5 +41,22 @@
   "License": "Licencia",
   "Register": "Registrarme",
   "Broker": "Corredor",
-  "Client": "Cliente"
+  "Client": "Cliente",
+  "Cash only": "Solamente efectivo",
+  "Cash, Financed": "Efectivo, Financiado",
+  "Price range": "Rango de precio",
+  "Only online auctions": "Solo subastas en línea",
+  "Only live auctions": "Solo subastas en vivo",
+  "View": "Ver",
+  "Filter Results": "Filtrar Resultados",
+  "Sign Up": "Regístrate",
+  "Thanks for registering": "Gracias por registrarte",
+  "Sign In": "Ingresar",
+  "Invalid credentials": "Credenciales no válidas",
+  "Submit Offer": "Someter Oferta",
+  "Offer submitted": "Oferta sometida",
+  "Current offer": "Oferta actual",
+  "Please register to submit offer": "Por favor regístrese para enviar la oferta",
+  "The offer must be greater than the last one": "La oferta debe ser mayor a la última",
+  "Sorry, no results were found": "Lo sentimos, no se encontraron resultados"
 }

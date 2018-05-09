@@ -64,7 +64,10 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     });
 });
 
+Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page');
+Route::post('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page-post');
 
 Route::get('/', function () {
     $request = Request::create('es', 'GET', array());
