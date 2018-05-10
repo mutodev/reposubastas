@@ -16,6 +16,12 @@
         <p class="card-text text-muted">
             {{ __('Type') }}: {{ $property->type->name }}
 
+            @if($property->bedrooms)
+                <br />{{ __('Beds') }}: {{ number_format($property->bedrooms) }}
+            @endif
+            @if($property->bathrooms)
+                <br />{{ __('Baths') }}: {{ number_format($property->bathrooms) }}
+            @endif
             @if($property->sqf_area)
                 <br />{{ __('Square feets') }}: {{ number_format($property->sqf_area) }}
             @endif
