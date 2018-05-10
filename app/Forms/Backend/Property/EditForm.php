@@ -27,6 +27,7 @@ class EditForm extends Form
             ->add('price', 'number', ['rules' => 'required|numeric'])
             ->add('deposit', 'number', ['rules' => 'required|numeric'])
             ->add('reserve', 'number', ['rules' => 'required|numeric'])
+            ->add('capacity', 'text')
             ->add('is_cash_only', 'checkbox')
             ->add('open_house_es', 'text', ['label' => __('Open House (Spanish)')])
             ->add('open_house_en', 'text', ['label' => __('Open House (English)')])

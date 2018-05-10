@@ -25,6 +25,7 @@ class CreatePropertiesTable extends Migration
             $table->decimal('price', 16)->nullable();
             $table->decimal('deposit', 16)->nullable();
             $table->decimal('reserve', 16)->nullable();
+            $table->string('capacity')->nullable();
             $table->text('open_house_es')->nullable();
             $table->text('open_house_en')->nullable();
             $table->decimal('sqf_area')->nullable();

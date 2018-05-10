@@ -38,7 +38,7 @@
 
                 @if(!$online)
                     <div>
-                        <strong>{{ __('Auction place') }}:</strong> <span>{{ __('blag') }}</span>
+                        <strong>{{ __('Auction place') }}:</strong> <span>{{ $property->event_location }}</span>
                     </div>
 
                     <?php $daysLeft = (new Carbon\Carbon($property->end_at))->diffInDays(); ?>
