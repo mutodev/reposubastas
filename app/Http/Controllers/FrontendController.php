@@ -13,6 +13,7 @@ use App;
 use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use PDF;
 
 class FrontendController extends Controller
 {
@@ -103,6 +104,15 @@ class FrontendController extends Controller
                 $keywords,
                 $keywords
             ]);
+        }
+
+        if ($request->get('pdf')) {
+            $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc')->get();
+            $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
+
+            set_time_limit(-1);
+            $pdf = PDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'));
+            return $pdf->download('properties.pdf');
         }
 
         $properties = $query->orderBy('property_event.number')->paginate(9);

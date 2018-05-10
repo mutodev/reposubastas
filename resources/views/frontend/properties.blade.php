@@ -45,6 +45,10 @@
                             <button class="btn btn-sm bg-light-red mt-sm-4" type="submit">
                                 {{ __('Filter Results') }}
                             </button>
+
+                            <a target="_blank" href="{{ route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdf' => 1], request()->all())) }}" class="btn btn-sm mt-sm-4 ml-2">
+                                {{ __('Download results') }}
+                            </a>
                         </div>
                     </div>
                 </form>

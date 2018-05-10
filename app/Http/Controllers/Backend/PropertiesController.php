@@ -245,7 +245,7 @@ class PropertiesController extends Controller
         $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
 
         set_time_limit(-1);
-        $pdf = PDF::loadView('backend.properties.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'));
+        $pdf = PDF::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'));
         return $pdf->download('properties.pdf');
     }
 }
