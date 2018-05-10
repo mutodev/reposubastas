@@ -35,6 +35,7 @@
 </div>
 
 <script src="{{ asset('js/app.js') }}" defer></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5320741e1495deeb"></script>
 @yield('footer')
 </body>
 </html>

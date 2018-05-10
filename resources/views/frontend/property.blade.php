@@ -27,6 +27,10 @@
             <h2 class="m-0">{{ $property->address }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
 
+            <div class="clearfix">
+                <div class="addthis_inline_share_toolbox_zkje float-right"></div>
+            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 p-0">
