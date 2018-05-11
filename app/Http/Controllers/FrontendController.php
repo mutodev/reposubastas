@@ -271,7 +271,7 @@ class FrontendController extends Controller
 
             Session::flash('success', __('Thank you for contacting us'));
 
-            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'properties']);
+            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'contact']);
         }
 
         $form = $formBuilder->create(App\Forms\Frontend\ContactForm::class, [
