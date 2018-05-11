@@ -36,10 +36,10 @@
                 <tr>
                     <td width="60%">{{ $model->name }}</td>
                     <td>
-                        {{ $model->start_at }}
+                        @if($model->start_at){{ Jenssegers\Date\Date::parse($model->start_at)->format('j M Y, g:ia')}}@endif
                     </td>
                     <td>
-                        {{ $model->end_at }}
+                        @if($model->end_at){{ Jenssegers\Date\Date::parse($model->end_at)->format('j M Y, g:ia')}}@endif
                     </td>
                     <td>
                         {{ $model->is_active ? __('Yes') : __('No') }}
@@ -62,7 +62,7 @@
                                 <a  class="dropdown-item" href="{{ route('backend.events.edit', ['id' => $model->id]) }}">
                                     {{ __('Edit')  }}
                                 </a>
-                                <a  class="dropdown-item" href="{{ route('backend.event.live', ['model' => $model->id]) }}">
+                                <a  class="dropdown-item" target="_blank" href="{{ route('backend.event.live', ['model' => $model->id]) }}">
                                     {{ __('Live')  }}
                                 </a>
                             </div>

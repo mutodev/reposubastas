@@ -53,6 +53,8 @@ class Property extends Model
         'image8',
         'image9',
         'image10',
+        'end_at',
+        'start_at'
     ];
 
     public function events()
@@ -102,7 +104,7 @@ class Property extends Model
         ]);
     }
 
-    public function endAuction($eventId)
+    public function endAuction($eventId, $statusId = null)
     {
         $bid = Bid::select('bid.*', 'users.name', 'user_event.number')->where('property_id', '=', $this->id)
             ->where('bid.event_id', '=', $eventId)
@@ -113,6 +115,11 @@ class Property extends Model
         if ($bid) {
             $bid->is_winner = true;
             $bid->save();
+        }
+
+        if ($statusId) {
+            $this->status_id = $statusId;
+            $this->save();
         }
 
         return $bid;

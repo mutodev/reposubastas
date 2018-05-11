@@ -30,18 +30,39 @@ class PropertiesController extends Controller
     {
         $events = \App\Models\Event::where('is_active', 1)->orderBy('created_at', 'desc')->get();
 
-        $models = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
+        $query = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
             ->join('property_event', function($join) use ($event) {
                 $join->on('property_event.property_id', '=', 'properties.id');
                 $join->on('property_event.event_id', '=', DB::raw($event->id));
-            })
-            ->orderBy('property_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
+            });
+
+        if ($status = $request->get('status')) {
+            $query->where('properties.status_id', '=', $status);
+        }
+
+        if ($keywords = $request->get('keywords')) {
+            $keywords = "%{$keywords}%";
+
+            $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or properties.id LIKE ? or property_event.number LIKE ?)', [
+                $keywords,
+                $keywords,
+                $keywords,
+                $keywords,
+                $keywords,
+                $keywords
+            ]);
+        }
+
+        $models = $query->orderBy('property_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
 
         return view('backend.properties.index', compact('models', 'events', 'event'));
     }
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
+        $startAt = $event->start_at;
+        $endAt = $event->end_at;
+
         if ($model) {
             $modelEvent = DB::table('property_event')
                 ->where('property_id', '=', $model->id)
@@ -50,10 +71,13 @@ class PropertiesController extends Controller
             if ($modelEvent) {
                 $model->number = $modelEvent->number;
             }
+
+            $startAt = $model->start_at;
+            $endAt =$model->end_at;
         }
 
-        $model->start_at = date("Y-m-d\TH:i:s", strtotime($event->start_at));
-        $model->end_at = date("Y-m-d\TH:i:s", strtotime($event->end_at));
+        $model->start_at = date("Y-m-d\TH:i:s", strtotime($startAt));
+        $model->end_at = date("Y-m-d\TH:i:s", strtotime($endAt));
 
         $form = $formBuilder->create(EditForm::class, [
             'method' => 'POST',
@@ -87,13 +111,8 @@ class PropertiesController extends Controller
             }
         }
 
-        if (!$formValues['start_at']) {
-            $formValues['start_at'] = $event->start_at;
-            $formValues['end_at'] = $event->end_at;
-        } else {
-            $formValues['start_at'] = "{$formValues['start_at']} 00:00:00";
-            $formValues['end_at'] = "{$formValues['end_at']} 23:59:59";
-        }
+        $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
+        $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
 
         $model->fill($formValues);
         $model->save();
@@ -186,18 +205,18 @@ class PropertiesController extends Controller
         return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
     }
 
-    public function finishAuction(Event $event, Model $model)
+    public function finishAuction(Request $request, Event $event, Model $model)
     {
-        $bid = $model->endAuction($event->id);
+        $bid = $model->endAuction($event->id, $request->get('status_id'));
 
         if ($bid) {
             Session::flash('success', "#{$bid->number} - {$bid->name} is the winner!");
+
+            //Broadcast
+            event(new \App\Events\Bid($bid));
         } else {
             Session::flash('success', "Auction closed without winner!");
         }
-
-        //Broadcast
-        event(new \App\Events\Bid($bid));
 
         return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
     }

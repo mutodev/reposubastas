@@ -22,8 +22,8 @@ class EditForm extends Form
 
         $this
             ->add('name', 'text')
-            ->add('email', 'text')
-            ->add('password', 'password');
+            ->add('email', 'text', ['rules' => 'required|string|email|max:255|unique:users'])
+            ->add('password', 'password', ['rules' => 'required']);
 
         //Event fields
         if ($event) {

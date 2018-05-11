@@ -52,8 +52,17 @@ class EventsController extends Controller
             $model = new Model;
         }
 
-        $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
-        $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
+        if ($formValues['start_at']) {
+            $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
+            $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
+
+            //Update properties
+            foreach ($model->properties()->get() as $property) {
+                $property->start_at = $formValues['start_at'];
+                $property->end_at = $formValues['end_at'];
+                $property->save();
+            }
+        }
 
         $model->fill($formValues);
         $model->save();

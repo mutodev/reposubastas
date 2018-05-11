@@ -13,7 +13,8 @@ class EditForm extends Form
         $this
             ->add('type_id', 'select', [
                 'choices' => PropertyType::forSelect(),
-                'label' => __('Type')
+                'label' => __('Type'),
+                'rules' => 'required'
             ])
             ->add('status_id', 'select', [
                 'choices' => PropertyStatus::forSelect(),
@@ -25,8 +26,8 @@ class EditForm extends Form
             ->add('bedrooms', 'number', ['rules' => 'required|numeric'])
             ->add('bathrooms', 'number', ['rules' => 'required|numeric'])
             ->add('price', 'number', ['rules' => 'required|numeric'])
-            ->add('deposit', 'number', ['rules' => 'required|numeric'])
-            ->add('reserve', 'number', ['rules' => 'required|numeric'])
+            ->add('deposit', 'number')
+            ->add('reserve', 'number')
             ->add('capacity', 'text')
             ->add('is_cash_only', 'checkbox')
             ->add('open_house_es', 'text', ['label' => __('Open House (Spanish)')])

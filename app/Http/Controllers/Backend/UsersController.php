@@ -83,8 +83,6 @@ class UsersController extends Controller
         $model->fill($formValues);
         $model->save();
 
-        $model->syncRoles(['Bidder']);
-
         if ($event) {
             $model->addToEvent($event->id, $formValues['deposit'], $formValues['number']);
         }

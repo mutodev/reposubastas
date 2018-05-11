@@ -4,9 +4,19 @@
 
 @section('toolbar')
     @if ($bids && !$winner)
-        <a class="btn btn-outline-success" href="{{ route('backend.properties.auction.finish', ['model' => $model->id, 'event' => $event->id]) }}">
-            {{ __('Close Auction') }}
-        </a>
+        <div class="dropdown">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ __('Close Auction') }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                @foreach(App\Models\PropertyStatus::forSelect() as $value => $label)
+                    @if($loop->first) @continue @endif
+                <a  class="dropdown-item" href="{{ route('backend.properties.auction.finish', ['model' => $model->id, 'event' => $event->id, 'status_id' => $value]) }}">
+                    {{ $label  }}
+                </a>
+                @endforeach
+            </div>
+        </div>
     @else
         <a class="btn btn-outline-success" href="{{ route('backend.properties.auction.next', ['event' => $event->id, 'number' => $modelEvent->number]) }}">
             {{ __('Next Property Auction') }}
