@@ -21,7 +21,7 @@ class PropertyType extends Model
 
     public static function forSelect() {
         $types = [];
-        $types[''] = __('-- Select One --');
+        $types[''] = __('Type');
         foreach (self::all() as $type) {
             $types[$type->id] = $type->name;
         }
