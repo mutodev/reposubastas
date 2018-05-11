@@ -37,6 +37,11 @@
   "Spouse Name": "Nombre del cónyuge",
   "Postal Code": "Código postal",
   "Phone": "Teléfono",
+  "Contact Us": "Contáctenos",
+  "Navigate": "Navegación",
+  "Administration": "Administración",
+  "Thank you for contacting us": "Gracias por contactarnos",
+  "Message": "Mensaje",
   "Company": "Compañía",
   "License": "Licencia",
   "Register": "Registrarme",
@@ -64,5 +69,11 @@
   "Beds": "Cuartos",
   "Baths": "Baños",
   "Deposit": "Deposito",
-  "Download results": "Descargar resultados"
+  "Download results": "Descargar resultados",
+  "Send": "Enviar",
+  "About": "Acerca",
+  "Privacy": "Privacidad",
+  "Terms": "Términos",
+  "Invalid": "Inválido",
+  "Verification code": "Código de verificación"
 }

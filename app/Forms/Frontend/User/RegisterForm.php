@@ -31,6 +31,10 @@ class RegisterForm extends Form
             ->add('license', 'text', ['label' => __('License')])
             ->add('expiration_date', 'date', ['label' => __('License Expiration')]);
 
+        $this->add('captcha', 'captcha', ['label' => __('Verification code'), 'rules' => 'required|captcha', 'error_messages' => [
+            'captcha.captcha' => __('Invalid')
+        ]]);
+
         $this->add('submit', 'submit', ['label' => __('Register')]);
     }
 }

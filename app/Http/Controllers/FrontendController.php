@@ -14,6 +14,8 @@ use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use PDF;
+use App\Mail\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
@@ -41,6 +43,10 @@ class FrontendController extends Controller
         }
 
         $view = $page ? $page->slug_en : $pageSlug;
+
+        if (!view()->exists("frontend.{$view}")) {
+            $view = "default";
+        }
 
         return view("frontend.{$view}", $data);
     }
@@ -246,6 +252,31 @@ class FrontendController extends Controller
         $form = $formBuilder->create(App\Forms\Frontend\User\LoginForm::class, [
             'method' => 'POST',
             'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'login'])
+        ]);
+
+        return compact('form');
+    }
+
+    public function contact($formBuilder, $request) {
+
+        //Handle post
+        if ($request->isMethod('post')) {
+            $form = $formBuilder->create(App\Forms\Frontend\ContactForm::class);
+
+            if (!$form->isValid()) {
+                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            }
+
+            Mail::to(env('CONTACT_EMAIL'))->send(new Contact($form->getFieldValues()));
+
+            Session::flash('success', __('Thank you for contacting us'));
+
+            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'properties']);
+        }
+
+        $form = $formBuilder->create(App\Forms\Frontend\ContactForm::class, [
+            'method' => 'POST',
+            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'contact'])
         ]);
 
         return compact('form');

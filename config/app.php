@@ -165,6 +165,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -218,6 +219,7 @@ return [
         'Menu' => Lavary\Menu\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];
