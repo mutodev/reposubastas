@@ -13,6 +13,12 @@ class RegisterForm extends Form
             ->add('email', 'text', ['label' => __('Email'), 'rules' => 'required|string|email|max:255|unique:users'])
             ->add('password', 'password', ['label' => __('Password'), 'rules' => 'required|string|min:6|confirmed'])
             ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => 'required'])
+            ->add('martial_status', 'text', ['label' => __('Marital Status')])
+            ->add('spouse_name', 'text', ['label' => __('Spouse Name')])
+            ->add('address', 'text', ['label' => __('Address')])
+            ->add('city', 'text', ['label' => __('City')])
+            ->add('postal_code', 'text', ['label' => __('Postal Code')])
+            ->add('phone', 'text', ['label' => __('Phone')])
             ->add('type', 'select', [
                 'choices' => [
                     'Broker' => __('Broker'),
@@ -21,12 +27,6 @@ class RegisterForm extends Form
                 'label' => __('Type')
             ])
             ->add('broker_name', 'text', ['label' => __('Broker Name')])
-            ->add('martial_status', 'text', ['label' => __('Marital Status')])
-            ->add('spouse_name', 'text', ['label' => __('Spouse Name')])
-            ->add('address', 'text', ['label' => __('Address')])
-            ->add('city', 'text', ['label' => __('City')])
-            ->add('postal_code', 'text', ['label' => __('Postal Code')])
-            ->add('phone', 'text', ['label' => __('Phone')])
             ->add('company', 'text', ['label' => __('Company')])
             ->add('license', 'text', ['label' => __('License')])
             ->add('expiration_date', 'date', ['label' => __('License Expiration')]);
