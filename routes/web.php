@@ -31,8 +31,6 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::get('edit/{model?}', 'Backend\UsersController@edit')->name('backend.users.edit');
             Route::post('store/{model?}', 'Backend\UsersController@store')->name('backend.users.store');
             Route::post('assign_number/{model}', 'Backend\UsersController@assignNumber')->name('backend.users.assign_number');
-            Route::get('register-to-event/{model?}', 'Backend\UsersController@registerToEvent')->name('backend.users.register-to-event');
-            Route::post('register-to-event/{model?}', 'Backend\UsersController@registerToEvent')->name('backend.users.register-to-event-post');
         });
 
         Route::prefix('pages')->group(function () {
@@ -59,6 +57,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('/', 'Backend\UsersController@index')->name('backend.event.users.index');
                 Route::get('edit/{model?}', 'Backend\UsersController@edit')->name('backend.event.users.edit');
                 Route::post('store/{model?}', 'Backend\UsersController@store')->name('backend.event.users.store');
+                Route::get('register-to-event/{model}', 'Backend\UsersController@registerToEvent')->name('backend.event.users.register-to-event');
+                Route::post('register-to-event/{model}', 'Backend\UsersController@registerToEvent')->name('backend.event.users.register-to-event-post');
             });
         });
     });

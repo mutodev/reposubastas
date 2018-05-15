@@ -16,12 +16,13 @@ class PropertyStatus extends Model
      */
     protected $fillable = [
         'name_es',
-        'name_en'
+        'name_en',
+        'is_public'
     ];
 
-    public static function forSelect() {
+    public static function forSelect($empty = '-- Select One --') {
         $statuses = [];
-        $statuses[''] = __('-- Select One --');
+        $statuses[''] = __($empty);
         foreach (self::all() as $status) {
             $statuses[$status->id] = $status->name;
         }

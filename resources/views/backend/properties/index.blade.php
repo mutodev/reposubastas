@@ -29,8 +29,13 @@
         <form method="get" action="{{ route('backend.properties.index', ['event' => $event->id]) }}">
             <div class="input-group mr-sm-2">
                 <select name="status" class="custom-select">
-                    @foreach(App\Models\PropertyStatus::forSelect() as $value => $label)
+                    @foreach(App\Models\PropertyStatus::forSelect('-- Status --') as $value => $label)
                         <option @if($value == request()->get('status')) selected @endif value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+                <select name="investor" class="custom-select">
+                    @foreach(App\Models\Investor::forSelect('-- Investor --') as $value => $label)
+                        <option @if($value == request()->get('investor')) selected @endif value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </select>
                 <input value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, city, Property ID') }}">

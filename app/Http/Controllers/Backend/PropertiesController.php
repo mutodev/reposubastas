@@ -40,10 +40,14 @@ class PropertiesController extends Controller
             $query->where('properties.status_id', '=', $status);
         }
 
+        if ($investor = $request->get('investor')) {
+            $query->where('properties.investor_id', '=', $investor);
+        }
+
         if ($keywords = $request->get('keywords')) {
             $keywords = "%{$keywords}%";
 
-            $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or properties.id LIKE ? or property_event.number LIKE ?)', [
+            $query->whereRaw('(properties.investor_reference_id LIKE ? or properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or property_event.number LIKE ?)', [
                 $keywords,
                 $keywords,
                 $keywords,
@@ -74,6 +78,10 @@ class PropertiesController extends Controller
 
             $startAt = $model->start_at;
             $endAt =$model->end_at;
+        }
+
+        if (!$model) {
+            $model = new Model;
         }
 
         $model->start_at = date("Y-m-d\TH:i:s", strtotime($startAt));
@@ -264,7 +272,7 @@ class PropertiesController extends Controller
         $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
 
         set_time_limit(-1);
-        $pdf = PDF::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'));
+        $pdf = PDF::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
         return $pdf->download('properties.pdf');
     }
 }

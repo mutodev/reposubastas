@@ -44,6 +44,7 @@ return [
     'default_namespace' => '',
 
     'custom_fields' => [
-        'captcha' => App\Forms\Fields\CaptchaType::class
+        'captcha' => App\Forms\Fields\CaptchaType::class,
+        'accept' => App\Forms\Fields\AcceptType::class
     ]
 ];

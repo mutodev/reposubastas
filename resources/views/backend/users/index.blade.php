@@ -11,6 +11,51 @@
 @endsection
 
 @section('content')
+    <div class="properties-search position-relative overflow-hidden text-center bg-light">
+        <form method="get" action="{{ \App\User::url('index', null, @$event->id) }}">
+            <div class="input-group mr-sm-2">
+                <input value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Name') }}">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary bg-light-red border-0">{{ __('Search') }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @if($allmodels->count())
+    <table class="table mb-3">
+        <thead>
+        <tr>
+            <th>
+                {{ __('Name') }}
+            </th>
+            <th>
+                {{ __('Actions') }}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($allmodels as $model)
+            <tr>
+                <td width="100%">{{ $model->name }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ __('Actions') }}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a  class="dropdown-item" href="{{ \App\User::url('register-to-event', $model->id, $event->id) }}">
+                                {{ __('Register to Event')  }}
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    @endif
+
     <table class="table">
         <thead>
             <tr>
@@ -23,12 +68,6 @@
                     {{ __('Name') }}
                 </th>
                 @if ($event)
-                <th>
-                    {{ __('Deposit') }}
-                </th>
-                <th>
-                    {{ __('Remaining') }}
-                </th>
                 <th>
                     {{ __('Active') }}
                 </th>
@@ -48,8 +87,6 @@
                     @endif
                     <td width="100%">{{ $model->name }}</td>
                     @if ($event)
-                    <td>{{ number_format($model->original_deposit) }}</td>
-                    <td>{{ number_format($model->remaining_deposit) }}</td>
                     <td>
                         {{ $model->event_is_active ? __('Yes') : __('No') }}
                     </td>
@@ -63,11 +100,6 @@
                                 <a  class="dropdown-item" href="{{ \App\User::url('edit', @$model->id, @$event->id) }}">
                                     {{ __('Edit')  }}
                                 </a>
-                                @if (!$model->hasRole('System Admin'))
-                                    <a  class="dropdown-item" href="{{ \App\User::url('register-to-event', $model->id) }}">
-                                        {{ __('Register to Event')  }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </td>

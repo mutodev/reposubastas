@@ -5,6 +5,7 @@ namespace App\Forms\Backend\Property;
 use Kris\LaravelFormBuilder\Form;
 use App\Models\PropertyStatus;
 use App\Models\PropertyType;
+use App\Models\Investor;
 
 class EditForm extends Form
 {
@@ -20,6 +21,11 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
+            ->add('investor_id', 'select', [
+                'choices' => Investor::forSelect(),
+                'label' => __('Investor')
+            ])
+            ->add('investor_reference_id', 'text')
             ->add('start_at', 'datetime-local', ['rules' => 'required'])
             ->add('end_at', 'datetime-local', ['rules' => 'required'])
             ->add('address', 'text', ['rules' => 'required'])
@@ -28,6 +34,12 @@ class EditForm extends Form
             ->add('price', 'number', ['rules' => 'required|numeric'])
             ->add('deposit', 'number')
             ->add('reserve', 'number')
+            ->add('check_number', 'text')
+            ->add('check_type', 'text')
+            ->add('bank', 'text')
+            ->add('lister_broker', 'text')
+            ->add('seller_broker', 'text')
+            ->add('commission', 'number')
             ->add('capacity', 'text')
             ->add('is_cash_only', 'checkbox')
             ->add('open_house_es', 'text', ['label' => __('Open House (Spanish)')])

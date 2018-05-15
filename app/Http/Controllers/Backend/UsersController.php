@@ -29,9 +29,24 @@ class UsersController extends Controller
             $models->where('user_event.event_id', '=', $event->id);
         }
 
+        $allmodels = new \Illuminate\Database\Eloquent\Collection;;
+
+        if ($keywords = $request->get('keywords')) {
+            $keywords = "%{$keywords}%";
+
+            $allmodels = Model::select('users.*', 'user_event.number', 'user_event.original_deposit', 'user_event.remaining_deposit', 'user_event.is_active as event_is_active')
+                ->leftJoin('user_event', 'user_event.user_id', '=', 'users.id');
+
+            $allmodels->whereRaw('(user_event.event_id IS NULL OR user_event.event_id != ?)', [$event->id]);
+            $allmodels->whereRaw('(users.name LIKE ?)', [
+                $keywords
+            ]);
+            $allmodels = $allmodels->get();
+        }
+
         $models = $models->orderBy('user_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
 
-        return view('backend.users.index', compact('models', 'event'));
+        return view('backend.users.index', compact('models', 'allmodels', 'event'));
     }
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
@@ -126,7 +141,7 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
-    public function registerToEvent(Request $request, FormBuilder $formBuilder, Model $model)
+    public function registerToEvent(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
     {
         //Handle post
         if ($request->isMethod('post')) {
@@ -138,16 +153,25 @@ class UsersController extends Controller
 
             $formValues = $form->getFieldValues();
 
-            $model->addToEvent($formValues['event_id'], 0, $formValues['number']);
+            $userEvent = DB::table('user_event')
+                ->where('event_id', $event->id)
+                ->where('user_id', '!=', $model->id)
+                ->where('number', $formValues['number'])->count();
+
+            if ($userEvent) {
+                Session::flash('error', __('Bidder number in use!'));
+                return redirect(Model::url('register-to-event-post', $model->id, $event->id));
+            }
+
+            $model->addToEvent($event->id, 0, $formValues['number']);
 
             Session::flash('success', __('User added to event!'));
-
-            return redirect()->route('backend.users.index');
+            return redirect(Model::url('index', null, @$event->id));
         }
 
         $form = $formBuilder->create(RegisterToEventForm::class, [
             'method' => 'POST',
-            'url'    => Model::url('register-to-event-post', $model->id),
+            'url'    => Model::url('register-to-event-post', $model->id, $event->id),
             'model'  => $model
         ]);
 

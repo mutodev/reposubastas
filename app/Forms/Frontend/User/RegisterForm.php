@@ -13,26 +13,39 @@ class RegisterForm extends Form
             ->add('email', 'text', ['label' => __('Email'), 'rules' => 'required|string|email|max:255|unique:users'])
             ->add('password', 'password', ['label' => __('Password'), 'rules' => 'required|string|min:6|confirmed'])
             ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => 'required'])
-            ->add('martial_status', 'text', ['label' => __('Marital Status')])
+            ->add('martial_status', 'select', [
+                'rules' => 'required',
+                'choices' => [
+                    'Single' => __('Single'),
+                    'Married' => __('Married')
+                ],
+                'label' => __('Marital Status')
+            ])
             ->add('spouse_name', 'text', ['label' => __('Spouse Name')])
             ->add('address', 'text', ['label' => __('Address')])
             ->add('city', 'text', ['label' => __('City')])
             ->add('postal_code', 'text', ['label' => __('Postal Code')])
-            ->add('phone', 'text', ['label' => __('Phone')])
+            ->add('phone', 'text', ['label' => __('Phone'), 'rules' => 'required'])
             ->add('type', 'select', [
                 'choices' => [
-                    'Broker' => __('Broker'),
-                    'Client' => __('Client')
+                    'Broker' => __('Yes'),
+                    'Client' => __('No')
                 ],
-                'label' => __('Type')
+                'label' => __('Have broker?')
             ])
             ->add('broker_name', 'text', ['label' => __('Broker Name')])
             ->add('company', 'text', ['label' => __('Company')])
-            ->add('license', 'text', ['label' => __('License')]);
+            ->add('license', 'text', ['label' => __('License')])
+            ->add('phone2', 'text', ['label' => __('Broker Phone'), 'rules' => 'required']);
 
         $this->add('captcha', 'captcha', ['label' => __('Verification code'), 'rules' => 'required|captcha', 'error_messages' => [
             'captcha.captcha' => __('Invalid')
         ]]);
+
+        $this->add('accept_terms', 'accept', ['value' => 1, 'rules' => 'accepted', 'label' => __('I agree to REPOSUBASTA :terms and :policy', [
+            'terms' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'terms']).'">'.__('Terms').'</a>',
+            'policy' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'policy']).'">'.__('Privacy Policy').'</a>'
+        ])]);
 
         $this->add('submit', 'submit', ['label' => __('Register')]);
     }

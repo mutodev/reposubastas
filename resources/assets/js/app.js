@@ -47,3 +47,7 @@ Echo.channel('local')
       app.auction.bids = [e.bid].concat(app.auction.bids);
     }
   });
+
+
+//Forms
+require('./forms/register');

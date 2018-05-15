@@ -19,9 +19,14 @@ class CreatePropertiesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('status_id')->nullable();
+            $table->unsignedInteger('investor_id')->nullable();
             $table->string('address');
             $table->integer('bedrooms')->nullable();
             $table->integer('bathrooms')->nullable();
+            $table->string('investor_reference_id')->nullable();
+            $table->string('check_number')->nullable();
+            $table->string('check_type')->nullable();
+            $table->string('bank')->nullable();
             $table->decimal('price', 16)->nullable();
             $table->decimal('deposit', 16)->nullable();
             $table->decimal('reserve', 16)->nullable();
@@ -57,6 +62,9 @@ class CreatePropertiesTable extends Migration
             $table->string('image8')->nullable();
             $table->string('image9')->nullable();
             $table->string('image10')->nullable();
+            $table->string('lister_broker')->nullable();
+            $table->string('seller_broker')->nullable();
+            $table->decimal('commission')->nullable();
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->boolean('is_cash_only');
@@ -64,6 +72,7 @@ class CreatePropertiesTable extends Migration
 
             $table->foreign('status_id')->references('id')->on('property_status');
             $table->foreign('type_id')->references('id')->on('property_type');
+            $table->foreign('investor_id')->references('id')->on('investor');
         });
     }
 

@@ -1,7 +1,7 @@
 <div class="property-details mt-4">
     <div class="container">
         <div class="row">
-            <div class="col-12 p-0 @if($online) col-md-4 @endif mb-3">
+            <div class="col-12 p-0 col-md-4 mb-3">
                 <strong class="text-dark-blue">{{ __('Details') }}</strong>
 
                 <div>
@@ -22,8 +22,19 @@
                         <strong>{{ __('Open house') }}:</strong> <span>{{ $property->open_house }}</span>
                     </div>
                 @endif
+                @if($property->latitude && $property->longitude)
+                    <div>
+                        <strong>{{ __('Coordenates') }}:</strong> <span>{{ $property->latitude }}, {{ $property->longitude }}</span>
+                    </div>
+                @endif
+
+                @if($property->description)
+                    <div>
+                        <strong>{{ __('Open house') }}:</strong> <span>{{ $property->description }}</span>
+                    </div>
+                @endif
             </div>
-            <div class="col-12 p-0 @if($online) col-md-4 @endif">
+            <div class="col-12 p-0 col-md-4">
                 <strong class="text-dark-blue">{{ __('Transaction') }}</strong>
 
                 <div class="mb-3">

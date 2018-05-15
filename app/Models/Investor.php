@@ -5,9 +5,9 @@ namespace App\Models;
 use App\Models\Base as Model;
 use DB;
 
-class PropertyType extends Model
+class Investor extends Model
 {
-    protected $table = 'property_type';
+    protected $table = 'investor';
 
     /**
      * The attributes that are mass assignable.
@@ -15,17 +15,16 @@ class PropertyType extends Model
      * @var array
      */
     protected $fillable = [
-        'name_es',
-        'name_en'
+        'name'
     ];
 
     public static function forSelect($empty = '-- Select One --') {
-        $types = [];
-        $types[''] = __($empty);
-        foreach (self::all() as $type) {
-            $types[$type->id] = $type->name;
+        $investors = [];
+        $investors[''] = __($empty);
+        foreach (self::all() as $investor) {
+            $investors[$investor->id] = $investor->name;
         }
 
-        return $types;
+        return $investors;
     }
 }

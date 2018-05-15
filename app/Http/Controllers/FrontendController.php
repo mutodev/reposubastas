@@ -102,8 +102,7 @@ class FrontendController extends Controller
         if ($keywords = $request->get('keywords')) {
             $keywords = "%{$keywords}%";
 
-            $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or properties.id LIKE ? or property_event.number LIKE ?)', [
-                $keywords,
+            $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or property_event.number LIKE ?)', [
                 $keywords,
                 $keywords,
                 $keywords,
@@ -117,7 +116,7 @@ class FrontendController extends Controller
             $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
 
             set_time_limit(-1);
-            $pdf = PDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'));
+            $pdf = PDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
             return $pdf->download('properties.pdf');
         }
 
@@ -132,7 +131,7 @@ class FrontendController extends Controller
 
         $today = date('Y-m-d H:i:s');
 
-        $property = Property::select('properties.*', 'property_event.number', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.id as event_id')
+        $property = Property::select('properties.*', 'property_event.number', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
             ->join('property_event', function($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
@@ -163,7 +162,9 @@ class FrontendController extends Controller
 
             $formValues = $form->getFieldValues();
 
-            if (!$bid || intval($formValues['offer']) > intval($bid->offer)) {
+            $newOffer = intval($formValues['offer']);
+
+            if (($property->reserve && $newOffer >= $property->reserve) && (!$bid || $newOffer > intval($bid->offer))) {
                 $bid = new Bid;
                 $bid->user_id = \Auth::user()->id;
                 $bid->property_id = $property->id;
@@ -176,7 +177,7 @@ class FrontendController extends Controller
 
                 Session::flash('success', __('Offer submitted'));
             } else {
-                Session::flash('error', __('The offer must be greater than the last one'));
+                Session::flash('error', __('The offer must be greater than actual offer'));
             }
         }
 

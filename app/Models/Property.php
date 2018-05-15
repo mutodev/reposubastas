@@ -15,10 +15,15 @@ class Property extends Model
     protected $fillable = [
         'type_id',
         'status_id',
+        'investor_id',
+        'investor_reference_id',
         'address',
         'bedrooms',
         'bathrooms',
         'price',
+        'check_number',
+        'check_type',
+        'bank',
         'deposit',
         'reserve',
         'capacity',
@@ -53,6 +58,9 @@ class Property extends Model
         'image8',
         'image9',
         'image10',
+        'lister_broker',
+        'seller_broker',
+        'commission',
         'end_at',
         'start_at'
     ];

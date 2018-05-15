@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyStatusTable extends Migration
+class CreateInvestorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePropertyStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_status', function (Blueprint $table) {
+        Schema::create('investor', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_es');
-            $table->string('name_en');
-            $table->boolean('is_public');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreatePropertyStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('property_status');
+        Schema::dropIfExists('investor');
     }
 }

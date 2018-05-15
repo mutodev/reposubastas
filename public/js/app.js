@@ -15044,6 +15044,9 @@ Echo.channel('local').listen('Auction', function (e) {
   }
 });
 
+//Forms
+__webpack_require__(99);
+
 /***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -16931,6 +16934,7 @@ window.Popper = __webpack_require__(15).default;
 try {
   window.$ = window.jQuery = __webpack_require__(16);
 
+  __webpack_require__(94);
   __webpack_require__(58);
 } catch (e) {}
 
@@ -55450,6 +55454,1059 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */
+/***/ (function(module, exports) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function(n) {
+  if (!isNumber(n) || n < 0 || isNaN(n))
+    throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function(type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events)
+    this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error ||
+        (isObject(this._events.error) && !this._events.error.length)) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler))
+    return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++)
+      listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function(type, listener) {
+  var m;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events)
+    this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener)
+    this.emit('newListener', type,
+              isFunction(listener.listener) ?
+              listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;
+  else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);
+  else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                    this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function(type, listener) {
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function(type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type])
+    return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener ||
+      (isFunction(list.listener) && list.listener === listener)) {
+    delete this._events[type];
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener ||
+          (list[i].listener && list[i].listener === listener)) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0)
+      return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function(type) {
+  var key, listeners;
+
+  if (!this._events)
+    return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0)
+      this._events = {};
+    else if (this._events[type])
+      delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length)
+      this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function(type) {
+  var ret;
+  if (!this._events || !this._events[type])
+    ret = [];
+  else if (isFunction(this._events[type]))
+    ret = [this._events[type]];
+  else
+    ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function(type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener))
+      return 1;
+    else if (evlistener)
+      return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * dependsOn v${version}
+ * a jQuery plugin to facilitate the handling of form field dependencies.
+ *
+ * Copyright 2016 David Street
+ * Licensed under the MIT license.
+ */
+
+var SubjectController = __webpack_require__(95)
+
+/**
+ * Plugin access point.
+ * @param {Object} initialSet An object of key-value pairs of selectors and qualifiers
+ * representing the inital DependencySet.
+ * @param {Object} opts An object for key-value pairs of options.
+ * @return {SubjectController}
+ */
+$.fn.dependsOn = function(initialSet, opts) {
+	var options = $.extend({}, {
+		disable: true,
+		hide: true,
+		duration: 200,
+		trigger: 'change'
+	}, opts)
+
+	// Namespace the trigger event
+	options.trigger += (options.trigger.search('.dependsOn') > -1) ? '' :  '.dependsOn'
+
+	var controller = new SubjectController(this, initialSet, options)
+
+	return controller
+}
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * SubjectController
+ * ---
+ * Class which controls the state of the subject by responding its
+ * dependency collection state.
+ */
+
+var DependencyCollection = __webpack_require__(96)
+var DependencySet        = __webpack_require__(97)
+
+var SubjectController = function($subject, initialSet, options) {
+	this.$subject = $subject
+	this.collection = new DependencyCollection()
+	this.options = $.extend({}, {
+		onEnable: function() {},
+		onDisable: function() {},
+		trigger: 'change',
+		readonly: false
+	}, options)
+	this.collection.addSet(new DependencySet(initialSet, this.options.trigger))
+
+	this.$valueTarget = this._getValueTarget()
+	this.isInitialState = true
+
+	if (this.collection.qualified) {
+		this._enable()
+	} else {
+		this._disable()
+	}
+
+	this.isInitialState = false
+	this.collection.on('change', this._changeHandler.bind(this))
+}
+
+/**
+ * Change handler for the collection
+ * @param  {Object} state
+ * @private
+ */
+SubjectController.prototype._changeHandler = function(state) {
+	if (state.qualified) {
+		this._enable(state.triggerBy.$ele, state.e)
+	} else {
+		this._disable(state.triggerBy.$ele, state.e)
+	}
+}
+
+/**
+ * Get the target element when setting a value
+ * @return {jQuery}
+ * @private
+ */
+SubjectController.prototype._getValueTarget = function() {
+	var $valueTarget = this.$subject
+
+	if (this.options.hasOwnProperty('valueTarget') && typeof this.options.valueTarget !== undefined) {
+		$valueTarget = $(this.options.valueTarget)
+
+	// If the subject is not a form field, then look for one within the subject
+	} else if ( this.$subject[0].nodeName.toLowerCase() !== 'input' &&
+		this.$subject[0].nodeName.toLowerCase() !== 'textarea' &&
+		this.$subject[0].nodeName.toLowerCase() !== 'select') {
+
+		$valueTarget = this.$subject.find('input, textarea, select')
+	}
+
+	return $valueTarget
+}
+
+/**
+ * Add a set to the dependency collection
+ * @param  {[type]} set DependencySet
+ * @return {SubjectController}
+ */
+SubjectController.prototype.or = function(set) {
+	this.collection.addSet(new DependencySet(set, this.options.trigger))
+
+	if (this.collection.qualified) {
+		this._enable()
+	} else {
+		this._disable()
+	}
+
+	return this
+}
+
+/**
+ * Run a check of the collection
+ */
+SubjectController.prototype.check = function() {
+	this.collection.runCheck()
+}
+
+/**
+ * Enable the subject
+ * @param  {Dependency} dependency The triggering dependency
+ * @param  {Event}      e The triggering DOM event
+ * @private
+ */
+SubjectController.prototype._enable = function(dependency, e) {
+	if (this.options.disable) {
+		this.$subject.attr('disabled', false)
+	}
+
+	if (this.options.readonly) {
+		this.$subject.attr('readonly', false)
+	}
+
+	if (this.options.hide) {
+		this._toggleDisplay(true, this.isInitialState)
+	}
+
+	if (this.options.hasOwnProperty('valueOnEnable') && typeof this.options.valueOnEnable !== undefined) {
+		this.$valueTarget.val(this.options.valueOnEnable).change()
+	}
+
+	if (this.options.hasOwnProperty('checkOnEnable')) {
+		this.$valueTarget.prop('checked', this.options.checkOnEnable).change()
+	}
+
+	if (this.options.hasOwnProperty('toggleClass') && typeof this.options.toggleClass !== undefined) {
+		this.$subject.addClass(this.options.toggleClass)
+	}
+
+	this.options.onEnable.call(dependency, e, this.$subject)
+}
+
+/**
+ * Disable the subject
+ * @param  {Dependency} dependency The triggering dependency
+ * @param  {Event}      e The triggering DOM event
+ * @private
+ */
+SubjectController.prototype._disable = function(dependency, e) {
+	if (this.options.disable) {
+		this.$subject.attr('disabled', true)
+	}
+
+	if (this.options.readonly) {
+		this.$subject.attr('readonly', true)
+	}
+
+	if (this.options.hide) {
+		this._toggleDisplay(false, this.isInitialState)
+	}
+
+	if (this.options.hasOwnProperty('valueOnDisable') && typeof this.options.valueOnDisable !== undefined) {
+		this.$valueTarget.val(this.options.valueOnDisable).change()
+	}
+
+	if (this.options.hasOwnProperty('checkOnDisable')) {
+		this.$valueTarget.prop('checked', this.options.checkOnDisable).change()
+	}
+
+	if (this.options.hasOwnProperty('toggleClass') && typeof this.options.toggleClass !== undefined) {
+		this.$subject.removeClass(this.options.toggleClass)
+	}
+
+	this.options.onDisable.call(dependency, e, this.$subject)
+}
+
+/**
+ * Show or hide the subject
+ * @param  {Boolean} show   Whether or not to show the element
+ * @param  {[type]}  noFade Whether or not to fade the element
+ * @private
+ */
+SubjectController.prototype._toggleDisplay = function(show, noFade) {
+	var id = this.$subject.attr('id')
+	var $hideEle
+
+	if (this.$subject.parent()[0].nodeName.toLowerCase() === 'label') {
+		$hideEle = this.$subject.parent()
+	} else {
+		$hideEle = this.$subject.add('label[for="' + id + '"]')
+	}
+	
+	if (show) {
+		if (noFade) {
+			$hideEle.show()
+		} else {
+			$hideEle.fadeIn(this.options.duration)
+		}
+	} else if (!show) {
+		if (noFade) {
+			$hideEle.hide()
+		} else {
+			$hideEle.fadeOut(this.options.duration)
+		}
+	}
+}
+
+module.exports = SubjectController
+
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * DependencyCollection
+ * ---
+ * Class which defines a collection of dependency sets.
+ * Each set defines a logical OR, so the collection is considered qualified
+ * when _any_ of the sets are qualified.
+ */
+
+var EventEmitter  = __webpack_require__(93).EventEmitter
+
+var DependencyCollection = function() {
+	this.sets = []
+
+	// Keep track of how many sets are qualified.
+	// Qualified sets will add 1, unqualified sets will subtract 1 unless the
+	// sum is 0. The sum must not fall below zero.
+	this._qualSum = 0
+	this.qualified = null
+}
+
+module.exports = DependencyCollection
+
+DependencyCollection.prototype = $.extend({}, EventEmitter.prototype)
+
+/**
+ * Add a dependency set to the collection
+ * @param  {DependencySet} set
+ */
+DependencyCollection.prototype.addSet = function(set) {
+	this.sets.push(set)
+	this._qualSum += set.qualified ? 1 : 0
+	this.qualified = this._qualSum > 0
+
+	set.on('change', this._setChangeHandler.bind(this))
+}
+
+/**
+ * Check to see if the collection can qualify by checking each set
+ */
+DependencyCollection.prototype.runCheck = function() {
+	for (var i = 0, len = this.sets.length; i < len; i++) {
+		this.sets[i].runCheck()
+	}
+}
+
+/**
+ * Handler for a set's `change` event
+ * Emit a `change` event when the qualfied status of the collection changes
+ * @param  {Object} state
+ * @private
+ */
+DependencyCollection.prototype._setChangeHandler = function(state) {
+	var prevState = this.qualified
+	this._qualSum += state.qualified ? 1 : this._qualSum === 0 ? 0 : -1
+	this.qualified = this._qualSum > 0
+	
+	if (this.qualified !== prevState) {
+		this.emit('change', {
+			triggerBy: state.triggerBy,
+			e: state.e,
+			qualified: this.qualified
+		})
+	}
+}
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * DependencySet
+ * ---
+ * Class which defines a set of dependencies
+ */
+
+var EventEmitter = __webpack_require__(93).EventEmitter
+var Dependency   = __webpack_require__(98)
+
+var DependencySet = function(dependencies, trigger) {
+	this.dependencies = []
+
+	// Keep track of how many dependencies are qualified.
+	// Qualified dependencies will add 1, unqualified dependencies will
+	// subtract 1 unless the sum is 0. The sum must not fall below zero.
+	var qualSum = 0
+
+	for (var d in dependencies) {
+		if (!dependencies.hasOwnProperty(d)) continue
+
+		var newDep = new Dependency(d, dependencies[d], trigger)
+		this.dependencies.push(newDep)
+		qualSum += newDep.qualified ? 1 : 0
+
+		newDep.on('change', getDepChangeHandler(newDep).bind(this))
+	}
+
+	this.doesQualify = function() {
+		return qualSum === this.dependencies.length
+	}
+
+	// Set initial state of the set
+	this.qualified = this.doesQualify()
+
+	function getDepChangeHandler(dep) {
+		return function(state) {
+			var prevState = this.qualified
+			qualSum += state.qualified ? 1 : qualSum === 0 ? 0 : -1
+			this.qualified = this.doesQualify()
+
+			if (this.qualified !== prevState) {
+				this.emit('change', {
+					triggerBy: dep,
+					e: state.e,
+					qualified: this.doesQualify()
+				})
+			}
+		}
+	}
+}
+
+module.exports = DependencySet
+
+DependencySet.prototype = $.extend({}, EventEmitter.prototype)
+
+/**
+ * Run a qualification check of all dependencies
+ */
+DependencySet.prototype.runCheck = function() {
+	for (var i = 0, len = this.dependencies.length; i < len; i++) {
+		this.dependencies[i].runCheck()
+	}
+}
+
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Dependency
+ * ---
+ * Class which defines dependency qualifiers
+ */
+
+
+var EventEmitter = __webpack_require__(93).EventEmitter
+
+var Dependency = function(selector, qualifiers, trigger) {
+	this.$ele = $(selector)
+	this.qualifiers = qualifiers
+	this.fieldState = getFieldState(this.$ele)
+	this.methods = [
+		'enabled',
+		'checked',
+		'values',
+		'not',
+		'match',
+		'contains',
+		'email',
+		'url'
+	]
+
+	// Set initial state of the dependency
+	this.qualified = this.doesQualify()
+
+	this.$ele.on(trigger, handler.bind(this))
+	this.runCheck = handler.bind(this)
+
+	function handler(e) {
+		var prevState = this.qualified
+
+		this.fieldState = getFieldState(this.$ele)
+		this.qualified = this.doesQualify()
+
+		if (this.qualified !== prevState) {
+			this.emit('change', {
+				selector: selector,
+				e: e,
+				qualified: this.qualified
+			})
+		}
+	}
+}
+
+Dependency.prototype = $.extend({}, EventEmitter.prototype)
+
+/**
+ * Qualifier method which checks for the `disabled` attribute.
+ * ---
+ * Returns false when dependency is disabled and `enabled`
+ * qualifier is true *or* when dependency is not disabled and
+ * `enabled` qualifier is false.
+ * Returns true otherwise.
+ *
+ * @param {Boolean} enabledVal The value we are checking
+ * @return {Boolean}
+ */
+Dependency.prototype.enabled = function(enabledVal) {
+	if ((!this.fieldState.disabled && enabledVal) ||
+		(this.fieldState.disabled && !enabledVal)) {
+		return true
+	}
+
+	return false
+}
+
+/**
+ * Qualifier method which checks for the `checked` attribute on
+ * checkboxes and radio buttons.
+ * ---
+ * Dependency must be a checkbox for this qualifier.
+ * Returns false if checkbox is not checked and the `checked` qualifier
+ * is true *or* the checkbox is checked and the `checked` qualifier
+ * is false.
+ *
+ * @param {Boolean} checkedVal The value we are checking.
+ * @return {Boolean}
+ */
+Dependency.prototype.checked = function(checkedVal) {
+	if (this.$ele.attr('type') === 'checkbox') {
+		if ((!this.fieldState.checked && checkedVal) ||
+			(this.fieldState.checked && !checkedVal)) {
+			return false
+		}
+	}
+
+	return true
+}
+
+/**
+ * Qualifier method which checks the dependency input value against an
+ * array of whitelisted values.
+ * ---
+ * For single value dependency, returns true if values match.
+ * When dependency value is an array, returns true if array compares to
+ * a single value in the whitlist.
+ * This is helpful when dealing with a multiselect input, and comparing
+ * against an array of value sets:
+ * 		[ [1, 2, 3], [4, 5, 6], [7, 8] ]
+ *
+ * @param  {Array} whitelist The list of acceptable values
+ * @return {Boolean}
+ */
+Dependency.prototype.values = function(whitelist) {
+	for (var i = 0, len = whitelist.length; i < len; i++) {
+		if (this.fieldState.value !== null && Array.isArray(this.fieldState.value)) {
+			if ($(this.fieldState.value).not(whitelist[i]).length === 0 &&
+				$(whitelist[i]).not(this.fieldState.value).length === 0) {
+				return true
+			}
+		} else if (whitelist[i] === this.fieldState.value) {
+			return true
+		}
+	}
+
+	return false
+}
+
+/**
+ * Qualifier method which checks the dependency input value against an
+ * array of blacklisted values.
+ * ---
+ * Returns true when the dependency value is not in the blacklist.
+ *
+ * @param  {Array} blacklist The list of unacceptable values
+ * @return {Boolean}
+ */
+Dependency.prototype.not = function(blacklist) {
+	return !this.values(blacklist)
+}
+
+/**
+ * Qualifier method which runs a RegEx pattern match on the dependency
+ * input value.
+ * ---
+ * Returns true when the dependency value matches the regular expression.
+ * If dependency value is an array, will only return true if _all_ values
+ * match the regular expression.
+ *
+ * @param  {RegExp} regex Regular expression to test against
+ * @return {Boolean}
+ */
+Dependency.prototype.match = function(regex) {
+	var val = this.fieldState.value
+
+	if (!Array.isArray(this.fieldState.value)) {
+		val = [val]
+	}
+
+	for (var i = 0, len = val.length; i < len; i++) {
+		if (!regex.test(val[i])) return false
+	}
+
+	return true
+}
+
+/**
+ * Qualifier method which runs a RegExp pattern match on the dependency
+ * input value.
+ * ---
+ * Returns true when the dependency value does *not* match the regexp.
+ * If dependency value is an array, will only return true if _none_ of the
+ * values match the regular expression.
+ *
+ * @param  {RegExp} regex Regular expression to test against
+ * @return {Boolean}
+ */
+Dependency.prototype.notMatch = function(regex) {
+	var val = this.fieldState.value
+
+	if (!Array.isArray(this.fieldState.value)) {
+		val = [val]
+	}
+
+	for (var i = 0, len = val.length; i < len; i++) {
+		if (regex.test(val[i])) return false
+	}
+
+	return true
+}
+
+/**
+ * Qualifier method which checks if a whitelisted value exists in an
+ * array of dependency values.
+ * ---
+ * Useful for select inputs with the `multiple` attribute.
+ * If dependency value is not an array, the method will fallback to the
+ * `values` qualifier.
+ *
+ * @param  {Array} whitelist List of acceptable values
+ * @return {Boolean}
+ */
+Dependency.prototype.contains = function(whitelist) {
+	if (!Array.isArray(this.fieldState.value)) {
+		return this.values(whitelist)
+	}
+
+	for (var i = 0, len = whitelist.length; i < len; i++) {
+		if ($.inArray(whitelist[i], this.fieldState.value) !== -1) {
+			return true
+		}
+	}
+
+	return false
+}
+
+/**
+ * Qualifier method which checks that the value is a valid email address
+ * ---
+ * Returns true when the value is an email address and `shouldMatch` is
+ * true *or* when value is not an email address and `shouldMatch`
+ * is false.
+ *
+ * @param  {Boolean} shouldMatch Should the value be valid
+ * @return {Boolean}
+ */
+Dependency.prototype.email = function(shouldMatch) {
+	var regex = /^[_a-zA-Z0-9\-\+]+(\.[_a-zA-Z0-9\-\+]+)*@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/
+
+	return this.match(regex) === shouldMatch
+}
+
+/**
+ * Qualifier method which checks that the value is a valid URL
+ * ---
+ * Returns true when the value is a URL and `shouldMatch` is true *or*
+ * when value is not a URL and `shouldMatch` is false.
+ *
+ * @param  {Boolean} shouldMatch Should the value be valid
+ * @return {Boolean}
+ */
+Dependency.prototype.url = function(shouldMatch) {
+	var regex = /(((http|ftp|https):\/\/)|www\.)[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?\^=%&:\/~\+#!]*[\w\-\@?\^=%&\/~\+#])?/
+
+	return this.match(regex) === shouldMatch
+}
+
+/**
+ * Qualifier method which checks that the value within an inclusive
+ * numerical range
+ * ---
+ * Returns true when the value falls within the range. Alpha characters can
+ * also be evaluated, and will only be considered valid when the range values
+ * are also apha characters.
+ *
+ * @param  {Number|Character} start The range start
+ * @param  {Number|Character} end The range extend
+ * @param  {Number}           [step] The number of steps
+ * @return {Boolean}
+ */
+Dependency.prototype.range = function(start, end, step) {
+	var type = typeof start === 'string' ? 'char' : 'number'
+	var startVal = type === 'char' ? start.charCodeAt() : start
+	var endVal = type === 'char' ? end.charCodeAt() : end
+	var val = type === 'char' ? this.fieldState.value.charCodeAt() : parseFloat(this.fieldState.value)
+
+	if (step) {
+		var valArray = []
+		for (var i = startVal; i <= endVal; i += step) valArray.push(i)
+		return valArray.indexOf(val) >= 0
+	} else {
+		if (val >= startVal && val <= endVal) {
+			return true
+		}
+	}
+
+	return false
+}
+
+/**
+ * Check the dependency value against all of its qualifiers. If
+ * qualifiers contains an unknown qualifier, treat it as a custom
+ * qualifier and execute the function.
+ *
+ * @return {Boolean}
+ */
+Dependency.prototype.doesQualify = function() {
+	for (var q in this.qualifiers) {
+		if (!this.qualifiers.hasOwnProperty(q)) continue
+
+		if (this.methods.indexOf(q) && typeof this[q] === 'function') {
+			if (q === 'range') {
+				if (!this[q].apply(this, this.qualifiers[q])) {
+					return false
+				}
+			} else {
+				if (!this[q].call(this, this.qualifiers[q])) {
+					return false
+				}
+			}
+		} else if (typeof this.qualifiers[q] === 'function') {
+			if (!this.qualifiers[q].call(this.qualifiers, this.$ele.val())) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+module.exports = Dependency
+
+/**
+ * Get the current state of a field
+ * @param  {jQuery} $ele The element
+ * @return {Object}
+ * @private
+ */
+function getFieldState($ele) {
+	var val = $ele.val()
+
+	// If dependency is a radio group, then filter by `:checked`
+	if ($ele.attr('type') === 'radio') {
+		val = $ele.filter(':checked').val()
+	}
+
+	return {
+		value: val,
+		checked: $ele.is(':checked'),
+		disabled: $ele.is(':disabled'),
+		selected: $ele.is(':selected')
+	}
+}
+
+// Array.isArray polyfill
+if (!Array.isArray) {
+	Array.isArray = function(arg) {
+		return Object.prototype.toString.call(arg) === '[object Array]'
+	}
+}
+
+// Number.isNaN polyfill
+Number.isNaN = Number.isNaN || function(value) {
+	return value !== value
+}
+
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports) {
+
+if ($('#broker_name').length) {
+
+  $('#broker_name, #company, #license, #phone2').parent().dependsOn({
+    // The selector for the depenency
+    '#type': {
+      // The dependency qualifiers
+      values: ['Broker']
+    }
+  });
+
+  $('#spouse_name').parent().dependsOn({
+    // The selector for the depenency
+    '#martial_status': {
+      // The dependency qualifiers
+      values: ['Married']
+    }
+  });
+}
 
 /***/ })
 /******/ ]);

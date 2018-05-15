@@ -4,6 +4,7 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif !important;
+            font-size: 8px;
         }
 
         .property {
@@ -12,17 +13,26 @@
             word-wrap: break-word;
             background-color: #E8E8E8;
             background-clip: border-box;
-            border: 1px solid rgba(0,0,0,.125);
+            border: none;
             border-radius: .25rem;
-            width: 345px;
+            float: left;
+            width: 209px;
+            height: 230px;
+            overflow: hidden;
+            margin: 0 20px 0 0;
         }
 
         .property-footer {
             position: absolute;
-            top: 375px;
-            left: 20px;
-            right: 20px;
+            top: 205px;
+            left: 10px;
+            right: 10px;
             border-top: 2px solid white;
+            font-size: 10px;
+        }
+
+        .text-mutted {
+            line-height: 8px;
         }
 
         .card-img-top {
@@ -35,24 +45,24 @@
 
         .property-badges {
             position: absolute;
-            top: 5px;
-            left: 10px;
-        }
-
-        .text-mutted {
-            font-size: 12px;
+            top: 10px;
+            left: 5px;
         }
 
         .card-body {
-            padding: 15px;
+            padding: 9px;
             color: #3A3A3A;
         }
 
         .card-title {
-            font-size: 19px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 400;
             margin: 0;
             color: #3A3A3A;
+        }
+
+        .properties {
+            padding-top: 5px;
         }
 
         .image-container {
@@ -108,7 +118,7 @@
 
         .properties-index th {
             border-bottom: 2px solid black;
-            padding: 2px 20px;
+            padding: 2px 5px;
         }
 
         .properties-index tbody tr:nth-child(even) {
@@ -116,7 +126,7 @@
         }
 
         .properties-index tbody tr td {
-            padding: 10px 20px;
+            padding: 10px 5px;
         }
 
         .text-center {
@@ -127,85 +137,79 @@
     <?php
         $count = 0;
         $pageCount = 0;
+        $row = 0;
     ?>
     @foreach($propertiesByNumber as $property)
-        @if ($pageCount == 0)
-        @if (!$loop->first)
+        @if ($pageCount == 0 && !$loop->first)
         <div style="page-break-after: always;"></div>
         @endif
-        <table width="100%">
+        @if($count == 0)
+        <div class="properties">
         @endif
-            @if ($count == 0)
-            <tr>
-            @endif
-                <td valign="top" style="height: 310px; @if($count == 0) padding: 0 20px 20px 0 @else padding-left: 0 0 20px 20px @endif">
-                    <div class="property" style="height: 420px; overflow: hidden">
-                        <img class="card-img-top" height="200" src="{{ $property->getImage() }}" alt="{{ $property->address }}">
-                        <div class="property-badges">
-                            @if($property->number)
-                                <span class="badge badge-dark">{{ $property->number }}</span>
-                            @else
-                                <span class="badge badge-dark"><span class="oi oi-globe"></span></span>
-                            @endif
+            <div class="property">
+                <img class="card-img-top" height="120" src="{{ $property->getImage() }}" alt="{{ $property->address }}">
+                <div class="property-badges">
+                    @if($property->number)
+                        <span class="badge badge-dark">{{ $property->number }}</span>
+                    @endif
 
-                            @if($property->status_id)
-                                <span class="badge badge-danger">{{ $property->status->name }}</span>
-                            @endif
-                        </div>
-                        <div class="property-footer">
-                            <strong>{{ __('Sale price') }}:</strong> ${{ number_format($property->price) }}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>{{ $property->address }}, {{ $property->city }}</strong></h5>
+                    @if($property->status_id && $property->status->is_public)
+                        <span class="badge badge-danger">{{ $property->status->name }}</span>
+                    @endif
+                </div>
+                <div class="property-footer">
+                    <strong>{{ __('Sale price') }}:</strong> ${{ number_format($property->price) }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{ $property->address }}, {{ $property->city }}</strong></h5>
 
-                            <table class="text-mutted" width="100%">
-                                <tr>
-                                    <td valign="top">
-                                        <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
-                                        @if ((int)$property->sqm_area)
-                                            <strong>{{ __('M2') }}:</strong> {{ number_format($property->sqm_area) }}<br />
-                                        @endif
-                                        @if ((int)$property->sqf_area)
-                                            <strong>{{ __('F2') }}:</strong> {{ number_format($property->sqf_area) }}<br />
-                                        @endif
-                                        @if ((int)$property->cuerdas)
-                                            <strong>{{ __('Cuerdas') }}:</strong> {{ number_format($property->cuerdas) }}
-                                        @endif
-                                    </td>
-                                    <td valign="top">
-                                        <strong>{{ __('Open house') }}:</strong> {{ $property->open_house }}
-                                        @if($property->deposit)
-                                            <br/><strong>{{ __('Deposit') }}:</strong> ${{ number_format($property->deposit) }}
-                                        @endif
-                                        @if($property->bedrooms)
-                                            <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
-                                        @endif
-                                        @if($property->bathrooms)
-                                            <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
-                                        @endif
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </td>
-            <?php $count++; $pageCount++; ?>
-            @if ($loop->last || $count == 2)
-            <?php $count = 0; ?>
-            </tr>
-            @endif
+                    <table class="text-mutted" width="100%">
+                        <tr>
+                            <td valign="top">
+                                <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
+                                @if ((int)$property->sqm_area)
+                                    <strong>{{ __('M2') }}:</strong> {{ number_format($property->sqm_area) }}<br />
+                                @endif
+                                @if ((int)$property->sqf_area)
+                                    <strong>{{ __('F2') }}:</strong> {{ number_format($property->sqf_area) }}<br />
+                                @endif
+                                @if ((int)$property->cuerdas)
+                                    <strong>{{ __('Cuerdas') }}:</strong> {{ number_format($property->cuerdas) }}
+                                @endif
+                            </td>
+                            <td valign="top">
+                                @if($property->bedrooms)
+                                    <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
+                                @endif
+                                @if($property->bathrooms)
+                                    <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        <?php $count++; $pageCount++; ?>
+        @if ($loop->last || $count == 2)
+        <?php $count = 0; $row++; ?>
+            <div style="clear: both"></div>
+        </div>
+        @endif
 
-        @if ($loop->last || $pageCount == 4)
-        <?php $pageCount = 0; ?>
-        </table>
+        @if ($loop->last || $pageCount == 6)
+        <?php $pageCount = 0; $row = 0; ?>
+        </div>
         @endif
     @endforeach
 
     <div style="page-break-after: always;"></div>
 
-    <table class="properties-index" width="485">
+    <table class="properties-index" width="100%">
         <thead>
             <tr>
+                <th class="text-center">
+                    #
+                </th>
                 <th class="text-center">
                     {{ __('City') }}
                 </th>
@@ -215,8 +219,11 @@
                 <th class="text-center">
                     {{ __('Open House') }}
                 </th>
-                <th class="text-center">
-                    #
+                <th>
+                    {{ __('Price') }}
+                </th>
+                <th>
+                    {{ __('Deposit') }}
                 </th>
             </tr>
         </thead>
@@ -224,6 +231,9 @@
             @foreach($propertiesByCity as $property)
             <tr>
                 <td class="text-center" width="1">
+                    {{ $property->number }}
+                </td>
+                <td class="text-center">
                     {{ $property->city }}
                 </td>
                 <td>
@@ -232,8 +242,11 @@
                 <td class="text-center">
                     {{ $property->open_house }}
                 </td>
-                <td class="text-center" width="1">
-                    {{ $property->number }}
+                <td>
+                    ${{ number_format($property->price) }}
+                </td>
+                <td>
+                    @if($property->deposit)${{ number_format($property->deposit) }}@endif
                 </td>
             </tr>
             @endforeach

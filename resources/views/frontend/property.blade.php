@@ -76,58 +76,56 @@
                         </div>
                     </div>
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
-                        @if(!$online)
-                            @include('frontend.partials.details', compact('property', 'online'))
-                        @else
-                            <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
-                            <?php
-                                $endAt = $property->end_at ?: $property->event_end_at;
-                                $endAt = new Carbon\Carbon($endAt);
-                                $days = $endAt->diffInDays();
-                                $hours = $endAt->diffInHours() - ($days * 24);
-                                $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
-                            ?>
+                        <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
+                        <?php
+                        $endAt = new Carbon\Carbon($property->end_at);
 
-                            @if($days || $hours || $minutes)
-                                <div class="property-remaining">
+                        if (!$online) {
+                            $endAt->subDays(2);
+                        }
+
+                        $days = $endAt->diffInDays();
+                        $hours = $endAt->diffInHours() - ($days * 24);
+                        $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
+                        ?>
+
+                        @if($days || $hours || $minutes)
+                            <div class="property-remaining">
+                                @if($days)
+                                    <strong class="unit">{{number_format($days)}}</strong>
+                                    <span>d</span>
+                                @endif
+                                @if($hours)
                                     @if($days)
-                                        <strong class="unit">{{number_format($days)}}</strong>
-                                        <span>d</span>
+                                        <strong class="unit">:</strong>
                                     @endif
+                                    <strong class="unit">{{number_format($hours)}}</strong>
+                                    <span>h</span>
+                                @endif
+                                @if($minutes)
                                     @if($hours)
-                                        @if($days)
-                                            <strong class="unit">:</strong>
-                                        @endif
-                                        <strong class="unit">{{number_format($hours)}}</strong>
-                                        <span>h</span>
+                                        <strong class="unit">:</strong>
                                     @endif
-                                    @if($minutes)
-                                        @if($hours)
-                                            <strong class="unit">:</strong>
-                                        @endif
-                                        <strong class="unit">{{number_format($minutes)}}</strong>
-                                        <span>m</span>
-                                    @endif
-                                </div>
+                                    <strong class="unit">{{number_format($minutes)}}</strong>
+                                    <span>m</span>
+                                @endif
+                            </div>
 
-                                <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
-                                    <br />
-                                    <strong class="unit">${{ number_format(intval($bid->offer ?? $property->price)) }}</strong>
-                                </div>
+                            <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
+                                <br />
+                                <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
+                            </div>
 
-                                <div class="mt-3">
-                                    {!! form($form) !!}
-                                </div>
-                            @endif
+                            <div class="mt-3">
+                                {!! form($form) !!}
+                            </div>
                         @endif
                     </div>
                 </div>
             </div>
 
-            @if($online)
-                @include('frontend.partials.details', compact('property', 'online'))
-            @endif
+            @include('frontend.partials.details', compact('property', 'online'))
 
             <h5 class="mt-3">{{ __('Map') }}</h5>
 
