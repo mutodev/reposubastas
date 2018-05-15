@@ -15046,6 +15046,7 @@ Echo.channel('local').listen('Auction', function (e) {
 
 //Forms
 __webpack_require__(99);
+__webpack_require__(100);
 
 /***/ }),
 /* 25 */
@@ -56504,6 +56505,20 @@ if ($('#broker_name').length) {
     '#martial_status': {
       // The dependency qualifiers
       values: ['Married']
+    }
+  });
+}
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports) {
+
+if ($('#status_id').length) {
+
+  $('#check_number, #check_type, #bank').parent().dependsOn({
+    // The selector for the depenency
+    '#status_id': {
+      values: ['4']
     }
   });
 }

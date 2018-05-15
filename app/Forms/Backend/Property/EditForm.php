@@ -21,6 +21,9 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
+            ->add('check_number', 'text')
+            ->add('check_type', 'text')
+            ->add('bank', 'text')
             ->add('investor_id', 'select', [
                 'choices' => Investor::forSelect(),
                 'label' => __('Investor')
@@ -34,9 +37,6 @@ class EditForm extends Form
             ->add('price', 'number', ['rules' => 'required|numeric'])
             ->add('deposit', 'number')
             ->add('reserve', 'number')
-            ->add('check_number', 'text')
-            ->add('check_type', 'text')
-            ->add('bank', 'text')
             ->add('lister_broker', 'text')
             ->add('seller_broker', 'text')
             ->add('commission', 'number')

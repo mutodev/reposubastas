@@ -51,3 +51,4 @@ Echo.channel('local')
 
 //Forms
 require('./forms/register');
+require('./forms/property');
