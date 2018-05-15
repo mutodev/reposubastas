@@ -41,7 +41,7 @@ Echo.channel('local')
     app.auction = Object.assign(app.auction, e, {finished: false});
   })
   .listen('Bid', (e) => {
-    app.auction.finished = e.bid.is_winner;
+    //app.auction.finished = e.bid.is_winner;
 
     if (!app.auction.finished) {
       app.auction.bids = [e.bid].concat(app.auction.bids);
