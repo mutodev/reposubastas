@@ -12,7 +12,7 @@
         @endif
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ $property->address }}</h5>
+        <h5 class="card-title">{{ $property->address }}, {{ $property->city }}</h5>
         <p class="card-text text-muted">
             {{ __('Type') }}: {{ $property->type->name }}
 

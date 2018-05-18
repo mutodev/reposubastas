@@ -85,5 +85,9 @@
   "Single": "Soltero/a",
   "Married": "Casado/a",
   "Yes": "Sí",
-  "No": "No"
+  "No": "No",
+  "Zoning": "Zonificación",
+  "Levels": "Pisos",
+  "Amenities": "Amenidades",
+  "Roof height": "Altura del techo"
 }

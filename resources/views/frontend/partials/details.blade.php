@@ -7,6 +7,21 @@
                 <div>
                     <strong>{{ __('Type') }}:</strong> <span>{{ $property->type->name }}</span>
                 </div>
+                @if($property->zonification)
+                    <div>
+                        <strong>{{ __('Zonification') }}:</strong> <span>{{ $property->zonification }}</span>
+                    </div>
+                @endif
+                @if($property->levels)
+                    <div>
+                        <strong>{{ __('Levels') }}:</strong> <span>{{ $property->levels }}</span>
+                    </div>
+                @endif
+                @if($property->roof_height)
+                    <div>
+                        <strong>{{ __('Roof height') }}:</strong> <span>{{ $property->roof_height }}</span>
+                    </div>
+                @endif
                 @if($property->sqf_area)
                     <div>
                         <strong>{{ __('Square feets') }}:</strong> <span>{{ number_format($property->sqf_area) }}</span>
@@ -22,12 +37,21 @@
                         <strong>{{ __('Open house') }}:</strong> <span>{{ $property->open_house }}</span>
                     </div>
                 @endif
+                @if($property->catastro)
+                    <div>
+                        <strong>{{ __('Catastro') }}:</strong> <span>{{ $property->catastro }}</span>
+                    </div>
+                @endif
                 @if($property->latitude && $property->longitude)
                     <div>
                         <strong>{{ __('Coordenates') }}:</strong> <span>{{ $property->latitude }}, {{ $property->longitude }}</span>
                     </div>
                 @endif
-
+                @if($property->amenities)
+                    <div>
+                        <strong>{{ __('Amenities') }}:</strong> <span>{{ $property->amenities }}</span>
+                    </div>
+                @endif
                 @if($property->description)
                     <div>
                         <strong>{{ __('Open house') }}:</strong> <span>{{ $property->description }}</span>
