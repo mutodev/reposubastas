@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend.css') }}?v1" rel="stylesheet">
 @endsection
 
 @section('main')
