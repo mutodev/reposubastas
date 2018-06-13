@@ -127,6 +127,7 @@
 
             @include('frontend.partials.details', compact('property', 'online'))
 
+            @if($property->latitude && $property->longitude)
             <h5 class="mt-3">{{ __('Map') }}</h5>
 
             <gmap-map
@@ -138,6 +139,7 @@
                         :position='{lat: {{ $property->latitude }}, lng: {{ $property->longitude }}}'
                 ></gmap-marker>
             </gmap-map>
+            @endif
         </div>
     </div>
 @endsection
