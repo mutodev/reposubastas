@@ -111,6 +111,7 @@ class PropertiesController extends Controller
         }
 
         foreach ((array)$formValues['images'] as $i => $image) {
+            dd($image);
             $index = $i+1;
             $imageFilename = uniqid("{$index}_").'.jpg';
 
