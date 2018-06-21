@@ -64,6 +64,7 @@ class PropertiesController extends Controller
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
+        phpinfo();exit();
         $startAt = $event->start_at;
         $endAt = $event->end_at;
 
