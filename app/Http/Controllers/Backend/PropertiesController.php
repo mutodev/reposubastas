@@ -64,7 +64,6 @@ class PropertiesController extends Controller
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
-        phpinfo();exit();
         $startAt = $event->start_at;
         $endAt = $event->end_at;
 
@@ -112,9 +111,8 @@ class PropertiesController extends Controller
         }
 
         foreach ((array)$formValues['images'] as $i => $image) {
-            dd($image, $image->path(), $image->clientExtension());
             $index = $i+1;
-            $imageFilename = uniqid("{$index}_").'.jpg';
+            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
 
             if (Storage::disk('s3')->put($imageFilename, file_get_contents($image->path()), 'public')) {
                 $formValues["image{$index}"] = $imageFilename;
