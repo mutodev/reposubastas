@@ -112,7 +112,7 @@ class PropertiesController extends Controller
 
         foreach ((array)$formValues['images'] as $i => $image) {
             $index = $i+1;
-            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
+            $imageFilename = uniqid("{$index}_").'.jpg';
 
             if (Storage::disk('s3')->put($imageFilename, file_get_contents($image), 'public')) {
                 $formValues["image{$index}"] = $imageFilename;
