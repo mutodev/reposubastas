@@ -44,7 +44,7 @@
                 @endif
                 @if($property->catastro)
                     <div>
-                        <strong>{{ __('CRIM ID') }}:</strong> <span><a href="https://www.satasgis.crimpr.net/" target="_blank">{{ $property->catastro }}</a></span>
+                        <strong>{{ __('CRIM ID') }}:</strong> <span><a href="https://www.satasgis.crimpr.net/cdprpc/" target="_blank">{{ $property->catastro }}</a></span>
                     </div>
                 @endif
                 @if($property->latitude && $property->longitude)
