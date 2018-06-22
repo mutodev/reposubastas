@@ -44,12 +44,12 @@
                 @endif
                 @if($property->catastro)
                     <div>
-                        <strong>{{ __('CRIM ID') }}:</strong> <span>{{ $property->catastro }}</span>
+                        <strong>{{ __('CRIM ID') }}:</strong> <span><a href="https://www.satasgis.crimpr.net/" target="_blank">{{ $property->catastro }}</a></span>
                     </div>
                 @endif
                 @if($property->latitude && $property->longitude)
                     <div>
-                        <strong>{{ __('Coordinates') }}:</strong> <span>{{ $property->latitude }}, {{ $property->longitude }}</span>
+                        <strong>{{ __('Coordinates') }}:</strong> <span><a href="http://maps.google.com/maps?q={{ $property->latitude }},{{ $property->longitude }}" target="_blank">{{ $property->latitude }}, {{ $property->longitude }}</a></span>
                     </div>
                 @endif
                 @if($property->amenities)
