@@ -42,14 +42,9 @@
                         <strong>{{ __('Square meters') }}:</strong> <span>{{ number_format($property->sqm_area) }}</span>
                     </div>
                 @endif
-                @if($property->open_house)
-                    <div>
-                        <strong>{{ __('Open house') }}:</strong> <span>{{ $property->open_house }}</span>
-                    </div>
-                @endif
                 @if($property->catastro)
                     <div>
-                        <strong>{{ __('Catastro') }}:</strong> <span>{{ $property->catastro }}</span>
+                        <strong>{{ __('CRIM ID') }}:</strong> <span>{{ $property->catastro }}</span>
                     </div>
                 @endif
                 @if($property->latitude && $property->longitude)
@@ -64,6 +59,14 @@
                 @endif
             </div>
             <div class="col-12 p-0 col-md-4">
+                @if($property->open_house)
+                <strong class="text-dark-blue">{{ __('Inspection date') }}</strong>
+
+                <div class="mb-3">
+                    <span>{{ $property->open_house }}</span>
+                </div>
+                @endif
+
                 <strong class="text-dark-blue">{{ __('Transaction') }}</strong>
 
                 <div class="mb-3">
