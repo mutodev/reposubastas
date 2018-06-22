@@ -1,5 +1,15 @@
 <div class="property-details mt-4">
     <div class="container">
+        @if($property->description)
+        <div class="row">
+            <div class="col-12 p-0 col-md-8 mb-3">
+                <strong class="text-dark-blue">{{ __('Description') }}</strong>
+                <div>
+                    <p>{{ $property->description }}</p>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12 p-0 col-md-4 mb-3">
                 <strong class="text-dark-blue">{{ __('Details') }}</strong>
@@ -50,11 +60,6 @@
                 @if($property->amenities)
                     <div>
                         <strong>{{ __('Amenities') }}:</strong> <span>{{ $property->amenities }}</span>
-                    </div>
-                @endif
-                @if($property->description)
-                    <div>
-                        <strong>{{ __('Description') }}:</strong> <span>{{ $property->description }}</span>
                     </div>
                 @endif
             </div>
