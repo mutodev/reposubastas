@@ -44,7 +44,7 @@
                 @endif
                 @if($property->latitude && $property->longitude)
                     <div>
-                        <strong>{{ __('Coordenates') }}:</strong> <span>{{ $property->latitude }}, {{ $property->longitude }}</span>
+                        <strong>{{ __('Coordinates') }}:</strong> <span>{{ $property->latitude }}, {{ $property->longitude }}</span>
                     </div>
                 @endif
                 @if($property->amenities)
@@ -54,7 +54,7 @@
                 @endif
                 @if($property->description)
                     <div>
-                        <strong>{{ __('Open house') }}:</strong> <span>{{ $property->description }}</span>
+                        <strong>{{ __('Description') }}:</strong> <span>{{ $property->description }}</span>
                     </div>
                 @endif
             </div>
