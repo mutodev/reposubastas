@@ -112,9 +112,19 @@
                             </div>
 
                             <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ __('Sale price') }}</strong>
+                                <br />
+                                <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
+                            </div>
+
+                            <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                 <br />
                                 <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
+                            </div>
+
+                            <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
                             </div>
 
                             <div class="mt-3">
