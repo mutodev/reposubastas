@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->string('location');
             $table->boolean('is_active');
             $table->dateTime('start_at')->nullable();
+            $table->dateTime('live_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->timestamps();
         });

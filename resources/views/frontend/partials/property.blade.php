@@ -32,9 +32,9 @@
     </div>
 
     <ul class="list-group list-group-flush">
-        @if($property->event_end_at)
+        @if($property->event_live_at)
             <li class="list-group-item border-0 bg-dark-blue">
-                {{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_end_at)->format('j M, g:ia')}}
+                {{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
             </li>
         @else
             <li class="list-group-item border-0 bg-light-blue">
