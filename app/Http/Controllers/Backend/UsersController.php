@@ -7,7 +7,7 @@ use \App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Forms\Backend\User\EditForm;
+use App\Forms\Frontend\User\RegisterForm;
 use App\Forms\Backend\User\RegisterToEventForm;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
@@ -66,18 +66,22 @@ class UsersController extends Controller
             }
         }
 
-        $form = $formBuilder->create(EditForm::class, [
+        $form = $formBuilder->create(RegisterForm::class, [
             'method' => 'POST',
             'url'    => Model::url('store', @$model->id, @$event->id),
             'model'  => $model
+        ], [
+            'isBackend' => true
         ]);
 
         return view('backend.users.edit', compact('form', 'model', 'event'));
     }
 
-    public function store(FormBuilder $formBuilder, Event $event = null, Model $model = null)
+    public function store(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
-        $form = $formBuilder->create(EditForm::class);
+        $form = $formBuilder->create(RegisterForm::class, [], [
+            'isBackend' => true
+        ]);
 
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
@@ -99,7 +103,7 @@ class UsersController extends Controller
         $model->save();
 
         if ($event) {
-            $model->addToEvent($event->id, $formValues['deposit'], $formValues['number']);
+            $model->addToEvent($event->id, @$formValues['deposit'], $formValues['number']);
         }
 
         return redirect(Model::url('index', null, @$event->id));

@@ -81,11 +81,11 @@
             @foreach ($models as $model)
                 <tr>
                     @if ($event)
-                    <td width="1">
+                    <td width="150">
                         {{ $model->number }}
                     </td>
                     @endif
-                    <td width="100%">{{ $model->name }}</td>
+                    <td>{{ $model->name }}</td>
                     @if ($event)
                     <td>
                         {{ $model->event_is_active ? __('Yes') : __('No') }}
