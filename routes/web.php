@@ -51,6 +51,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('register-to-event/{model?}', 'Backend\PropertiesController@registerToEvent')->name('backend.properties.register-to-event');
                 Route::post('register-to-event/{model?}', 'Backend\PropertiesController@registerToEvent')->name('backend.properties.register-to-event-post');
                 Route::get('pdf/{locale?}', 'Backend\PropertiesController@generatePdf')->name('backend.properties.pdf');
+                Route::get('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv');
+                Route::post('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv2');
             });
 
             Route::prefix('users')->group(function () {

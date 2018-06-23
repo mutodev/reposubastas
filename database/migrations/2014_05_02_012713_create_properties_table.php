@@ -24,6 +24,7 @@ class CreatePropertiesTable extends Migration
             $table->integer('bedrooms')->nullable();
             $table->integer('bathrooms')->nullable();
             $table->string('investor_reference_id')->nullable();
+            $table->string('source_id')->nullable();
             $table->string('check_number')->nullable();
             $table->string('check_type')->nullable();
             $table->string('bank')->nullable();

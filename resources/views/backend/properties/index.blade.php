@@ -13,6 +13,9 @@
                 <a  class="dropdown-item" href="{{ route('backend.properties.edit', ['event' => $event->id]) }}">
                     {{ __('Add New Property')  }}
                 </a>
+                <a  class="dropdown-item" href="{{ route('backend.properties.importcsv', ['event' => $event->id]) }}">
+                    {{ __('Add Properties From CSV')  }}
+                </a>
                 <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.pdf', ['event' => $event->id, 'locale' => 'es']) }}">
                     {{ __('Generate PDF (Spanish)') }}
                 </a>

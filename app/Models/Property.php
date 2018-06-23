@@ -16,6 +16,7 @@ class Property extends Model
         'type_id',
         'status_id',
         'investor_id',
+        'source_id',
         'investor_reference_id',
         'address',
         'bedrooms',

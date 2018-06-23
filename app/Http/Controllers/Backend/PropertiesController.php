@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Forms\Backend\Property\EditForm;
 use App\Forms\Backend\Property\RegisterToEventForm;
 use App\Forms\Backend\Property\BidForm;
+use App\Forms\Backend\Property\ImportForm;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -274,5 +275,98 @@ class PropertiesController extends Controller
         set_time_limit(-1);
         $pdf = PDF::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
         return $pdf->download('properties.pdf');
+    }
+
+    public function importCSV(Request $request, FormBuilder $formBuilder, Event $event)
+    {
+        //Handle post
+        if ($request->isMethod('post')) {
+            $form = $formBuilder->create(ImportForm::class);
+
+            if (!$form->isValid()) {
+                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            }
+
+            $formValues = $form->getFieldValues();
+
+            $rows = array_map('str_getcsv', file($formValues['csv']->getPathName()));
+
+            $header = $rows[0];
+            unset($rows[0]);
+
+            $types = [];
+            foreach(App\Models\PropertyType::all() as $type) {
+                $types[$type->slug] = $type->id;
+            }
+
+            $investors = [];
+            foreach(App\Models\Investor::all() as $investor) {
+                $investors[$investor->slug] = $investor->id;
+            }
+
+            foreach($rows as $row) {
+
+                $row = array_combine($header, $row);
+
+                $sourceId = $row['INVESTOR'].'-'.$row['PROPERTY ID'];
+
+                $model = Model::where('source_id', '=', $sourceId)->first();
+
+                if (!$model) {
+                    $model = new Model;
+                }
+
+                //Get investor
+                $investorId = @$investors[$row['INVESTOR']];
+
+                if (!$investorId) {
+                    $investor = new App\Models\Investor();
+                    $investor->name = $row['INVESTOR'];
+                    $investor->slug = $row['INVESTOR'];
+                    $investor->save();
+                    $investorId = $investor->id;
+                }
+
+                $values = [];
+                $values['number']         = $row['CATALOG ORDER'] ? $row['CATALOG ORDER'] : null;
+                $values['type_id']        = $types[$row['PROPERTY TYPE']];
+                $values['investor_id']    = $investorId;
+                $values['investor_reference_id'] = $row['PROPERTY ID'] ? $row['PROPERTY ID'] : null;
+                $values['source_id']      = $sourceId;
+                $values['address']        = $row['PROPERTY ADDRESS'];
+                $values['city']           = $row['CITY'];
+                $values['latitude']       = $row['Latitude'] ? $row['Latitude'] : null;
+                $values['longitude']      = $row['Longitude'] ? $row['Longitude'] : null;
+                $values['description_es'] = $row['DESCRIPTION'];
+                $values['description_en'] = $row['DESCRIPTION'];
+                $values['sqf_area']       = $row['Building Size (SqFt)'] ? floatval(trim(str_replace(['$', ','], '', $row['Building Size (SqFt)']))) : null;
+                $values['cuerdas']        = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) : null;
+                $values['sqm_area']       = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) * 3930.34 : null;
+                $values['bedrooms']       = $row['Bedrooms'] ? intval($row['Bedrooms']) : null;
+                $values['bathrooms']      = $row['Bedrooms'] ? intval($row['Bathrooms']) : null;
+                $values['catastro']       = $row['CRIM Tax ID'] ? $row['CRIM Tax ID'] : null;
+                $values['price']          = floatval(trim(str_replace(['$', ','], '', $row[' LISTING PRICE '])));
+                $values['lister_broker']  = $row['BROKER'] ? $row['BROKER'] : null;
+                $values['start_at']       = date('Y-m-d H:i:s', strtotime($event->start_at));
+                $values['end_at']         = date('Y-m-d H:i:s', strtotime($event->end_at));
+
+                $model->fill($values);
+                $model->save();
+
+                if ($values['number']) {
+                    $model->addToEvent($event->id, $values['number']);
+                }
+            }
+
+            Session::flash('success', __('Properties imported!'));
+            return redirect(route('backend.properties.index', ['event' => $event->id]));
+        }
+
+        $form = $formBuilder->create(ImportForm::class, [
+            'method' => 'POST',
+            'url'    => route('backend.properties.importcsv', ['event' => $event->id])
+        ]);
+
+        return view('backend.properties.import', compact('form', 'event'));
     }
 }

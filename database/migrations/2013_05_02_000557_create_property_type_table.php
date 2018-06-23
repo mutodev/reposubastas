@@ -17,6 +17,7 @@ class CreatePropertyTypeTable extends Migration
             $table->increments('id');
             $table->string('name_es');
             $table->string('name_en');
+            $table->string('slug');
             $table->timestamps();
         });
     }
