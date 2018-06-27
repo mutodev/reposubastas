@@ -57,7 +57,7 @@ class EditForm extends Form
             ->add('description_en', 'textarea', ['rules' => 'required', 'label' => __('Description (English)')])
             ->add('open_house_es', 'text', ['label' => __('Open House (Spanish)')])
             ->add('open_house_en', 'text', ['label' => __('Open House (English)')])
-            ->add('images', 'file', ['attr' => ['multiple' => true]])
+            //->add('images', 'file', ['attr' => ['multiple' => true]])
             ->add('deposit', 'number')
             ->add('reserve', 'number')
             ->add('lister_broker', 'text')

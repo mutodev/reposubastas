@@ -111,14 +111,14 @@ class PropertiesController extends Controller
             $model = new Model;
         }
 
-        foreach ((array)$formValues['images'] as $i => $image) {
-            $index = $i+1;
-            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
-
-            if (Storage::disk('s3')->put($imageFilename, file_get_contents($image->path()), 'public')) {
-                $formValues["image{$index}"] = $imageFilename;
-            }
-        }
+//        foreach ((array)$formValues['images'] as $i => $image) {
+//            $index = $i+1;
+//            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
+//
+//            if (Storage::disk('s3')->put($imageFilename, file_get_contents($image->path()), 'public')) {
+//                $formValues["image{$index}"] = $imageFilename;
+//            }
+//        }
 
         $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
         $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
@@ -368,5 +368,46 @@ class PropertiesController extends Controller
         ]);
 
         return view('backend.properties.import', compact('form', 'event'));
+    }
+
+    public function photos(Request $request, Event $event, Model $model)
+    {
+        if ($request->isMethod('post')) {
+            $files = $request->get('files', []);
+
+            if ($files) {
+                $model->fill($files);
+                $model->save();
+            }
+
+            die('DONE');
+        }
+
+        $bucket = env('AWS_BUCKET');
+        $accessKeyId = env('AWS_ACCESS_KEY_ID');
+        $secret = env('AWS_SECRET_ACCESS_KEY');
+        $policy = base64_encode(json_encode(array(
+            // ISO 8601 - date('c'); generates uncompatible date, so better do it manually
+            'expiration' => date('Y-m-d\TH:i:s.000\Z', strtotime('+1 day')),
+            'conditions' => array(
+                array('bucket' => $bucket),
+                array('acl' => 'public-read'),
+                array('starts-with', '$key', ''),
+                array('starts-with', '$Content-Type', 'image/'),
+                array('starts-with', '$name', ''),
+                array('starts-with', '$Filename', ''),
+            )
+        )));
+        $signature = base64_encode(hash_hmac('sha1', $policy, $secret, true));
+
+        $photos = [];
+
+        for($i = 1; $i <= 10; $i++) {
+            if ($model['image'.$i]) {
+                $photos[] = $model['image'.$i];
+            }
+        }
+
+        return view('backend.properties.photos', compact('photos', 'model', 'event', 'bucket', 'accessKeyId', 'policy', 'signature'));
     }
 }

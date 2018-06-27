@@ -42,6 +42,11 @@
                         <strong>{{ __('Square meters') }}:</strong> <span>{{ number_format($property->sqm_area) }}</span>
                     </div>
                 @endif
+                @if($property->cuerdas)
+                    <div>
+                        <strong>{{ __('Cuerdas') }}:</strong> <span>{{ number_format($property->cuerdas) }}</span>
+                    </div>
+                @endif
                 @if($property->catastro)
                     <div>
                         <strong>{{ __('CRIM ID') }}:</strong> <span><a href="https://www.satasgis.crimpr.net/cdprpc/" target="_blank">{{ $property->catastro }}</a></span>

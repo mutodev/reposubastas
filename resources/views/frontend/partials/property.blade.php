@@ -28,6 +28,9 @@
             @if($property->sqm_area)
                 <br />{{ __('Square meters') }}: {{ number_format($property->sqm_area) }}
             @endif
+            @if($property->cuerdas)
+                <br />{{ __('Cuerdas') }}: {{ number_format($property->cuerdas) }}
+            @endif
         </p>
     </div>
 

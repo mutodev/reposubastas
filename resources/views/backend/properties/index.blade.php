@@ -99,8 +99,11 @@
                                 <a  class="dropdown-item" href="{{ route('backend.properties.edit', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Edit')  }}
                                 </a>
+                                <a  class="dropdown-item" href="{{ route('backend.properties.photos', ['event' => $event->id, 'model' => $model->id]) }}">
+                                    {{ __('Photos')  }}
+                                </a>
                                 <a  class="dropdown-item" href="{{ route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id]) }}">
-                                    {{ __('Start Auction')  }}
+                                    {{ __('Auction')  }}
                                 </a>
                                 <a  class="dropdown-item" href="{{ route('backend.properties.register-to-event', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Add to other Event')  }}
