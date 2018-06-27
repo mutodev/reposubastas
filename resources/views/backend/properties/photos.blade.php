@@ -31,7 +31,7 @@
     // jQuery(function() {
       jQuery("#uploader").plupload({
         runtimes : 'html5,flash,silverlight',
-        url : 'http://<?php echo $bucket; ?>.s3.amazonaws.com/',
+        url : 'https://<?php echo $bucket; ?>.s3.amazonaws.com/',
         multipart: true,
         multipart_params: {
           'key': '{{ $model->id }}/${filename}', // use filename as a key
