@@ -172,11 +172,22 @@ body {
     font-weight: 400 !important;
 }
 
-.homepage .card {
-    color: #1072B3
+/*.homepage .card {*/
+    /*color: #1072B3*/
+/*}*/
+
+.homepage .card,
+.homepage-secondary .card{
+    background-color: transparent;
+    border-color: #fff;
+}
+
+.homepage-secondary .card:hover {
+    background-color: #1072B3;
+    border-color: #1072B3;
 }
 
 .homepage .card:hover {
-    color: white;
-    background-color: #1072B3
+    background-color: #20ABD5;
+    border-color: #20ABD5;
 }
