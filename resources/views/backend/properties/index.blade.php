@@ -108,6 +108,9 @@
                                 <a  class="dropdown-item" href="{{ route('backend.properties.register-to-event', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Add to other Event')  }}
                                 </a>
+                                <a onclick="return confirm('Are you sure you want to delete this item?');" class="dropdown-item" href="{{ route('backend.properties.delete', ['event' => $event->id, 'model' => $model->id]) }}">
+                                    {{ __('Delete')  }}
+                                </a>
                             </div>
                         </div>
                     </td>

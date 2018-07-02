@@ -428,4 +428,12 @@ class PropertiesController extends Controller
 
         die('DONE');
     }
+
+    public function delete(Event $event, Model $model)
+    {
+        $model->delete();
+
+        Session::flash('success', __('Property deleted!'));
+        return redirect(route('backend.properties.index', ['event' => $event->id]));
+    }
 }
