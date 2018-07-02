@@ -410,4 +410,22 @@ class PropertiesController extends Controller
 
         return view('backend.properties.photos', compact('photos', 'model', 'event', 'bucket', 'accessKeyId', 'policy', 'signature'));
     }
+
+    public function photoDelete(Request $request, Event $event, Model $model)
+    {
+        $photo = $request->get('photo');
+
+        $model["image{$photo}"] = null;
+
+        for($i = $photo + 1; $i <= 10; $i++) {
+            if ($model["image{$i}"]) {
+                $model["image". ($i - 1)] = $model["image{$i}"];
+                $model["image{$i}"] = null;
+            }
+        }
+
+        $model->save();
+
+        die('DONE');
+    }
 }

@@ -20,6 +20,19 @@
 @endsection
 
 @section('content')
+    <div class="my-2 row">
+      @foreach($photos as $k => $photo)
+        <div id="photo{{ $k - 1 }}" class="text-center col-2">
+          <img src="{{ env('AWS_S3_URL') }}{{ $photo }}" width="100" height="80" />
+
+          <br />
+          <button class="btn" onclick="deleteImage({{ $k + 1 }})">
+            Delete
+          </button>
+        </div>
+      @endforeach
+    </div>
+
     <div id="uploader">
         <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
     </div>
@@ -87,7 +100,7 @@
             console.log(files);
 
             var files = {};
-            var count = 1;
+            var count = {{ count($photos) + 1 }};
 
             jQuery.each(uploadedFiles, function( index, file ) {
               files['image'+count] = file.name;
@@ -113,6 +126,21 @@
           },
         }
       });
+
+      function deleteImage(photo) {
+        jQuery.ajax({
+          method: "POST",
+          url: "{{ route('backend.properties.photo-delete', ['event' => $event->id, 'model' => $model->id]) }}",
+          data: {
+            photo: photo,
+            "_token": "{{ csrf_token() }}"
+          }
+        })
+        .done(function() {
+          alert('Photo Deleted');
+          window.location.href = "{{ route('backend.properties.photos', ['event' => $event->id, 'model' => $model->id]) }}";
+        });
+      }
     //});
   </script>
 @endsection
