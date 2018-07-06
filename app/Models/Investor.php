@@ -15,7 +15,8 @@ class Investor extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'slug'
     ];
 
     public static function forSelect($empty = '-- Select One --') {

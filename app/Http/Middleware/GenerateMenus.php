@@ -24,8 +24,8 @@ class GenerateMenus
                 $menu->add('<span title="icon home" aria-hidden="true" class="oi oi-home"></span> ' . __('Properties'), ['url' => route('backend.properties.index', ['event' => $eventId]), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             }
 
+            $menu->add('<span title="icon building" aria-hidden="true" class="oi oi-document"></span> '.__('Investors'), ['url' => route('backend.investors.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             $menu->add('<span title="icon people" aria-hidden="true" class="oi oi-people"></span> '.__('Users'), ['url' => route('backend.users.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
-
             $menu->add('<span title="icon page" aria-hidden="true" class="oi oi-document"></span> '.__('Pages'), ['url' => route('backend.pages.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
         });
 

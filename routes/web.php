@@ -39,6 +39,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::post('store/{model?}', 'Backend\PagesController@store')->name('backend.pages.store');
         });
 
+        Route::prefix('investors')->group(function () {
+            Route::get('/', 'Backend\InvestorsController@index')->name('backend.investors.index');
+            Route::get('edit/{model?}', 'Backend\InvestorsController@edit')->name('backend.investors.edit');
+            Route::post('store/{model?}', 'Backend\InvestorsController@store')->name('backend.investors.store');
+        });
+
         Route::prefix('{event}')->group(function () {
             Route::prefix('properties')->group(function () {
                 Route::get('/', 'Backend\PropertiesController@index')->name('backend.properties.index');
