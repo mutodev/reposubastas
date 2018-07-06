@@ -1,7 +1,7 @@
 {
   "All": "Todos",
   "-- Select One --": "-- Seleccione uno --",
-  "Address, city, Property ID": "Dirección, ciudad, # Propiedad",
+  "Address, region, city, Property ID": "Dirección, región, ciudad, # Propiedad",
   "Search": "Buscar",
   "Sale price": "Precio de venta",
   "Make your offer": "Haz tu oferta",
@@ -51,6 +51,7 @@
   "Company": "Compañía",
   "License": "Licencia",
   "Register": "Registrarme",
+  "Print Results": "Imprimir Resultados",
   "Broker": "Corredor",
   "Client": "Cliente",
   "Coordinates": "Coordenadas",

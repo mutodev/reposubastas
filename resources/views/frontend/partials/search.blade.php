@@ -9,7 +9,7 @@
                             <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
-                    <input autocomplete="off" value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, city, Property ID') }}">
+                    <input autocomplete="off" value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, region, city, Property ID') }}">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary bg-light-red border-0">{{ __('Search') }}</button>
                     </div>

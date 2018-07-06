@@ -100,15 +100,20 @@ class FrontendController extends Controller
         }
 
         if ($keywords = $request->get('keywords')) {
-            $keywords = "%{$keywords}%";
+            $keywordsLike = "%{$keywords}%";
 
-            $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or property_event.number LIKE ?)', [
-                $keywords,
-                $keywords,
-                $keywords,
-                $keywords,
-                $keywords
-            ]);
+            if (is_numeric($keywords)) {
+                $query->whereRaw('property_event.number = ?', [
+                    $keywords
+                ]);
+            } else {
+                $query->whereRaw('(properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ?)', [
+                    $keywordsLike,
+                    $keywordsLike,
+                    $keywordsLike,
+                    $keywordsLike
+                ]);
+            }
         }
 
         if ($request->get('pdf')) {
