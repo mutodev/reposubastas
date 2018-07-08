@@ -15,7 +15,7 @@ use App\Forms\Backend\Property\ImportForm;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PDF;
+use PDFSnappy;
 use URL;
 use Storage;
 use App;
@@ -273,7 +273,7 @@ class PropertiesController extends Controller
         $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
 
         set_time_limit(-1);
-        $pdf = PDF::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
+        $pdf = PDFSnappy::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
         return $pdf->download('properties.pdf');
     }
 
