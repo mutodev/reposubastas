@@ -273,7 +273,7 @@ class PropertiesController extends Controller
         $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
 
         set_time_limit(-1);
-        $pdf = PDFSnappy::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
+        $pdf = PDFSnappy::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('Letter');
         return $pdf->download('properties.pdf');
     }
 
