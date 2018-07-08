@@ -125,7 +125,7 @@ class FrontendController extends Controller
                 $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
                 return view('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'));
             } else {
-                $ch = curl_init('https://webtopdf.expeditedaddons.com/?api_key='.env('WEBTOPDF_API_KEY').'&content='.$request->fullUrlWithQuery(['pdf' => 2]));
+                $ch = curl_init('https://webtopdf.expeditedaddons.com/?api_key='.env('WEBTOPDF_API_KEY').'&content=http://google.com');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
 
