@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/backend.css') }}?v1" rel="stylesheet">
+    <link href="{{ asset('css/backend.css', false) }}?v1" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -60,5 +60,5 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js', false) }}" defer></script>
 @endsection

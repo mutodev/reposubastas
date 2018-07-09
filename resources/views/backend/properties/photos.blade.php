@@ -8,15 +8,15 @@
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
   <!-- Load plupload and all it's runtimes and finally the UI widget -->
-  <link rel="stylesheet" href="{{ asset('js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css') }}" type="text/css" />
+  <link rel="stylesheet" href="{{ asset('js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css', false) }}" type="text/css" />
 
 
   <!-- production -->
-  <script type="text/javascript" src="{{ asset('js/plupload/moxie.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/plupload/plupload.dev.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/plupload/jquery.ui.plupload/jquery.ui.plupload.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/plupload/moxie.js', false) }}"></script>
+  <script type="text/javascript" src="{{ asset('js/plupload/plupload.dev.js', false) }}"></script>
+  <script type="text/javascript" src="{{ asset('js/plupload/jquery.ui.plupload/jquery.ui.plupload.js', false) }}"></script>
 
-  <link href="{{ asset('css/backend.css') }}?v1" rel="stylesheet">
+  <link href="{{ asset('css/backend.css', false) }}?v1" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -79,9 +79,9 @@
         rename: true,
 
         // Flash settings
-        flash_swf_url : '{{ asset('js/plupload/Moxie.swf') }}',
+        flash_swf_url : '{{ asset('js/plupload/Moxie.swf', false) }}',
         // Silverlight settings
-        silverlight_xap_url : '{{ asset('js/plupload/Moxie.xap') }}',
+        silverlight_xap_url : '{{ asset('js/plupload/Moxie.xap', false) }}',
 
         max_files_count: 10,
 
