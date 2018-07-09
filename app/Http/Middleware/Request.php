@@ -15,6 +15,7 @@ class Request
      */
     public function handle($request, Closure $next)
     {
+        $_SERVER['HTTPS'] = 'off';
         $request->server->set('HTTPS', 'off');
 
         return $next($request);
