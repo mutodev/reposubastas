@@ -119,7 +119,7 @@ class FrontendController extends Controller
         if ($request->get('pdf')) {
             $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc')->get();
             $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
-
+ 
             set_time_limit(-1);
             $pdf = PDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
             return $pdf->download('properties.pdf');
