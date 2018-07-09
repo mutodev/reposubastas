@@ -116,24 +116,13 @@ class FrontendController extends Controller
             }
         }
 
-        if ($pdf = $request->get('pdf')) {
+        if ($request->get('pdf')) {
+            $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc')->get();
+            $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
 
             set_time_limit(-1);
-
-            if ($pdf != 1) {
-                $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc')->get();
-                $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
-                return view('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'));
-            } else {
-                $ch = curl_init('https://webtopdf.expeditedaddons.com/?api_key='.env('WEBTOPDF_API_KEY').'&content=http://google.com');
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                $response = curl_exec($ch);
-
-                header("Content-type:application/pdf");
-                header("Content-Disposition:attachment;filename='listings.pdf'");
-                echo $response;
-                exit();
-            }
+            $pdf = PDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
+            return $pdf->download('properties.pdf');
         }
 
         $properties = $query->orderBy('property_event.number')->paginate(9);
