@@ -117,11 +117,12 @@ class FrontendController extends Controller
         }
 
         if ($request->get('pdf')) {
-            $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc')->get();
-            $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc')->get();
+            $total = (clone $query)->count();
+            $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc');
+            $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc');
 
             set_time_limit(-1);
-            $pdf = \DomPDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber'))->setPaper('half-letter');
+            $pdf = \DomPDF::loadView('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber', 'total'))->setPaper('half-letter');
             return $pdf->download('properties.pdf');
         }
 
