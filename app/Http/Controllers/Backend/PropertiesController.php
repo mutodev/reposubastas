@@ -269,11 +269,12 @@ class PropertiesController extends Controller
             })
             ->where('property_event.is_active', '=', 1);
 
-        $propertiesByCity = (clone $baseQuery)->orderBy('properties.city', 'asc')->get();
-        $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc')->get();
+        $total = (clone $baseQuery)->count();
+        $propertiesByCity = (clone $baseQuery)->orderBy('properties.city', 'asc');
+        $propertiesByNumber = (clone $baseQuery)->orderBy('property_event.number', 'asc');
 
         set_time_limit(-1);
-        $pdf = PDFSnappy::loadView('frontend.pdf', compact('event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('Letter');
+        $pdf = \DomPDF::loadView('frontend.pdf', compact('total', 'event', 'propertiesByCity', 'propertiesByNumber'))->setPaper('Letter');
         return $pdf->download('properties.pdf');
     }
 
