@@ -134,78 +134,65 @@
         }
     </style>
 
-    <?php
-        $count = 0;
-        $pageCount = 0;
-        $row = 0;
-        $loop = 1;
-    ?>
-    <?php $propertiesByNumber->chunk(20, function($properties) use ($total, $count, $pageCount, $row, $loop) { ?>
+    <?php $propertiesByNumber->chunk(6, function($properties) { ?>
+        <?php
+            $count = 1;
+            $row = 0;
+        ?>
+        <div class="properties">
         <?php foreach($properties as $property): ?>
-            @if ($pageCount == 0 && $loop != 1)
-                <div style="page-break-after: always;"></div>
-            @endif
-            @if($count == 0)
-                <div class="properties">
+            <div class="property">
+                <img class="card-img-top" height="120" src="{{ $property->getImage() }}" alt="{{ $property->address }}">
+                <div class="property-badges">
+                    @if($property->number)
+                        <span class="badge badge-dark">{{ $property->number }}</span>
                     @endif
-                    <div class="property">
-                        <img class="card-img-top" height="120" src="{{ $property->getImage() }}" alt="{{ $property->address }}">
-                        <div class="property-badges">
-                            @if($property->number)
-                                <span class="badge badge-dark">{{ $property->number }}</span>
-                            @endif
 
-                            @if($property->status_id && $property->status->is_public)
-                                <span class="badge badge-danger">{{ $property->status->name }}</span>
-                            @endif
-                        </div>
-                        <div class="property-footer">
-                            <strong>{{ __('Sale price') }}:</strong> ${{ number_format($property->price) }}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>{{ $property->address }}, {{ $property->city }}</strong></h5>
-
-                            <table class="text-mutted" width="100%">
-                                <tr>
-                                    <td valign="top">
-                                        <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
-                                        @if ((int)$property->sqm_area)
-                                            <strong>{{ __('M2') }}:</strong> {{ number_format($property->sqm_area) }}<br />
-                                        @endif
-                                        @if ((int)$property->sqf_area)
-                                            <strong>{{ __('F2') }}:</strong> {{ number_format($property->sqf_area) }}<br />
-                                        @endif
-                                        @if ((int)$property->cuerdas)
-                                            <strong>{{ __('Cuerdas') }}:</strong> {{ number_format($property->cuerdas) }}
-                                        @endif
-                                    </td>
-                                    <td valign="top">
-                                        @if($property->bedrooms)
-                                            <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
-                                        @endif
-                                        @if($property->bathrooms)
-                                            <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
-                                        @endif
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <?php $count++; $pageCount++;$loop++ ?>
-                    @if ($loop >= $total || $count == 2)
-                        <?php $count = 0; $row++; ?>
-                        <div style="clear: both"></div>
+                    @if($property->status_id && $property->status->is_public)
+                        <span class="badge badge-danger">{{ $property->status->name }}</span>
+                    @endif
                 </div>
-                @endif
-
-                @if ($loop >= $total || $pageCount == 6)
-                <?php $pageCount = 0; $row = 0; ?>
+                <div class="property-footer">
+                    <strong>{{ __('Sale price') }}:</strong> ${{ number_format($property->price) }}
                 </div>
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{ $property->address }}, {{ $property->city }}</strong></h5>
+
+                    <table class="text-mutted" width="100%">
+                        <tr>
+                            <td valign="top">
+                                <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
+                                @if ((int)$property->sqm_area)
+                                    <strong>{{ __('M2') }}:</strong> {{ number_format($property->sqm_area) }}<br />
+                                @endif
+                                @if ((int)$property->sqf_area)
+                                    <strong>{{ __('F2') }}:</strong> {{ number_format($property->sqf_area) }}<br />
+                                @endif
+                                @if ((int)$property->cuerdas)
+                                    <strong>{{ __('Cuerdas') }}:</strong> {{ number_format($property->cuerdas) }}
+                                @endif
+                            </td>
+                            <td valign="top">
+                                @if($property->bedrooms)
+                                    <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
+                                @endif
+                                @if($property->bathrooms)
+                                    <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            @if ($count == 2)
+                <?php $count = 0; ?>
+                <div style="clear: both"></div>
             @endif
+            <?php $count++; ?>
         <?php endforeach; ?>
+        </div>
+        <div style="page-break-after: always;"></div>
     <?php }); ?>
-
-    <div style="page-break-after: always;"></div>
 
     <table class="properties-index" width="100%">
         <thead>
