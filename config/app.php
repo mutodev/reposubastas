@@ -218,7 +218,7 @@ return [
 
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'Menu' => Lavary\Menu\Facade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DomPDF' => Barryvdh\DomPDF\Facade::class,
         'Date' => Jenssegers\Date\Date::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
