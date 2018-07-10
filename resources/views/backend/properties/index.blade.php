@@ -119,5 +119,5 @@
         </tbody>
     </table>
 
-    {{ $models->links() }}
+    {{ $models->appends(request()->query())->links() }}
 @endsection
