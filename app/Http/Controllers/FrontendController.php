@@ -227,12 +227,12 @@ class FrontendController extends Controller
 
             Session::flash('success', __('Thanks for registering'));
 
-            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'properties']);
+            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register-success']);
         }
 
         $form = $formBuilder->create(App\Forms\Frontend\User\RegisterForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register'])
+            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register-success'])
         ]);
 
         return compact('form');
