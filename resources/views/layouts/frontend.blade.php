@@ -1,14 +1,14 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css', false) }}?v1" rel="stylesheet">
 @endsection
 
 @section('main')
     <nav class="site-header sticky-top py-1">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
             <a class="py-2" href="{{ route('frontend.page', ['locale' => App::getLocale()]) }}">
-                <img src="{{ asset('images/logo.png', false) }}" width="160" />
+                <img src="{{ asset('images/logo.png', false) }}" height="45" />
             </a>
             <div class="float-right">
                 <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'properties']) }}">{{ __('Properties') }}</a>
@@ -32,7 +32,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md">
-                    <img src="{{ asset('images/logo.png', false) }}" width="160" />
+                    <img src="{{ asset('images/logo.png', false) }}" height="45" />
                     <small class="d-block mb-3 text-muted">&copy; {{ date('Y') }}</small>
                 </div>
                 <div class="col-6 col-md">

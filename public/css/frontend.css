@@ -22,8 +22,8 @@ body {
 .site-header a {
     color: #3A3A3A;
     transition: ease-in-out color .15s;
-    line-height: 32px;
-    height: 51px;
+    line-height: 48px;
+    height: 68px;
 }
 .site-header a:hover {
     color: #1072B3;

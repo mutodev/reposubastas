@@ -15,6 +15,40 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/import/users', function () {
+
+    if (($handle = fopen("/Users/ecosmez/Projects/reposubasta/routes/users.csv", "r")) !== FALSE) {
+        $headers = fgetcsv($handle);
+
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $values = array_combine($headers, $data);
+            $values['password'] = \Illuminate\Support\Facades\Hash::make($values['password']);
+
+            $model = new \App\User();
+            $model->fill([
+                'name' => $values['nombre'] . ' ' . $values['apellido'],
+                'email' => $values['email'],
+                'address' => $values['direccion'] ? $values['direccion'] : null,
+                'city' => $values['ciudad'] ? $values['ciudad'] : null,
+                'postal_code' => $values['zip'] ? $values['zip'] : null,
+                'phone' => $values['tel'] ? $values['tel'] : null,
+                'phone2' => $values['celular'] ? $values['celular'] : null,
+                'broker_name' => $values['corredor'] ? $values['corredor'] : null,
+                'license' => $values['licencia'] ? $values['licencia'] : null,
+                'password' => $values['password']
+            ]);
+
+            try {
+                $model->save();
+                $model->addToEvent(12, null, null);
+            }catch (Exception $e) {}
+        }
+        fclose($handle);
+    }
+
+    die('End');
+});
+
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::prefix('backend')->group(function () {
 
