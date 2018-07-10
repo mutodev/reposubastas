@@ -160,30 +160,36 @@ class FrontendController extends Controller
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
             }
 
-            $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class);
+            $userEvent = \DB::table('user_event')->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first();
 
-            if (!$form->isValid()) {
-                return redirect()->back()->withErrors($form->getErrors())->withInput();
-            }
-
-            $formValues = $form->getFieldValues();
-
-            $newOffer = intval($formValues['offer']);
-
-            if ($newOffer >= $property->reserve && (!$bid || $newOffer > intval($bid->offer))) {
-                $bid = new Bid;
-                $bid->user_id = \Auth::user()->id;
-                $bid->property_id = $property->id;
-                $bid->event_id = $property->event_id;
-                $bid->offer = intval($formValues['offer']);
-                $bid->is_winner = false;
-                $bid->save();
-
-                \Auth::user()->addToEvent($property->event_id, 0);
-
-                Session::flash('success', __('Offer submitted'));
+            if (!$userEvent || $userEvent->remaining_deposit <= 0) {
+                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit'));
             } else {
-                Session::flash('error', __('The offer must be greater than actual offer'));
+                $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class);
+
+                if (!$form->isValid()) {
+                    return redirect()->back()->withErrors($form->getErrors())->withInput();
+                }
+
+                $formValues = $form->getFieldValues();
+
+                $newOffer = intval($formValues['offer']);
+
+                if ($newOffer >= $property->reserve && (!$bid || $newOffer > intval($bid->offer))) {
+                    $bid = new Bid;
+                    $bid->user_id = \Auth::user()->id;
+                    $bid->property_id = $property->id;
+                    $bid->event_id = $property->event_id;
+                    $bid->offer = intval($formValues['offer']);
+                    $bid->is_winner = false;
+                    $bid->save();
+
+                    \Auth::user()->addToEvent($property->event_id, 0);
+
+                    Session::flash('success', __('Offer submitted'));
+                } else {
+                    Session::flash('error', __('The offer must be greater than actual offer'));
+                }
             }
         }
 
@@ -198,7 +204,7 @@ class FrontendController extends Controller
         $types = PropertyType::forSelect();
         $online = empty($property->number);
 
-        return compact('types', 'property', 'online', 'form', 'bid');
+        return compact('types', 'property', 'online', 'form', 'bid', 'userEvent');
     }
 
     public function register($formBuilder, $request) {
