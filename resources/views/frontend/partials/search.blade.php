@@ -5,7 +5,7 @@
                 <h1 class="display-5 font-weight-normal">{{ __('YOUR INTELLIGENT INVESTMENT BEGINS') }}</h1>
                 <div class="input-group mr-sm-2">
                     <select name="type" class="custom-select">
-                        @foreach(App\Models\PropertyType::forSelect('Type') as $value => $label)
+                        @foreach(App\Models\PropertyType::forSelect('All Properties') as $value => $label)
                             <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
