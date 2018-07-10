@@ -23,6 +23,10 @@
                 </div>
             @endif
 
+            <div class="text-center mb-4">
+                {{ __('Enter your data so you can bid on events and easily navigate our website, as well as keep you informed of new opportunities.') }}
+            </div>
+
             <div class="col-sm-6 mx-auto">
                 {!! form($form) !!}
             </div>
