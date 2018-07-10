@@ -119,11 +119,13 @@
                                 <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
                             </div>
 
+                            @if(!$online)
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                 <br />
                                 <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
                             </div>
+                            @endif
 
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
