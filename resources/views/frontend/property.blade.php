@@ -49,7 +49,9 @@
                                     @continue
                                 @endif
                                 <div class="carousel-item @if($index == 1) active @endif">
-                                    <img class="d-block w-100" src="{{ $image }}" alt="First slide">
+                                    <div class="wm">
+                                        <img class="d-block w-100" src="{{ $image }}" alt="First slide">
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>
