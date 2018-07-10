@@ -89,7 +89,7 @@ body {
 .overflow-hidden { overflow: hidden; }
 
 .properties-search {
-    background-image: url('http://fortuneweavers.com/wp-content/uploads/2017/03/RealEstateInvestments.jpg');
+    background-image: url('/images/search-bg.jpg');
     background-size: cover;
 }
 

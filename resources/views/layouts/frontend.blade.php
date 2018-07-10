@@ -15,7 +15,7 @@
                 <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'contact']) }}">{{ __('Contact Us') }}</a>
 
                 @if (Auth::guest())
-                    <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}">{{ __('Sign Up') }}</a>
+                    <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}"><strong class="text-danger">{{ __('Sign Up') }}</strong></a>
                     <a class="py-2 d-inline-block" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'login']) }}">{{ __('Sign In') }}</a>
                 @else
                     <a class="py-2 d-inline-block" href="/logout">{{ __('Logout') }}</a>
