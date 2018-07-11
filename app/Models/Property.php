@@ -84,7 +84,7 @@ class Property extends Model
     public function getImage($index = 1)
     {
         $image = $this["image{$index}"];
-        return $image ? env('AWS_S3_URL') . $image : null;
+        return $image ? env('AWS_S3_URL') . urlencode($image) : null;
     }
 
     public function getEventData($eventId)

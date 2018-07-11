@@ -23,7 +23,7 @@
     <div class="my-2 row">
       @foreach($photos as $k => $photo)
         <div id="photo{{ $k - 1 }}" class="text-center col-2">
-          <img src="{{ env('AWS_S3_URL') }}{{ $photo }}" width="100" height="80" />
+          <img src="{{ env('AWS_S3_URL') }}{{ urlencode($photo) }}" width="100" height="80" />
 
           <br />
           <button class="btn" onclick="deleteImage({{ $k + 1 }})">
