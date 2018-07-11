@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "{$event->name} - Property #{$modelEvent->number}" ))
+@section('title', "{$event->name} - Property #{$modelEvent->number}" )
 
 @section('toolbar')
     @if ($bids && !$winner)
