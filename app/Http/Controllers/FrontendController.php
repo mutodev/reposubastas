@@ -116,6 +116,15 @@ class FrontendController extends Controller
             }
         }
 
+        if ($request->get('pdftest')) {
+            $total = (clone $query)->count();
+            $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc');
+            $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc');
+
+            set_time_limit(-1);
+            return view('frontend.pdf', compact('propertiesByCity', 'propertiesByNumber', 'total'));
+        }
+
         if ($request->get('pdf')) {
             $total = (clone $query)->count();
             $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc');
