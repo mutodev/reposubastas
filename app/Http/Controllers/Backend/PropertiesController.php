@@ -378,6 +378,7 @@ class PropertiesController extends Controller
 
             if ($files) {
                 $model->fill($files);
+                $model->proccessImages();
                 $model->save();
             }
 

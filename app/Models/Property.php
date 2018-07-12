@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Base as Model;
+use Intervention\Image\ImageManagerStatic as Image;
 use DB;
 
 class Property extends Model
@@ -59,6 +60,16 @@ class Property extends Model
         'image8',
         'image9',
         'image10',
+        'image1_thumb',
+        'image2_thumb',
+        'image3_thumb',
+        'image4_thumb',
+        'image5_thumb',
+        'image6_thumb',
+        'image7_thumb',
+        'image8_thumb',
+        'image9_thumb',
+        'image10_thumb',
         'lister_broker',
         'seller_broker',
         'commission',
@@ -81,9 +92,9 @@ class Property extends Model
         return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
     }
 
-    public function getImage($index = 1)
+    public function getImage($index = 1, $postfix = '')
     {
-        $image = $this["image{$index}"];
+        $image = $this["image{$index}{$postfix}"];
         return $image ? env('AWS_S3_URL') . urlencode($image) : null;
     }
 
@@ -132,5 +143,30 @@ class Property extends Model
         }
 
         return $bid;
+    }
+
+    public function proccessImages()
+    {
+        $s3 = \Storage::disk('s3');
+
+        foreach(range(1, 10) as $index) {
+            $image = $this["image{$index}"];
+
+            if (!$image) {
+                continue;
+            }
+
+            $parts = pathinfo($image);
+            $image = Image::make(env('AWS_S3_URL').urlencode($image));
+            $image->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $thumbFilename = "{$this->id}/{$parts['filename']}_thumb.{$parts['extension']}";
+
+            $s3->put($thumbFilename, (string)$image->encode($parts['extension']), 'public');
+
+            $this["image{$index}_thumb"] = $thumbFilename;
+        }
     }
 }

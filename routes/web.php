@@ -15,6 +15,22 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/fix/images', function () {
+    $properties = App\Models\Property::whereNotNull('image1')->whereNull('image1_thumb')->get();
+
+    $count = 1;
+    foreach($properties as $property) {
+        echo $property->id.'<br />';
+        $property->proccessImages();
+        $property->save();
+
+        if ($count >= 20) {
+            exit('Limit');
+        }
+    }
+    exit('Done');
+});
+
 Route::get('/import/users', function () {
 
     if (($handle = fopen("/Users/ecosmez/Projects/reposubasta/routes/users.csv", "r")) !== FALSE) {
