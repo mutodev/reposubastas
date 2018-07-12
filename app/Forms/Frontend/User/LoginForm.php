@@ -6,6 +6,10 @@ use Kris\LaravelFormBuilder\Form;
 
 class LoginForm extends Form
 {
+    protected $formOptions = [
+        'autocomplete' => 'off',
+    ];
+
     public function buildForm()
     {
         $this

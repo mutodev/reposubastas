@@ -6,6 +6,10 @@ use Kris\LaravelFormBuilder\Form;
 
 class OfferForm extends Form
 {
+    protected $formOptions = [
+        'autocomplete' => 'off',
+    ];
+
     public function buildForm()
     {
         $this->add('offer', 'number', ['label' => false, 'rules' => 'required']);
