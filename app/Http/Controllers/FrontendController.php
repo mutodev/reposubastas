@@ -247,7 +247,7 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\User\RegisterForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register-success'])
+            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register'])
         ]);
 
         return compact('form');

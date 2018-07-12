@@ -6,6 +6,10 @@ use Kris\LaravelFormBuilder\Form;
 
 class RegisterForm extends Form
 {
+    protected $formOptions = [
+        'autocomplete' => 'off',
+    ];
+
     public function buildForm()
     {
         $isBackend = $this->getData('isBackend', false);
