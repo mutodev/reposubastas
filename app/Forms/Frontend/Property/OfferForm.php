@@ -8,6 +8,7 @@ class OfferForm extends Form
 {
     protected $formOptions = [
         'autocomplete' => 'off',
+        'novalidate'   => 'novalidate'
     ];
 
     public function buildForm()
