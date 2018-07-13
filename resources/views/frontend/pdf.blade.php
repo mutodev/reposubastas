@@ -145,7 +145,7 @@
         ?>
         <div class="properties">
         <?php foreach($properties as $property): ?>
-            <div class="property">
+            <div class="property @if($count == 2) mx-0 @endif">
                 <img class="card-img-top" height="120" src="{{ $property->getImage(1, '_thumb') }}" alt="{{ $property->address }}">
                 <div class="property-badges">
                     @if($property->number)
