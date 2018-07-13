@@ -2,6 +2,6 @@
 
 @section('content')
     @foreach($contact as $field => $value)
-        {{ ucfirst($field) }}: {{ $value }}<br />
+        {{ ucfirst(str_replace('_', ' ', $field)) }}: {{ $value }}<br />
     @endforeach
 @endsection

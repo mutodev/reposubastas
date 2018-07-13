@@ -195,6 +195,11 @@ class FrontendController extends Controller
 
                     \Auth::user()->addToEvent($property->event_id, 0);
 
+                    $formValues['property_number'] = $property->number;
+                    $formValues['user'] = \Auth::user()->name;
+
+                    Mail::to(env('CONTACT_EMAIL'))->send(new Contact($formValues));
+
                     Session::flash('success', __('Offer submitted'));
                 } else {
                     Session::flash('error', __('The offer must be greater than actual offer'));
