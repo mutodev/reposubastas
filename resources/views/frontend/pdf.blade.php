@@ -19,7 +19,7 @@
             width: 209px;
             height: 230px;
             overflow: hidden;
-            margin: 0 20px 0 0;
+            margin: 0 20px 10px 0;
         }
 
         .property-footer {
@@ -29,6 +29,10 @@
             right: 10px;
             border-top: 2px solid white;
             font-size: 10px;
+        }
+
+        .badge {
+            font-size: 12px;
         }
 
         .text-mutted {
