@@ -193,7 +193,7 @@ class FrontendController extends Controller
                     $bid->is_winner = false;
                     $bid->save();
 
-                    \Auth::user()->addToEvent($property->event_id, 0);
+                    //\Auth::user()->addToEvent($property->event_id, 0);
 
                     $formValues['property_number'] = $property->number;
                     $formValues['user'] = \Auth::user()->name;
