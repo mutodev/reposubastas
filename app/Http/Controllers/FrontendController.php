@@ -198,7 +198,7 @@ class FrontendController extends Controller
                     $formValues['property_number'] = $property->number;
                     $formValues['user'] = \Auth::user()->name;
 
-                    Mail::to(env('CONTACT_EMAIL'))->send(new Contact($formValues));
+                    Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact($formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
@@ -244,6 +244,8 @@ class FrontendController extends Controller
             $user->save();
 
             \Auth::login($user);
+
+            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact($formValues));
 
             Session::flash('success', __('Thanks for registering'));
 
@@ -294,7 +296,7 @@ class FrontendController extends Controller
                 return redirect()->back()->withErrors($form->getErrors())->withInput();
             }
 
-            Mail::to(env('CONTACT_EMAIL'))->send(new Contact($form->getFieldValues()));
+            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact($form->getFieldValues()));
 
             Session::flash('success', __('Thank you for contacting us'));
 
