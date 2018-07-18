@@ -89,13 +89,9 @@
                         <strong>{{ __('Auction place') }}:</strong> <span>{{ $property->event_location }}</span>
                     </div>
 
-                    <?php $daysLeft = (new Carbon\Carbon($property->event_live_at))->diffInDays(); ?>
-                    @if($daysLeft > 0)
-                    <div class="mt-4">
-                        <span>{{ __('Event begins in') }}:</span><br />
-                        <strong class="unit">{{ number_format($daysLeft) }} {{ __('days') }}</strong>
+                    <div>
+                        <strong>{{ __('Live Auction') }}:</strong> <span>{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</span>
                     </div>
-                    @endif
                 @endif
             </div>
         </div>
