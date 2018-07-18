@@ -80,7 +80,7 @@
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
                         <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
                         <?php
-                        $endAt = new Carbon\Carbon($property->event_live_at);
+                        $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at));
 
                         if (!$online) {
                             $endAt->subDays(2);
@@ -112,7 +112,11 @@
                                     <span>m</span>
                                 @endif
                                 <br />
-                                <strong>{{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</strong>
+                                @if($online)
+                                    <strong>{{ __('Online Auction') }}: {{ Jenssegers\Date\Date::parse($property->end_at)->format('j M, g:ia')}}</strong>
+                                @else
+                                    <strong>{{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</strong>
+                                @endif
                             </div>
 
                             <div class="price mt-3">
