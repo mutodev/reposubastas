@@ -198,7 +198,7 @@ class FrontendController extends Controller
                     $formValues['property_number'] = $property->number;
                     $formValues['user'] = \Auth::user()->name;
 
-                    Mail::to(explode(',', env('CONTACT_EMAIL')))->subject('REPOSUBASTA - Offer')->send(new Contact($formValues));
+                    Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
@@ -245,7 +245,7 @@ class FrontendController extends Controller
 
             \Auth::login($user);
 
-            Mail::to(explode(',', env('CONTACT_EMAIL')))->subject('REPOSUBASTA - Register')->send(new Contact($formValues));
+            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Register', $formValues));
 
             Session::flash('success', __('Thanks for registering'));
 
@@ -296,7 +296,7 @@ class FrontendController extends Controller
                 return redirect()->back()->withErrors($form->getErrors())->withInput();
             }
 
-            Mail::to(explode(',', env('CONTACT_EMAIL')))->subject('REPOSUBASTA - Contact')->send(new Contact($form->getFieldValues()));
+            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Contact', $form->getFieldValues()));
 
             Session::flash('success', __('Thank you for contacting us'));
 

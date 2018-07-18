@@ -18,8 +18,9 @@ class Contact extends Mailable
      *
      * @return void
      */
-    public function __construct($contact)
+    public function __construct($subject, $contact)
     {
+        $this->subject = $subject;
         $this->contact = $contact;
     }
 
@@ -30,6 +31,6 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.contact');
+        return $this->subject($this->subject)->view('emails.contact');
     }
 }
