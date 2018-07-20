@@ -44,7 +44,7 @@ class RegisterForm extends Form
             ->add('broker_name', 'text', ['label' => __('Broker Name')])
             ->add('company', 'text', ['label' => __('Company')])
             ->add('license', 'text', ['label' => __('License')])
-            ->add('phone2', 'text', ['label' => __('Broker Phone'), 'rules' => 'required']);
+            ->add('phone2', 'text', ['label' => __('Broker Phone')]);
 
         if (!$isBackend) {
             $this->add('captcha', 'captcha', ['label' => __('Verification code'), 'rules' => 'required|captcha', 'error_messages' => [
