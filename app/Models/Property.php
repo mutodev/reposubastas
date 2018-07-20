@@ -17,6 +17,7 @@ class Property extends Model
         'type_id',
         'status_id',
         'investor_id',
+        'optioned_by',
         'source_id',
         'investor_reference_id',
         'address',
@@ -24,6 +25,7 @@ class Property extends Model
         'bathrooms',
         'price',
         'check_number',
+        'check_amount',
         'check_type',
         'bank',
         'deposit',
@@ -74,7 +76,10 @@ class Property extends Model
         'seller_broker',
         'commission',
         'end_at',
-        'start_at'
+        'start_at',
+        'optioned_approved_at',
+        'optioned_end_at',
+        'optioned_price'
     ];
 
     public function events()
@@ -85,6 +90,11 @@ class Property extends Model
     public function status()
     {
         return $this->belongsTo('App\Models\PropertyStatus', 'status_id');
+    }
+
+    public function optionedUser()
+    {
+        return $this->belongsTo('App\User', 'optioned_by');
     }
 
     public function type()

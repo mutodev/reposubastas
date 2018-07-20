@@ -11,6 +11,13 @@ class EditForm extends Form
 {
     public function buildForm()
     {
+        $users = $models = \App\User::select('users.*');
+
+        $usersArray = [];
+        foreach ($users->get() as $user) {
+            $usersArray[$user->id] = "#{$user->id} $user->name ($user->phone)";
+        }
+
         $this
             ->add('type_id', 'select', [
                 'choices' => PropertyType::forSelect(),
@@ -21,8 +28,19 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
+            ->add('optioned_by', 'select', [
+                'label' => __('Optioned By'),
+                'style' => 'width:200px',
+                'attr' => ['data-data' => htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone]))],
+                'selected' => $this->model->optioned_by,
+                'choices' => $usersArray
+            ])
+            ->add('optioned_approved_at', 'datetime-local')
+            ->add('optioned_end_at', 'datetime-local')
+            ->add('optioned_price', 'number', ['label' => __('Approved Sale Price')])
             ->add('check_number', 'text')
             ->add('check_type', 'text')
+            ->add('check_amount', 'number')
             ->add('bank', 'text')
             ->add('investor_id', 'select', [
                 'choices' => Investor::forSelect(),

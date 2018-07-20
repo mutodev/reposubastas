@@ -2,6 +2,7 @@
 
 @section('stylesheets')
     <link href="{{ asset('css/backend.css', false) }}?v1" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 @endsection
 
 @section('main')

@@ -9,7 +9,11 @@ window.Popper = require('popper.js').default;
  */
 
 try {
-    window.$ = window.jQuery = require('jquery');
+    var jquery = require('jquery');
+
+    window.jQuery = jquery;
+    window.$ = jquery;
+    window.jquery = jquery;
 
     require('jquery-depends-on');
     require('bootstrap');

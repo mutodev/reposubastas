@@ -79,6 +79,14 @@ class PropertiesController extends Controller
 
             $startAt = $model->start_at;
             $endAt =$model->end_at;
+
+            if ($model->optioned_approved_at) {
+                $model->optioned_approved_at = date("Y-m-d\TH:i:s", strtotime($model->optioned_approved_at));
+            }
+
+            if ($model->optioned_end_at) {
+                $model->optioned_end_at = date("Y-m-d\TH:i:s", strtotime($model->optioned_end_at));
+            }
         }
 
         if (!$model) {

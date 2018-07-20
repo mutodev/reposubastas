@@ -31,6 +31,14 @@ Route::get('/fix/images', function () {
     exit('Done');
 });
 
+Route::get('/api/users',function(){
+    if ($id = request('id')) {
+        return \App\User::where('id','=', $id)->paginate(10);
+    }
+
+    return \App\User::where('name','LIKE','%'.request('q').'%')->orWhere('phone','LIKE','%'.request('q').'%')->orWhere('phone2','LIKE','%'.request('q').'%')->paginate(10);
+});
+
 Route::get('/import/users', function () {
 
     if (($handle = fopen("/Users/ecosmez/Projects/reposubasta/routes/users.csv", "r")) !== FALSE) {
