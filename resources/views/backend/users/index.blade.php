@@ -56,6 +56,10 @@
     </table>
     @endif
 
+    <div class="my-2 mx-2">
+        {{ __('Total:') }} {{ $models->total()  }}
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -66,6 +70,12 @@
                 @endif
                 <th>
                     {{ __('Name') }}
+                </th>
+                <th>
+                    {{ __('Email') }}
+                </th>
+                <th>
+                    {{ __('Phone') }}
                 </th>
                 @if ($event)
                 <th>
@@ -85,7 +95,9 @@
                         {{ $model->number }}
                     </td>
                     @endif
-                    <td>{{ $model->name }}</td>
+                    <td width="100%">{{ $model->name }}</td>
+                    <td>{{ $model->email }}</td>
+                    <td>{{ $model->phone }}</td>
                     @if ($event)
                     <td>
                         {{ $model->event_is_active ? __('Yes') : __('No') }}
