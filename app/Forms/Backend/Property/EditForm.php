@@ -31,8 +31,8 @@ class EditForm extends Form
             ->add('optioned_by', 'select', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',
-                'attr' => ['data-data' => $this->model->optioned_by ? htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone])) : ''],
-                'selected' => $this->model->optioned_by,
+                'attr' => ['data-data' => ($this->model && $this->model->optioned_by) ? htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone])) : ''],
+                'selected' => ($this->model && $this->model->optioned_by) ? $this->model->optioned_by : null,
                 'choices' => $usersArray
             ])
             ->add('optioned_approved_at', 'datetime-local')
