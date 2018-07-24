@@ -243,6 +243,10 @@ class FrontendController extends Controller
             $user->fill($formValues);
             $user->save();
 
+            //Add user to current event
+            $event = App\Models\Event::orderBy('created_at', 'desc')->first();
+            $user->addToEvent($event->id);
+
             \Auth::login($user);
 
             Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Register', $formValues));
