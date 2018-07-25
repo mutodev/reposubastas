@@ -440,6 +440,7 @@ class PropertiesController extends Controller
         $photo = $request->get('photo');
 
         $model["image{$photo}"] = null;
+        $model["image{$photo}_thumb"] = null;
 
         for($i = $photo + 1; $i <= 10; $i++) {
             if ($model["image{$i}"]) {
