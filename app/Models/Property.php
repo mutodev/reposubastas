@@ -104,6 +104,10 @@ class Property extends Model
 
     public function getImage($index = 1, $postfix = '')
     {
+        if (!$this["image{$index}"]) {
+            return null;
+        }
+
         $image = $this["image{$index}{$postfix}"];
         return $image ? env('AWS_S3_URL') . urlencode($image) : null;
     }
