@@ -445,6 +445,9 @@ class PropertiesController extends Controller
             if ($model["image{$i}"]) {
                 $model["image". ($i - 1)] = $model["image{$i}"];
                 $model["image{$i}"] = null;
+
+                $model["image". ($i - 1).'_thumb'] = $model["image{$i}_thumb"];
+                $model["image{$i}_thumb"] = null;
             }
         }
 
