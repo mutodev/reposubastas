@@ -457,6 +457,17 @@ class PropertiesController extends Controller
         die('DONE');
     }
 
+
+    public function photoMain(Request $request, Event $event, Model $model)
+    {
+        $photo = $request->get('photo');
+
+        $model["main_image"] = $photo;
+        $model->save();
+
+        die('DONE');
+    }
+
     public function delete(Event $event, Model $model)
     {
         $model->delete();

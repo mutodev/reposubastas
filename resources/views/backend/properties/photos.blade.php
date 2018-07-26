@@ -29,6 +29,14 @@
           <button class="btn" onclick="deleteImage({{ $k + 1 }})">
             Delete
           </button>
+
+          @if($model->main_image == ($k + 1))
+            Main Image
+          @else
+            <button class="btn" onclick="mainImage({{ $k + 1 }})">
+              Make Main Image
+            </button>
+          @endif
         </div>
       @endforeach
     </div>
@@ -141,6 +149,21 @@
           window.location.href = "{{ route('backend.properties.photos', ['event' => $event->id, 'model' => $model->id]) }}";
         });
       }
+
+    function mainImage(photo) {
+      jQuery.ajax({
+        method: "POST",
+        url: "{{ route('backend.properties.photo-main', ['event' => $event->id, 'model' => $model->id]) }}",
+        data: {
+          photo: photo,
+          "_token": "{{ csrf_token() }}"
+        }
+      })
+        .done(function() {
+          alert('Main Image Saved');
+          window.location.href = "{{ route('backend.properties.photos', ['event' => $event->id, 'model' => $model->id]) }}";
+        });
+    }
     //});
   </script>
 @endsection

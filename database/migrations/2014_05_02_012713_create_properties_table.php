@@ -65,6 +65,7 @@ class CreatePropertiesTable extends Migration
             $table->string('image8')->nullable();
             $table->string('image9')->nullable();
             $table->string('image10')->nullable();
+            $table->string('main_image')->default(1);
             $table->string('lister_broker')->nullable();
             $table->string('seller_broker')->nullable();
             $table->decimal('commission')->nullable();

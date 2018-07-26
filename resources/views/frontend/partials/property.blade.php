@@ -1,6 +1,6 @@
 <a href="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}" class="card col-md-4 p-0 border-0">
     <div class="wm">
-        <img class="card-img-top" height="200" src="{{ $property->getImage(1, '_thumb') }}" alt="{{ $property->address }}">
+        <img class="card-img-top" height="200" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
     </div>
     <div class="property-badges">
         @if($property->number)

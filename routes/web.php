@@ -110,6 +110,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('delete/{model}', 'Backend\PropertiesController@delete')->name('backend.properties.delete');
                 Route::get('photos/{model}', 'Backend\PropertiesController@photos')->name('backend.properties.photos');
                 Route::post('photo/{model?}', 'Backend\PropertiesController@photoDelete')->name('backend.properties.photo-delete');
+                Route::post('photo/main/{model?}', 'Backend\PropertiesController@photoMain')->name('backend.properties.photo-main');
                 Route::post('photos/{model?}', 'Backend\PropertiesController@photos')->name('backend.properties.photos2');
                 Route::post('store/{model?}', 'Backend\PropertiesController@store')->name('backend.properties.store');
                 Route::get('auction/{model}', 'Backend\PropertiesController@auction')->name('backend.properties.auction');

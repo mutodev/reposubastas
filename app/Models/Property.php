@@ -79,7 +79,8 @@ class Property extends Model
         'start_at',
         'optioned_approved_at',
         'optioned_end_at',
-        'optioned_price'
+        'optioned_price',
+        'main_image'
     ];
 
     public function events()
@@ -100,6 +101,11 @@ class Property extends Model
     public function type()
     {
         return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
+    }
+
+    public function getMainImage($postfix = '')
+    {
+        return $this->getImage($this->main_image, $postfix);
     }
 
     public function getImage($index = 1, $postfix = '')
