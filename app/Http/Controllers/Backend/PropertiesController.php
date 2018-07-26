@@ -128,6 +128,18 @@ class PropertiesController extends Controller
 //            }
 //        }
 
+        if ($formValues['optioned_approved_at']) {
+            $formValues['optioned_approved_at'] = date('Y-m-d H:i:s', strtotime($formValues['optioned_approved_at']));
+        } else {
+            $formValues['optioned_approved_at'] = null;
+        }
+
+        if ($formValues['optioned_end_at']) {
+            $formValues['optioned_end_at'] = date('Y-m-d H:i:s', strtotime($formValues['optioned_end_at']));
+        } else {
+            $formValues['optioned_end_at'] = null;
+        }
+
         $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
         $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
 
