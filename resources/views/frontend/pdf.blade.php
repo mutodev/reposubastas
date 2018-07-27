@@ -136,6 +136,11 @@
         .text-center {
             text-align: center;
         }
+
+        .card-img-top {
+            border-top-left-radius: 4px !important;
+            border-top-right-radius: 4px !important;
+        }
     </style>
 
     <?php $propertiesByNumber->chunk(6, function($properties) { ?>
