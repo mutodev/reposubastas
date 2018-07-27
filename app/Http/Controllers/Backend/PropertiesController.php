@@ -464,6 +464,11 @@ class PropertiesController extends Controller
             }
         }
 
+        //Make sure main image exist
+        if (!$model->getMainImage()) {
+            $model->main_image = 1;
+        }
+
         $model->save();
 
         die('DONE');
