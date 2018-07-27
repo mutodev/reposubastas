@@ -49,7 +49,7 @@
 
         .property-badges {
             position: absolute;
-            top: 10px;
+            top: 6px;
             left: 5px;
         }
 
