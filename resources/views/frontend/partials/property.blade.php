@@ -25,13 +25,13 @@
                 <br />{{ __('Baths') }}: {{ number_format($property->bathrooms) }}
             @endif
             @if($property->sqf_area)
-                <br />{{ __('Square feets') }}: {{ number_format($property->sqf_area) }}
+                <br />{{ __('Square feets') }}: {{ round($property->sqf_area, 2) }}
             @endif
             @if($property->sqm_area)
-                <br />{{ __('Square meters') }}: {{ number_format($property->sqm_area) }}
+                <br />{{ __('Square meters') }}: {{ round($property->sqm_area, 2) }}
             @endif
             @if($property->cuerdas)
-                <br />{{ __('Cuerdas') }}: {{ number_format($property->cuerdas) }}
+                <br />{{ __('Cuerdas') }}: {{ round($property->cuerdas, 2) }}
             @endif
         </p>
     </div>

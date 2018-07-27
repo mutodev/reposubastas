@@ -126,7 +126,7 @@
         }
 
         .properties-index tbody tr:nth-child(even) {
-            background: #ddffda
+            background: #33d1ea
         }
 
         .properties-index tbody tr td {
@@ -167,13 +167,13 @@
                             <td valign="top">
                                 <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
                                 @if ((int)$property->sqm_area)
-                                    <strong>{{ __('M2') }}:</strong> {{ number_format($property->sqm_area) }}<br />
+                                    <strong>{{ __('M2') }}:</strong> {{ round($property->sqm_area, 2) }}<br />
                                 @endif
                                 @if ((int)$property->sqf_area)
-                                    <strong>{{ __('F2') }}:</strong> {{ number_format($property->sqf_area) }}<br />
+                                    <strong>{{ __('F2') }}:</strong> {{ round($property->sqf_area, 2) }}<br />
                                 @endif
                                 @if ((int)$property->cuerdas)
-                                    <strong>{{ __('Cuerdas') }}:</strong> {{ number_format($property->cuerdas) }}
+                                    <strong>{{ __('Cuerdas') }}:</strong> {{ round($property->cuerdas, 2) }}
                                 @endif
                             </td>
                             <td valign="top">

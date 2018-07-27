@@ -34,17 +34,17 @@
                 @endif
                 @if($property->sqf_area)
                     <div>
-                        <strong>{{ __('Square feets') }}:</strong> <span>{{ number_format($property->sqf_area) }}</span>
+                        <strong>{{ __('Square feets') }}:</strong> <span>{{ round($property->sqf_area, 2) }}</span>
                     </div>
                 @endif
                 @if($property->sqm_area)
                     <div>
-                        <strong>{{ __('Square meters') }}:</strong> <span>{{ number_format($property->sqm_area) }}</span>
+                        <strong>{{ __('Square meters') }}:</strong> <span>{{ round($property->sqm_area, 2) }}</span>
                     </div>
                 @endif
                 @if($property->cuerdas)
                     <div>
-                        <strong>{{ __('Cuerdas') }}:</strong> <span>{{ number_format($property->cuerdas) }}</span>
+                        <strong>{{ __('Cuerdas') }}:</strong> <span>{{ round($property->cuerdas, 2) }}</span>
                     </div>
                 @endif
                 @if($property->catastro)
