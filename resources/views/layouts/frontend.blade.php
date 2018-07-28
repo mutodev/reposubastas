@@ -34,6 +34,11 @@
                 <div class="col-12 col-md">
                     <img src="{{ asset('images/logo.png', false) }}" height="45" />
                     <small class="d-block mb-3 text-muted">&copy; {{ date('Y') }}</small>
+                    <small class="d-block text-muted">{{ __('Phones') }}:</small>
+                    <span class="text-muted"><a href="tel:7877458777">(787) 745-8777</a> / <a href="tel:7874183100">(787) 418-3100</a></span>
+                    <small class="d-block mt-3 text-muted">{{ __('Address') }}:</small>
+                    <span class="text-muted">1253 Ave. Fernandez Juncos, Esq. Roberto H. Todd, Pda. 18 Santurce, PR</span>
+
                 </div>
                 <div class="col-6 col-md">
                     <h5>{{ __('Navigate') }}</h5>
