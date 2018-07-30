@@ -2,28 +2,9 @@
 
 @section('main')
     <style>
-        .wm:after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            background-image: url(/images/wm.png);
-            background-size: 60px 40px;
-            background-position: 3px 57px;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-        }
-
         body {
             font-family: 'Montserrat', sans-serif !important;
             font-size: 8px;
-        }
-
-        .property-details {
-
         }
 
         .property {
@@ -115,8 +96,8 @@
             font-size: 14px;
             height: 20px;
             z-index: 100;
-            opacity: 0.6;
-            filter: alpha(opacity=60);
+            opacity: 0.8;
+            filter: alpha(opacity=80);
             background: white;
         }
 
@@ -171,9 +152,7 @@
         <div class="properties">
         <?php foreach($properties as $property): ?>
             <div class="property @if($count == 2) mx-0 @endif">
-                <div class="wm">
-                    <img class="card-img-top" height="120" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
-                </div>
+                <img class="card-img-top" height="120" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
                 <div class="property-city text-center">
                     {{ $property->city }}
                 </div>
