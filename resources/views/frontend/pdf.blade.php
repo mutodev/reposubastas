@@ -2,6 +2,21 @@
 
 @section('main')
     <style>
+        .wm:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background-image: url(/images/wm.png);
+            background-size: 60px 40px;
+            background-position: 3px 57px;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif !important;
             font-size: 8px;
