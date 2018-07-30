@@ -40,7 +40,7 @@
         }
 
         .text-mutted {
-            line-height: 10px;
+            line-height: 12px;
         }
 
         .card-img-top {
