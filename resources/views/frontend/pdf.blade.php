@@ -7,6 +7,10 @@
             font-size: 8px;
         }
 
+        .property-details {
+
+        }
+
         .property {
             position: relative;
             min-width: 0;
@@ -36,7 +40,7 @@
         }
 
         .text-mutted {
-            line-height: 8px;
+            line-height: 10px;
         }
 
         .card-img-top {
@@ -92,8 +96,9 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: 0;
-            height: 25px;
+            top: 100px;
+            font-size: 14px;
+            height: 20px;
             z-index: 100;
             opacity: 0.6;
             filter: alpha(opacity=60);
@@ -151,7 +156,12 @@
         <div class="properties">
         <?php foreach($properties as $property): ?>
             <div class="property @if($count == 2) mx-0 @endif">
-                <img class="card-img-top" height="120" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
+                <div class="wm">
+                    <img class="card-img-top" height="120" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
+                </div>
+                <div class="property-city text-center">
+                    {{ $property->city }}
+                </div>
                 <div class="property-badges">
                     @if($property->number)
                         <span class="badge badge-dark">{{ $property->number }}</span>
@@ -165,9 +175,9 @@
                     <strong>{{ __('Sale price') }}:</strong> ${{ number_format($property->price) }}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"><strong>{{ $property->address }}, {{ $property->city }}</strong></h5>
+                    <h5 class="card-title"><strong>{{ $property->address }}</strong></h5>
 
-                    <table class="text-mutted" width="100%">
+                    <table class="text-mutted property-details" width="100%">
                         <tr>
                             <td valign="top">
                                 <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
