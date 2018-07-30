@@ -96,9 +96,7 @@
             font-size: 14px;
             height: 20px;
             z-index: 100;
-            opacity: 0.8;
-            filter: alpha(opacity=80);
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .property-city-text {
