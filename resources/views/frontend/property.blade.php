@@ -81,11 +81,6 @@
                         <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
                         <?php
                         $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at));
-
-                        if (!$online) {
-                            $endAt->subDays(2);
-                        }
-
                         $days = $endAt->diffInDays();
                         $hours = $endAt->diffInHours() - ($days * 24);
                         $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
@@ -133,13 +128,25 @@
                             </div>
                             @endif
 
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
-                            </div>
+                            <?php
+                                if (!$online) {
+                                    $endAt->subDays(2);
+                                }
 
-                            <div class="mt-3">
-                                {!! form($form) !!}
-                            </div>
+                                $days = $endAt->diffInDays();
+                                $hours = $endAt->diffInHours() - ($days * 24);
+                                $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
+                            ?>
+
+                            @if($days || $hours || $minutes)
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
+                                </div>
+
+                                <div class="mt-3">
+                                    {!! form($form) !!}
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>
