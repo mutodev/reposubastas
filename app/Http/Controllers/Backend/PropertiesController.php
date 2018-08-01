@@ -191,6 +191,7 @@ class PropertiesController extends Controller
 
         //Broadcast
         if (!$request->has('bidding')) {
+            $model->load(['type', 'status']);
             event(new \App\Events\Auction($model, $modelEvent));
         }
 
@@ -254,9 +255,6 @@ class PropertiesController extends Controller
 
         if ($bid) {
             Session::flash('success', "#{$bid->number} - {$bid->name} is the winner!");
-
-            //Broadcast
-            event(new \App\Events\Bid($bid));
         } else {
             Session::flash('success', "Auction closed without winner!");
         }

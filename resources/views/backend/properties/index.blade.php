@@ -103,7 +103,7 @@
                                     {{ __('Photos')  }}
                                 </a>
                                 <a  class="dropdown-item" href="{{ route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id]) }}">
-                                    {{ __('Auction')  }}
+                                    {{ __('Live')  }}
                                 </a>
                                 <a  class="dropdown-item" href="{{ route('backend.properties.register-to-event', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Add to other Event')  }}

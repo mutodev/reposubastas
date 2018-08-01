@@ -15,10 +15,11 @@ class RegisterForm extends Form
     {
         $isBackend = $this->getData('isBackend', false);
         $required = $isBackend ? 'nullable|' : 'required|';
+        $emailUnique = $this->model ? '|unique:users' : '';
 
         $this
             ->add('name', 'text', ['label' => __('Name'), 'rules' => 'required'])
-            ->add('email', 'text', ['label' => __('Email'), 'rules' => "{$required}string|email|max:255|unique:users"])
+            ->add('email', 'text', ['label' => __('Email'), 'rules' => "{$required}string|email|max:255{$emailUnique}"])
             ->add('password', 'password', ['label' => __('Password'), 'rules' => "{$required}string|min:6|confirmed"])
             ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => "{$required}"])
             ->add('martial_status', 'select', [
