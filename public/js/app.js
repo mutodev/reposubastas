@@ -56557,7 +56557,7 @@ var render = function() {
                   _c("div", { staticClass: "card-header" }, [
                     _vm._v(
                       "\n                        " +
-                        _vm._s("Offers") +
+                        _vm._s("Ofertas") +
                         "\n                    "
                     )
                   ]),

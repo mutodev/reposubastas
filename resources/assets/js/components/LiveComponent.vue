@@ -54,7 +54,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header">
-                            {{ 'Offers' }}
+                            {{ 'Ofertas' }}
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" v-for="bid in auction.bids.slice(0, 5)">
