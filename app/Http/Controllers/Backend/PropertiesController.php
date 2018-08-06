@@ -37,6 +37,10 @@ class PropertiesController extends Controller
                 $join->on('property_event.event_id', '=', DB::raw($event->id));
             });
 
+        if ($type = $request->get('type')) {
+            $query->where('properties.type_id', '=', $type);
+        }
+
         if ($status = $request->get('status')) {
             $query->where('properties.status_id', '=', $status);
         }

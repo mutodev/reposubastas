@@ -31,6 +31,11 @@
     <div class="properties-search position-relative overflow-hidden text-center bg-light">
         <form method="get" action="{{ route('backend.properties.index', ['event' => $event->id]) }}">
             <div class="input-group mr-sm-2">
+                <select name="type" class="custom-select">
+                    @foreach(App\Models\PropertyType::forSelect('-- Type --') as $value => $label)
+                        <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
                 <select name="status" class="custom-select">
                     @foreach(App\Models\PropertyStatus::forSelect('-- Status --') as $value => $label)
                         <option @if($value == request()->get('status')) selected @endif value="{{ $value }}">{{ $label }}</option>
@@ -47,6 +52,10 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <div class="my-2 mx-2">
+        {{ __('Total:') }} {{ $models->total() }}
     </div>
 
     <table class="table mt-3">
