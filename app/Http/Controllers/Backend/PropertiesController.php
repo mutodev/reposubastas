@@ -228,27 +228,27 @@ class PropertiesController extends Controller
 
         $formValues = $form->getFieldValues();
 
-        $userEvent = DB::table('user_event')
-            ->leftJoin('users', 'users.id', '=', 'user_event.user_id')
-            ->where('number', '=', $formValues['number'])
-            ->where('event_id', '=', $event->id)->first();
+        $userEvent = false;
 
-        if ($userEvent) {
-            $bid = new Bid;
-            $bid->user_id = $userEvent->user_id;
-            $bid->property_id = $model->id;
-            $bid->event_id = $event->id;
-            $bid->offer = $formValues['offer'];
-            $bid->is_winner = false;
-            $bid->save();
-
-            //Broadcast
-            event(new \App\Events\Bid($bid, $userEvent));
-
-            Session::flash('success', __('Offer saved successfully!'));
-        } else {
-            Session::flash('error', __("User with number {$formValues['number']} not found"));
+        if ($formValues['number']) {
+            $userEvent = DB::table('user_event')
+                ->leftJoin('users', 'users.id', '=', 'user_event.user_id')
+                ->where('number', '=', $formValues['number'])
+                ->where('event_id', '=', $event->id)->first();
         }
+
+        $bid = new Bid;
+        $bid->user_id = $userEvent ? $userEvent->user_id : null;
+        $bid->property_id = $model->id;
+        $bid->event_id = $event->id;
+        $bid->offer = $formValues['offer'];
+        $bid->is_winner = false;
+        $bid->save();
+
+        //Broadcast
+        event(new \App\Events\Bid($bid, $userEvent));
+
+        Session::flash('success', __('Offer saved successfully!'));
 
         return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
     }

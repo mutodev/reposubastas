@@ -14,54 +14,60 @@
                             <span class="badge badge-dark">{{ auction.propertyEvent.number }}</span>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ auction.property.address }}, {{ auction.property.city }}</h5>
-                            <p class="card-text text-muted">
-                                Tipo: {{ auction.property.type.name_es }}
+                            <h5 class="card-title mb-0">{{ auction.property.address }}, {{ auction.property.city }}</h5>
+                            <!--<p class="card-text text-muted">-->
+                                <!--Tipo: {{ auction.property.type.name_es }}-->
 
-                                <span v-if="auction.property.bedrooms">
-                                    <br />
-                                    Cuartos: {{ auction.property.bedrooms }}
-                                </span>
+                                <!--<span v-if="auction.property.bedrooms">-->
+                                    <!--<br />-->
+                                    <!--Cuartos: {{ auction.property.bedrooms }}-->
+                                <!--</span>-->
 
-                                <span v-if="auction.property.bathrooms">
-                                    <br />
-                                    Baños: {{ auction.property.bathrooms }}
-                                </span>
+                                <!--<span v-if="auction.property.bathrooms">-->
+                                    <!--<br />-->
+                                    <!--Baños: {{ auction.property.bathrooms }}-->
+                                <!--</span>-->
 
-                                <span v-if="auction.property.sqf_area">
-                                    <br />
-                                    Pies cuadrados: {{ auction.property.sqf_area }}
-                                </span>
+                                <!--<span v-if="auction.property.sqf_area">-->
+                                    <!--<br />-->
+                                    <!--Pies cuadrados: {{ auction.property.sqf_area }}-->
+                                <!--</span>-->
 
-                                <span v-if="auction.property.sqm_area">
-                                    <br />
-                                    Metros cuadrados: {{ auction.property.sqm_area }}
-                                </span>
+                                <!--<span v-if="auction.property.sqm_area">-->
+                                    <!--<br />-->
+                                    <!--Metros cuadrados: {{ auction.property.sqm_area }}-->
+                                <!--</span>-->
 
-                                <span v-if="auction.property.cuerdas">
-                                    <br />
-                                    Cuerdas: {{ auction.property.cuerdas }}
-                                </span>
-                            </p>
+                                <!--<span v-if="auction.property.cuerdas">-->
+                                    <!--<br />-->
+                                    <!--Cuerdas: {{ auction.property.cuerdas }}-->
+                                <!--</span>-->
+                            <!--</p>-->
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item border-0 bg-dark-blue">
-                                <span>Precio de venta: {{ price(auction.property.price) }}</span>
-                            </li>
-                        </ul>
+                        <!--<ul class="list-group list-group-flush">-->
+                            <!--<li class="list-group-item border-0 bg-dark-blue">-->
+                                <!--<span>Precio de venta: {{ price(auction.property.price) }}</span>-->
+                            <!--</li>-->
+                        <!--</ul>-->
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            {{ 'Ofertas' }}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title" v-for="bid in auction.bids.slice(0, 5)">
-                                #{{ bid.number }} - {{ price(bid.offer) }}
-                            </h5>
-                        </div>
-                    </div>
+                    <table style="height: 100%;width: 100%">
+                        <tr>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <img src="/images/logo.png" width="50%" />
+                                <br />
+                                <br />
+                                <h2 class="mt-3">
+                                    <span>Precio de venta: {{ price(auction.property.price) }}</span>
+                                </h2>
+                                <h1 id="currentBid" class="align-middle" v-for="bid in auction.bids.slice(0, 1)">
+                                    <span v-if="auction.bids">{{ price(auction.bids[0].offer) }}</span>
+                                    <span v-else>&nbsp;</span>
+                                </h1>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

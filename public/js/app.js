@@ -56417,6 +56417,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['auction'],
@@ -56464,120 +56470,75 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
-                    _c("h5", { staticClass: "card-title" }, [
+                    _c("h5", { staticClass: "card-title mb-0" }, [
                       _vm._v(
                         _vm._s(_vm.auction.property.address) +
                           ", " +
                           _vm._s(_vm.auction.property.city)
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "card-text text-muted" }, [
-                      _vm._v(
-                        "\n                            Tipo: " +
-                          _vm._s(_vm.auction.property.type.name_es) +
-                          "\n\n                            "
-                      ),
-                      _vm.auction.property.bedrooms
-                        ? _c("span", [
-                            _c("br"),
-                            _vm._v(
-                              "\n                                Cuartos: " +
-                                _vm._s(_vm.auction.property.bedrooms) +
-                                "\n                            "
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.auction.property.bathrooms
-                        ? _c("span", [
-                            _c("br"),
-                            _vm._v(
-                              "\n                                Baños: " +
-                                _vm._s(_vm.auction.property.bathrooms) +
-                                "\n                            "
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.auction.property.sqf_area
-                        ? _c("span", [
-                            _c("br"),
-                            _vm._v(
-                              "\n                                Pies cuadrados: " +
-                                _vm._s(_vm.auction.property.sqf_area) +
-                                "\n                            "
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.auction.property.sqm_area
-                        ? _c("span", [
-                            _c("br"),
-                            _vm._v(
-                              "\n                                Metros cuadrados: " +
-                                _vm._s(_vm.auction.property.sqm_area) +
-                                "\n                            "
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.auction.property.cuerdas
-                        ? _c("span", [
-                            _c("br"),
-                            _vm._v(
-                              "\n                                Cuerdas: " +
-                                _vm._s(_vm.auction.property.cuerdas) +
-                                "\n                            "
-                            )
-                          ])
-                        : _vm._e()
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "list-group list-group-flush" }, [
-                    _c(
-                      "li",
-                      { staticClass: "list-group-item border-0 bg-dark-blue" },
-                      [
-                        _c("span", [
-                          _vm._v(
-                            "Precio de venta: " +
-                              _vm._s(_vm.price(_vm.auction.property.price))
-                          )
-                        ])
-                      ]
-                    )
                   ])
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s("Ofertas") +
-                        "\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "card-body" },
-                    _vm._l(_vm.auction.bids.slice(0, 5), function(bid) {
-                      return _c("h5", { staticClass: "card-title" }, [
-                        _vm._v(
-                          "\n                            #" +
-                            _vm._s(bid.number) +
-                            " - " +
-                            _vm._s(_vm.price(bid.offer)) +
-                            "\n                        "
-                        )
-                      ])
-                    })
-                  )
-                ])
+                _c(
+                  "table",
+                  { staticStyle: { height: "100%", width: "100%" } },
+                  [
+                    _c("tr", [
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            "text-align": "center",
+                            "vertical-align": "middle"
+                          }
+                        },
+                        [
+                          _c("img", {
+                            attrs: { src: "/images/logo.png", width: "50%" }
+                          }),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("h2", { staticClass: "mt-3" }, [
+                            _c("span", [
+                              _vm._v(
+                                "Precio de venta: " +
+                                  _vm._s(_vm.price(_vm.auction.property.price))
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.auction.bids.slice(0, 1), function(bid) {
+                            return _c(
+                              "h1",
+                              {
+                                staticClass: "align-middle",
+                                attrs: { id: "currentBid" }
+                              },
+                              [
+                                _vm.auction.bids
+                                  ? _c("span", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.price(_vm.auction.bids[0].offer)
+                                        )
+                                      )
+                                    ])
+                                  : _c("span", [_vm._v(" ")])
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]
+                )
               ])
             ])
           ])
