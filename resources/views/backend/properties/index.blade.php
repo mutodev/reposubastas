@@ -16,13 +16,13 @@
                 <a  class="dropdown-item" href="{{ route('backend.properties.importcsv', ['event' => $event->id]) }}">
                     {{ __('Add Properties From CSV')  }}
                 </a>
-                <a target="_blank" class="dropdown-item" href="{{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'es', 'pdftest' => 1, 'event_type' => 'LIVE'])) }}">
+                <a target="_blank" class="dropdown-item" href="http://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'es', 'pdftest' => 1, 'event_type' => 'LIVE'])) }}">
                     {{ __('Generate PDF (Spanish)') }}
                 </a>
-                <a target="_blank" class="dropdown-item" href="{{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'event_type' => 'LIVE'])) }}">
+                <a target="_blank" class="dropdown-item" href="http://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'event_type' => 'LIVE'])) }}">
                     {{ __('Generate PDF (English)') }}
                 </a>
-                <a target="_blank" class="dropdown-item" href="{{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'admin' => 1, 'event_type' => 'LIVE'])) }}">
+                <a target="_blank" class="dropdown-item" href="http://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'admin' => 1, 'event_type' => 'LIVE'])) }}">
                     {{ __('Generate Admin PDF (English)') }}
                 </a>
             </div>
