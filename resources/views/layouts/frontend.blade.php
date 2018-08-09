@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}?v2" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css', false) }}?v3" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -11,15 +11,27 @@
                 <img src="{{ asset('images/logo.png', false) }}" height="45" />
             </a>
             <div class="float-right">
-                <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'properties']) }}">{{ __('Properties') }}</a>
-                <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'contact']) }}">{{ __('Contact Us') }}</a>
+                <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'properties']) }}">{{ __('Properties') }}</a>
+                <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'contact']) }}">{{ __('Contact Us') }}</a>
 
                 @if (Auth::guest())
-                    <a class="py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}"><strong class="text-danger">{{ __('Sign Up') }}</strong></a>
-                    <a class="py-2 d-inline-block" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'login']) }}">{{ __('Sign In') }}</a>
+                    <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}"><strong class="text-danger">{{ __('Sign Up') }}</strong></a>
+                    <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'login']) }}">{{ __('Sign In') }}</a>
                 @else
-                    <a class="py-2 d-inline-block" href="/logout">{{ __('Logout') }}</a>
+                    <a class="site-header-item py-2 d-inline-block mr-3" href="/logout">{{ __('Logout') }}</a>
                 @endif
+                <div class="btn-group">
+                    <button class="btn bg-light-blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ App::getLocale() == 'es' ? __('Español') : __('English') }}
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
+                        @if (App::getLocale() == 'en')
+                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'es']) }}">{{ __('Español') }}</a>
+                        @else
+                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'en']) }}">{{ __('English') }}</a>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
