@@ -146,6 +146,7 @@
         <?php
             $count = 1;
             $row = 0;
+            $admin = request('admin');
         ?>
         <div class="properties">
         <?php foreach($properties as $property): ?>
@@ -172,23 +173,32 @@
                     <table class="text-mutted property-details" width="100%">
                         <tr>
                             <td valign="top">
-                                <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
-                                @if ((int)$property->sqm_area)
-                                    <strong>{{ __('M2') }}:</strong> {{ round($property->sqm_area, 2) }}<br />
-                                @endif
-                                @if ((int)$property->sqf_area)
-                                    <strong>{{ __('F2') }}:</strong> {{ round($property->sqf_area, 2) }}<br />
-                                @endif
-                                @if ((int)$property->cuerdas)
-                                    <strong>{{ __('Cuerdas') }}:</strong> {{ round($property->cuerdas, 2) }}
+                                @if (!$admin)
+                                    <strong>{{ __('Type') }}:</strong> {{ $property->type->name_es }}<br />
+                                    @if ((int)$property->sqm_area)
+                                        <strong>{{ __('M2') }}:</strong> {{ round($property->sqm_area, 2) }}<br />
+                                    @endif
+                                    @if ((int)$property->sqf_area)
+                                        <strong>{{ __('F2') }}:</strong> {{ round($property->sqf_area, 2) }}<br />
+                                    @endif
+                                    @if ((int)$property->cuerdas)
+                                        <strong>{{ __('Cuerdas') }}:</strong> {{ round($property->cuerdas, 2) }}
+                                    @endif
+                                @else
+                                    <strong>{{ __('Reserve') }}:</strong> ${{ number_format($property->reserve) }}<br />
+                                    <strong>{{ __('Investor') }}:</strong> {{ $property->investor->name }}
                                 @endif
                             </td>
                             <td valign="top">
-                                @if($property->bedrooms)
-                                    <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
-                                @endif
-                                @if($property->bathrooms)
-                                    <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
+                                @if (!$admin)
+                                    @if($property->bedrooms)
+                                        <br/><strong>{{ __('Beds') }}:</strong> {{ number_format($property->bedrooms) }}
+                                    @endif
+                                    @if($property->bathrooms)
+                                        <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
+                                    @endif
+                                @else
+                                    <strong>{{ __('Last Offer') }}:</strong> ${{ number_format(@$property->getBids($property->event_id)[0]['offer']) }}
                                 @endif
                             </td>
                         </tr>

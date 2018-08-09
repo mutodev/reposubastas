@@ -63,7 +63,7 @@ class FrontendController extends Controller
 
         $today = date('Y-m-d H:i:s');
 
-        $query = Property::select('properties.*', 'property_event.number', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
+        $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
             ->join('property_event', function($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
@@ -117,6 +117,10 @@ class FrontendController extends Controller
         }
 
         if ($request->get('pdftest')) {
+            if ($request->get('admin')) {
+                $query->with('investor');
+            }
+
             $total = (clone $query)->count();
             $propertiesByCity = (clone $query)->orderBy('properties.city', 'asc');
             $propertiesByNumber = (clone $query)->orderBy('property_event.number', 'asc');
