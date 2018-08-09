@@ -72,7 +72,14 @@ class EventsController extends Controller
 
     public function view(Model $model)
     {
-        return view('backend.events.view', compact('model'));
+        $bids = \App\Models\Bid::where('event_id', '=', $model->id)->orderBy('id', 'desc')->get()->unique('property_id')->toArray();
+
+        $bidsTotal = 0;
+        foreach ($bids as $bid) {
+            $bidsTotal += (float)$bid['offer'];
+        }
+
+        return view('backend.events.view', compact('model', 'bidsTotal'));
     }
 
     public function live(Model $model)

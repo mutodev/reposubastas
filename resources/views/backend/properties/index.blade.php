@@ -22,6 +22,9 @@
                 <a target="_blank" class="dropdown-item" href="{{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'event_type' => 'LIVE'])) }}">
                     {{ __('Generate PDF (English)') }}
                 </a>
+                <a target="_blank" class="dropdown-item" href="{{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'admin' => 1, 'event_type' => 'LIVE'])) }}">
+                    {{ __('Generate Admin PDF (English)') }}
+                </a>
             </div>
         </div>
     </div>

@@ -31,7 +31,27 @@ const app = new Vue({
     auction: {
       property: null,
       bids: [],
-      finished: false
+      finished: false,
+      suspense: null
+    }
+  },
+  methods: {
+    startSuspense: function() {
+      if (this.auction.suspense) {
+        this.stopSuspense();
+      }
+
+      this.auction.suspense = setInterval(function(){
+        $('.auctionBackground').toggleClass("backgroundRed");
+      }, 800);
+    },
+    stopSuspense: function() {
+      if (!this.auction.suspense) {
+        return;
+      }
+
+      $('.auctionBackground').removeClass("backgroundRed");
+      clearInterval(this.auction.suspense);
     }
   }
 });
@@ -46,9 +66,23 @@ Echo.channel('local')
     if (!app.auction.finished) {
       app.auction.bids = [e.bid].concat(app.auction.bids);
     }
+  })
+  .listen('Suspense', (e) => {
+      if (e.start) {
+        app.startSuspense();
+      } else {
+        app.stopSuspense();
+      }
   });
 
 
 //Forms
 require('./forms/register');
 require('./forms/property');
+
+//Auction
+$('.suspense').click(function (event) {
+  event.preventDefault();
+  $.ajax($(this).data('url'));
+  return false;
+});

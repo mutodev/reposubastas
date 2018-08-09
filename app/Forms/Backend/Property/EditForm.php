@@ -28,6 +28,7 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
+            ->add('sold_closing_at', 'datetime-local')
             ->add('optioned_by', 'select', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',
@@ -42,6 +43,15 @@ class EditForm extends Form
             ->add('check_type', 'text')
             ->add('check_amount', 'number')
             ->add('bank', 'text')
+            ->add('optioned_method', 'select', [
+                'choices' => [
+                    'FINANCED' => 'Financed',
+                    'CASH'     => 'Cash'
+                ]
+            ])
+            ->add('financing_bank', 'text')
+            ->add('financing_phone', 'text')
+            ->add('financing_contact', 'text')
             ->add('investor_id', 'select', [
                 'choices' => Investor::forSelect(),
                 'label' => __('Investor')

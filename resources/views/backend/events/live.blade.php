@@ -10,11 +10,15 @@
         #currentBid {
             font-size: 4em;
         }
+
+        .backgroundRed{
+            background: #ff244d;
+        }
     </style>
 @endsection
 
 @section('main')
-    <div class="m-5">
+    <div class="auctionBackground p-5">
         <live-component :auction="auction"></live-component>
     </div>
 @endsection

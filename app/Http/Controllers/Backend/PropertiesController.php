@@ -84,6 +84,10 @@ class PropertiesController extends Controller
             $startAt = $model->start_at;
             $endAt =$model->end_at;
 
+            if ($model->sold_closing_at) {
+                $model->sold_closing_at = date("Y-m-d\TH:i:s", strtotime($model->sold_closing_at));
+            }
+
             if ($model->optioned_approved_at) {
                 $model->optioned_approved_at = date("Y-m-d\TH:i:s", strtotime($model->optioned_approved_at));
             }
@@ -132,6 +136,12 @@ class PropertiesController extends Controller
 //            }
 //        }
 
+        if ($formValues['sold_closing_at']) {
+            $formValues['sold_closing_at'] = date('Y-m-d H:i:s', strtotime($formValues['sold_closing_at']));
+        } else {
+            $formValues['sold_closing_at'] = null;
+        }
+
         if ($formValues['optioned_approved_at']) {
             $formValues['optioned_approved_at'] = date('Y-m-d H:i:s', strtotime($formValues['optioned_approved_at']));
         } else {
@@ -170,6 +180,16 @@ class PropertiesController extends Controller
 
     public function auction(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
     {
+        //Suspense
+        if ($request->ajax()) {
+            if ($request->has('suspense')) {
+                event(new \App\Events\Suspense((bool)$request->get('suspense')));
+            }
+
+            die('Done');
+        }
+
+
         $modelEvent = $model->getEventData($event->id);
         $bids = $model->getBids($event->id);
 
@@ -194,7 +214,7 @@ class PropertiesController extends Controller
         ]);
 
         //Broadcast
-        if (!$request->has('bidding')) {
+        if (!$request->has('loaded')) {
             $model->load(['type', 'status']);
             event(new \App\Events\Auction($model, $modelEvent));
         }
@@ -250,11 +270,13 @@ class PropertiesController extends Controller
 
         Session::flash('success', __('Offer saved successfully!'));
 
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
+        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
     }
 
     public function finishAuction(Request $request, Event $event, Model $model)
     {
+        event(new \App\Events\Suspense(false));
+
         $bid = $model->endAuction($event->id, $request->get('status_id'));
 
         if ($bid) {
@@ -263,7 +285,7 @@ class PropertiesController extends Controller
             Session::flash('success', "Auction closed without winner!");
         }
 
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'bidding' => true]);
+        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
     }
 
     public function registerToEvent(Request $request, FormBuilder $formBuilder, Event $event, Model $model)

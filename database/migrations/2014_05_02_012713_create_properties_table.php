@@ -73,7 +73,12 @@ class CreatePropertiesTable extends Migration
             $table->dateTime('end_at')->nullable();
             $table->boolean('is_cash_only');
             $table->dateTime('optioned_approved_at')->nullable();
+            $table->dateTime('sold_closing_at')->nullable();
             $table->dateTime('optioned_end_at')->nullable();
+            $table->string('optioned_method')->nullable();
+            $table->string('financing_bank')->nullable();
+            $table->string('financing_phone')->nullable();
+            $table->string('financing_contact')->nullable();
             $table->decimal('optioned_price', 16)->nullable();
             $table->timestamps();
 

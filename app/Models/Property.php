@@ -80,7 +80,12 @@ class Property extends Model
         'optioned_approved_at',
         'optioned_end_at',
         'optioned_price',
-        'main_image'
+        'optioned_method',
+        'financing_bank',
+        'financing_phone',
+        'financing_contact',
+        'main_image',
+        'sold_closing_at'
     ];
 
     public function events()
@@ -101,6 +106,11 @@ class Property extends Model
     public function type()
     {
         return $this->belongsTo('App\Models\PropertyType', 'type_id', 'id');
+    }
+
+    public function investor()
+    {
+        return $this->belongsTo('App\Models\Investor', 'investor_id', 'id');
     }
 
     public function getMainImage($postfix = '')
@@ -148,8 +158,8 @@ class Property extends Model
     {
         $bid = Bid::select('bid.*', 'users.name', 'user_event.number')->where('property_id', '=', $this->id)
             ->where('bid.event_id', '=', $eventId)
-            ->join('users', 'users.id', '=', 'bid.user_id')
-            ->join('user_event', 'user_event.user_id', '=', 'bid.user_id')
+            ->leftJoin('users', 'users.id', '=', 'bid.user_id')
+            ->leftJoin('user_event', 'user_event.user_id', '=', 'bid.user_id')
             ->orderBy('bid.created_at', 'desc')->first();
 
         if ($bid) {

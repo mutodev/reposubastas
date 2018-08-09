@@ -17,6 +17,17 @@
 @endsection
 
 @section('content')
+    <h4>{{ __('Stats') }}</h4>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Sum of bids</th>
+                <td>${{ number_format($bidsTotal) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
     <h4>{{ __('Users') }}</h4>
 
     <table class="table">

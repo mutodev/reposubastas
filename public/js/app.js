@@ -15337,7 +15337,27 @@ var app = new Vue({
     auction: {
       property: null,
       bids: [],
-      finished: false
+      finished: false,
+      suspense: null
+    }
+  },
+  methods: {
+    startSuspense: function startSuspense() {
+      if (this.auction.suspense) {
+        this.stopSuspense();
+      }
+
+      this.auction.suspense = setInterval(function () {
+        $('.auctionBackground').toggleClass("backgroundRed");
+      }, 800);
+    },
+    stopSuspense: function stopSuspense() {
+      if (!this.auction.suspense) {
+        return;
+      }
+
+      $('.auctionBackground').removeClass("backgroundRed");
+      clearInterval(this.auction.suspense);
     }
   }
 });
@@ -15350,11 +15370,24 @@ Echo.channel('local').listen('Auction', function (e) {
   if (!app.auction.finished) {
     app.auction.bids = [e.bid].concat(app.auction.bids);
   }
+}).listen('Suspense', function (e) {
+  if (e.start) {
+    app.startSuspense();
+  } else {
+    app.stopSuspense();
+  }
 });
 
 //Forms
 __webpack_require__(95);
 __webpack_require__(96);
+
+//Auction
+$('.suspense').click(function (event) {
+  event.preventDefault();
+  $.ajax($(this).data('url'));
+  return false;
+});
 
 /***/ }),
 /* 26 */
@@ -56586,10 +56619,17 @@ if ($('#status_id').length) {
 
   __webpack_require__(97);
 
-  $('#check_number, #check_type, #bank, #check_amount, #optioned_by, #optioned_approved_at, #optioned_end_at, #optioned_price').parent().dependsOn({
+  $('#check_number, #check_type, #bank, #check_amount, #optioned_by, #optioned_approved_at, #optioned_end_at, #optioned_price, #optioned_method, #financing_bank, #financing_phone, #financing_contact').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
       values: ['4']
+    }
+  });
+
+  $('#sold_closing_at').parent().dependsOn({
+    // The selector for the depenency
+    '#status_id': {
+      values: ['5']
     }
   });
 
