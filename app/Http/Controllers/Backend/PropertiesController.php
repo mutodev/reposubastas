@@ -258,41 +258,6 @@ class PropertiesController extends Controller
         return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $modelEvent->property_id]);
     }
 
-    public function bidStore(FormBuilder $formBuilder, Event $event, Model $model)
-    {
-        $form = $formBuilder->create(BidForm::class);
-
-        if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
-        }
-
-        $formValues = $form->getFieldValues();
-
-        $userEvent = false;
-
-        if ($formValues['number']) {
-            $userEvent = DB::table('user_event')
-                ->leftJoin('users', 'users.id', '=', 'user_event.user_id')
-                ->where('number', '=', $formValues['number'])
-                ->where('event_id', '=', $event->id)->first();
-        }
-
-        $bid = new Bid;
-        $bid->user_id = $userEvent ? $userEvent->user_id : null;
-        $bid->property_id = $model->id;
-        $bid->event_id = $event->id;
-        $bid->offer = $formValues['offer'];
-        $bid->is_winner = false;
-        $bid->save();
-
-        //Broadcast
-        event(new \App\Events\Bid($bid, $userEvent));
-
-        Session::flash('success', __('Offer saved successfully!'));
-
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
-    }
-
     public function finishAuction(Request $request, Event $event, Model $model)
     {
         event(new \App\Events\Suspense(false));
@@ -535,5 +500,67 @@ class PropertiesController extends Controller
 
         Session::flash('success', __('Property deleted!'));
         return redirect(route('backend.properties.index', ['event' => $event->id]));
+    }
+
+    public function editBid(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        $bidId = $request->get('bid_id');
+
+        if ($bidId) {
+            $bid = Bid::find($bidId);
+        } else {
+            $bid = new Bid;
+        }
+
+        $form = $formBuilder->create(BidForm::class, [
+            'method' => 'POST',
+            'url'    => route('backend.properties.bid.store', ['event' => $event->id, 'model' => $model->id, 'bid_id' => $bidId]),
+            'model'  => $bid
+        ]);
+
+        return view('backend.properties.bid.edit', compact('form', 'model', 'event'));
+    }
+
+    public function bidStore(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        $bidId = $request->get('bid_id', false);
+        $form = $formBuilder->create(BidForm::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $formValues = $form->getFieldValues();
+
+        $userEvent = false;
+
+        if ($formValues['number']) {
+            $userEvent = DB::table('user_event')
+                ->leftJoin('users', 'users.id', '=', 'user_event.user_id')
+                ->where('number', '=', $formValues['number'])
+                ->where('event_id', '=', $event->id)->first();
+        }
+
+        if ($bidId) {
+            $bid = Bid::find($bidId);
+        } else {
+            $bid = new Bid;
+        }
+
+        $bid->user_id = $userEvent ? $userEvent->user_id : null;
+        $bid->property_id = $model->id;
+        $bid->event_id = $event->id;
+        $bid->offer = $formValues['offer'];
+        $bid->is_winner = false;
+        $bid->save();
+
+        //Broadcast
+        if (!$bidId) {
+            event(new \App\Events\Bid($bid, $userEvent));
+        }
+
+        Session::flash('success', __('Offer saved successfully!'));
+
+        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
     }
 }

@@ -50,11 +50,17 @@
                 <ul class="list-group">
                     @foreach ($bids as $bid)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            #{{ $bid->number }} - {{ $bid->name }}
-                            @if ($bid->is_winner)
-                                <span class="badge badge-success badge-pill">{{ __('winner') }}</span>
+                            @if (!$bid->user_id)
+                                <a class="btn btn-sm btn-primary" href="{{ route('backend.properties.bid.edit', ['model' => $model->id, 'event' => $event->id, 'bid_id' => $bid->id]) }}" >
+                                    {{ __('Assign Number (# Paleta)') }}
+                                </a>
+                            @else
+                                <strong>(Paleta #{{ $bid->number }}) {{ $bid->name }}</strong>
                             @endif
-                            <span class="badge badge-success badge-pill">${{ number_format($bid->offer) }}</span>
+                            {{--@if ($bid->is_winner)--}}
+                                {{--<span class="badge badge-success badge-pill">{{ __('winner') }}</span>--}}
+                            {{--@endif--}}
+                            <strong>${{ number_format($bid->offer) }}</strong>
                         </li>
                     @endforeach
                 </ul>
