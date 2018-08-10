@@ -71,7 +71,17 @@ class PropertiesController extends Controller
 
         $byStatus = [];
         foreach ($properties as $property) {
-            $byStatus[$property->status->name_en] = @$byStatus[$property->status->name_en] + 1;
+            $sum = @$byStatus[$property->status->name_en]['sum'];
+
+
+            if ($property->optioned_price) {
+                $sum += $property->optioned_price;
+            }
+
+            $byStatus[$property->status->name_en] = [
+                'total' => @$byStatus[$property->status->name_en]['total'] + 1,
+                'sum'   => $sum,
+            ];
         }
 
         $bids = \App\Models\Bid::with(['property.status' => function ($query) {
@@ -128,6 +138,8 @@ class PropertiesController extends Controller
             'method' => 'POST',
             'url'    => route('backend.properties.store', ['event' => $event->id, 'model' => $model ? $model->id : null]),
             'model'  => $model
+        ], [
+            'event' => $event
         ]);
 
         return view('backend.properties.edit', compact('form', 'model', 'event'));
@@ -135,7 +147,9 @@ class PropertiesController extends Controller
 
     public function store(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
-        $form = $formBuilder->create(EditForm::class);
+        $form = $formBuilder->create(EditForm::class, [], [
+            'event' => $event
+        ]);
 
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();

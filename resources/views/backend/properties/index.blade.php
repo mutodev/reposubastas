@@ -74,8 +74,8 @@
         </tr>
         <tr>
             <td>${{ number_format($bidsTotal) }}</td>
-            @foreach($byStatus as $total)
-                <td>{{ number_format($total) }}</td>
+            @foreach($byStatus as $statusItem)
+                <td>{{ number_format($statusItem['total']) }} @if($statusItem['sum']) ${{number_format($statusItem['sum'])}} @endif</td>
             @endforeach
         </tr>
         </tbody>
