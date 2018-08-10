@@ -143,7 +143,7 @@ class Property extends Model
             ->where('bid.event_id', '=', $eventId)
             ->leftJoin('users', 'users.id', '=', 'bid.user_id')
             ->leftJoin('user_event', 'user_event.user_id', '=', 'bid.user_id')
-            ->orderBy('bid.created_at', 'desc')->get();
+            ->orderBy('bid.offer', 'desc')->get();
     }
 
     public function addToEvent($eventId, $number = null, $active = true)

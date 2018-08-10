@@ -56682,10 +56682,17 @@ if ($('#status_id').length) {
 
   __webpack_require__(97);
 
-  $('#check_number, #check_type, #bank, #check_amount, #optioned_by, #optioned_approved_at, #optioned_end_at, #optioned_price, #optioned_method, #financing_bank, #financing_phone, #financing_contact').parent().dependsOn({
+  $('#check_number, #check_type, #bank, #check_amount, #optioned_by, #optioned_approved_at, #optioned_end_at, #optioned_method, #financing_bank, #financing_phone, #financing_contact').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
       values: ['4']
+    }
+  });
+
+  $('#optioned_price').parent().dependsOn({
+    // The selector for the depenency
+    '#status_id': {
+      values: ['3', '4', '5']
     }
   });
 

@@ -11,11 +11,19 @@ class EditForm extends Form
 {
     public function buildForm()
     {
-        $users = $models = \App\User::select('users.*');
+        $event = $this->getData('event');
+
+
+        $users = $models = \App\User::select('users.*', 'user_event.number')
+        ->leftJoin('user_event', function ($join) use ($event) {
+            $join->on('user_event.user_id', '=', 'users.id');
+            $join->on('user_event.event_id', '=', \DB::raw($event->id));
+        })
+        ->orderBy('user_event.number');
 
         $usersArray = [];
         foreach ($users->get() as $user) {
-            $usersArray[$user->id] = "#{$user->id} $user->name ($user->phone)";
+            $usersArray[$user->id] = "(Paleta #{$user->number}) $user->name";
         }
 
         $this
