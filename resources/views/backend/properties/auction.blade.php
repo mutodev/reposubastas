@@ -21,6 +21,9 @@
                     </button>
                 </div>
             </div>
+            <button data-url="{{ route('backend.properties.auction', ['model' => $model->id, 'event' => $event->id, 'celebrate' => 1]) }}" class="celebrate dropdown-item">
+                {{ __('Celebrate') }}
+            </button>
             <div class="d-inline dropdown">
                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ __('Close Auction') }}

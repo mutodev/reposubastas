@@ -15338,7 +15338,8 @@ var app = new Vue({
       property: null,
       bids: [],
       finished: false,
-      suspense: null
+      suspense: null,
+      celebrate: null
     }
   },
   methods: {
@@ -15358,6 +15359,14 @@ var app = new Vue({
 
       $('.auctionBackground').removeClass("backgroundRed");
       clearInterval(this.auction.suspense);
+    },
+    startCelebrate: function startCelebrate() {
+
+      $('.celebrate').show();
+
+      setTimeout(function () {
+        $('.celebrate').hide();
+      }, 8000);
     }
   }
 });
@@ -15376,6 +15385,8 @@ Echo.channel('local').listen('Auction', function (e) {
   } else {
     app.stopSuspense();
   }
+}).listen('Celebrate', function (e) {
+  app.startCelebrate();
 });
 
 //Forms
@@ -15383,7 +15394,7 @@ __webpack_require__(95);
 __webpack_require__(96);
 
 //Auction
-$('.suspense').click(function (event) {
+$('.suspense, .celebrate').click(function (event) {
   event.preventDefault();
   $.ajax($(this).data('url'));
   return false;

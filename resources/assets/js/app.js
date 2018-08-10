@@ -32,7 +32,8 @@ const app = new Vue({
       property: null,
       bids: [],
       finished: false,
-      suspense: null
+      suspense: null,
+      celebrate: null
     }
   },
   methods: {
@@ -52,6 +53,14 @@ const app = new Vue({
 
       $('.auctionBackground').removeClass("backgroundRed");
       clearInterval(this.auction.suspense);
+    },
+    startCelebrate: function() {
+
+      $('.celebrate').show();
+
+      setTimeout(function () {
+        $('.celebrate').hide();
+      }, 8000);
     }
   }
 });
@@ -73,6 +82,9 @@ Echo.channel('local')
       } else {
         app.stopSuspense();
       }
+  })
+  .listen('Celebrate', (e) => {
+      app.startCelebrate();
   });
 
 
@@ -81,7 +93,7 @@ require('./forms/register');
 require('./forms/property');
 
 //Auction
-$('.suspense').click(function (event) {
+$('.suspense, .celebrate').click(function (event) {
   event.preventDefault();
   $.ajax($(this).data('url'));
   return false;

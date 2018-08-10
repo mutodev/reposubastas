@@ -206,6 +206,10 @@ class PropertiesController extends Controller
                 event(new \App\Events\Suspense((bool)$request->get('suspense')));
             }
 
+            if ($request->has('celebrate')) {
+                event(new \App\Events\Celebrate((bool)$request->get('celebrate')));
+            }
+
             die('Done');
         }
 

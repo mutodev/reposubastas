@@ -23,10 +23,27 @@
             bottom: 0;
             padding: 3rem!important;
         }
+
+        .celebrate {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999999999;
+        }
+
+        .celebrate img {
+            width: 100%;
+        }
     </style>
 @endsection
 
 @section('main')
+    <div class="celebrate">
+        <img src="/images/celebrate.gif">
+    </div>
     <div class="auctionBackground p-5">
         <live-component :auction="auction"></live-component>
     </div>
