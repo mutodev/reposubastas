@@ -56456,6 +56456,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['auction'],
@@ -56474,8 +56482,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.auction.finished
-    ? _c("div", [_vm._v("\n    finished\n")])
+  return !_vm.auction.property
+    ? _c("div", [_vm._m(0)])
     : _vm.auction.property
       ? _c("div", [
           _c("div", { staticClass: "container-fluid" }, [
@@ -56499,7 +56507,14 @@ var render = function() {
                   _c("div", { staticClass: "property-badges" }, [
                     _c("span", { staticClass: "badge badge-dark" }, [
                       _vm._v(_vm._s(_vm.auction.propertyEvent.number))
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.auction.property.status_id &&
+                    _vm.auction.property.status.is_public
+                      ? _c("span", { staticClass: "badge badge-danger" }, [
+                          _vm._v(_vm._s(_vm.auction.property.status.name_es))
+                        ])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
@@ -56578,7 +56593,24 @@ var render = function() {
         ])
       : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("table", { staticStyle: { height: "500px", width: "100%" } }, [
+      _c("tr", [
+        _c(
+          "td",
+          {
+            staticStyle: { "text-align": "center", "vertical-align": "middle" }
+          },
+          [_c("img", { attrs: { src: "/images/logo.png" } })]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

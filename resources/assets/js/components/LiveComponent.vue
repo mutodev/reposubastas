@@ -1,6 +1,12 @@
 <template>
-    <div v-if="auction.finished">
-        finished
+    <div v-if="!auction.property">
+        <table style="height: 500px;width: 100%">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <img src="/images/logo.png" />
+                </td>
+            </tr>
+        </table>
     </div>
     <div v-else-if="auction.property">
         <div class="container-fluid">
@@ -12,6 +18,8 @@
                         </div>
                         <div class="property-badges">
                             <span class="badge badge-dark">{{ auction.propertyEvent.number }}</span>
+
+                            <span v-if="auction.property.status_id && auction.property.status.is_public" class="badge badge-danger">{{ auction.property.status.name_es }}</span>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title mb-0">{{ auction.property.address }}, {{ auction.property.city }}</h5>
