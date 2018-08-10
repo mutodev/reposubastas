@@ -161,15 +161,6 @@ class PropertiesController extends Controller
             $model = new Model;
         }
 
-//        foreach ((array)$formValues['images'] as $i => $image) {
-//            $index = $i+1;
-//            $imageFilename = uniqid("{$index}_").'.'.$image->extension();
-//
-//            if (Storage::disk('s3')->put($imageFilename, file_get_contents($image->path()), 'public')) {
-//                $formValues["image{$index}"] = $imageFilename;
-//            }
-//        }
-
         if ($formValues['sold_closing_at']) {
             $formValues['sold_closing_at'] = date('Y-m-d H:i:s', strtotime($formValues['sold_closing_at']));
         } else {
