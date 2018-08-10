@@ -30,7 +30,7 @@ class Auction extends Event implements ShouldBroadcast
     {
         $this->property = $property;
         $this->propertyEvent = $propertyEvent;
-        $this->bids = $property->getBids($propertyEvent->event_id)->toArray();
+        $this->bids = []; //$property->getBids($propertyEvent->event_id)->toArray();
     }
 
     /**
