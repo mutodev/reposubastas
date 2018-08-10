@@ -120,14 +120,6 @@
                                 <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
                             </div>
 
-                            @if(!$online)
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
-                                <br />
-                                <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
-                            </div>
-                            @endif
-
                             <?php
                                 if (!$online) {
                                     $endAt->subDays(2);
@@ -138,7 +130,15 @@
                                 $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
                             ?>
 
-                            @if($days)
+                            @if(!$online && $days > 5)
+                            <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
+                                <br />
+                                <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
+                            </div>
+                            @endif
+
+                            @if($days > 5)
                                 <div class="price mt-3">
                                     <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
                                 </div>
