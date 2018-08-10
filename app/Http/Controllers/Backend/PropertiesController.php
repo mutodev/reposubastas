@@ -115,15 +115,15 @@ class PropertiesController extends Controller
             $endAt =$model->end_at;
 
             if ($model->sold_closing_at) {
-                $model->sold_closing_at = date("Y-m-d\TH:i:s", strtotime($model->sold_closing_at));
+                $model->sold_closing_at = date("Y-m-d", strtotime($model->sold_closing_at));
             }
 
             if ($model->optioned_approved_at) {
-                $model->optioned_approved_at = date("Y-m-d\TH:i:s", strtotime($model->optioned_approved_at));
+                $model->optioned_approved_at = date("Y-m-d", strtotime($model->optioned_approved_at));
             }
 
             if ($model->optioned_end_at) {
-                $model->optioned_end_at = date("Y-m-d\TH:i:s", strtotime($model->optioned_end_at));
+                $model->optioned_end_at = date("Y-m-d", strtotime($model->optioned_end_at));
             }
         }
 
