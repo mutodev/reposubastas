@@ -23,8 +23,14 @@ class UsersController extends Controller
      */
     public function index(Request $request, Event $event = null)
     {
+        $inEvent = !empty($event->id);
+
         $models = Model::select('users.*', 'user_event.number', 'user_event.original_deposit', 'user_event.remaining_deposit', 'user_event.is_active as event_is_active')
             ->leftJoin('user_event', 'user_event.user_id', '=', 'users.id');
+
+        if (!$inEvent) {
+            $models->role('Admin');
+        }
 
         if ($event) {
             $models->where('user_event.event_id', '=', $event->id);
