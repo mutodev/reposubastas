@@ -151,10 +151,11 @@
             $count = 1;
             $row = 0;
             $admin = request('admin');
+            $columns = request('columns', 2)
         ?>
         <div class="properties">
         <?php foreach($properties as $property): ?>
-            <div class="property @if($count == 2) mx-0 @endif">
+            <div class="property @if($count == $columns) mx-0 @endif">
                 <img class="card-img-top" height="120" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
                 <div class="property-city text-center">
                     {{ $property->city }}
@@ -213,7 +214,7 @@
                     </table>
                 </div>
             </div>
-            @if ($count == 2)
+            @if ($count == $columns)
                 <?php $count = 0; ?>
                 <div style="clear: both"></div>
             @endif
