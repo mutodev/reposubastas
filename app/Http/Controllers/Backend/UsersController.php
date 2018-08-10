@@ -34,14 +34,9 @@ class UsersController extends Controller
         if ($keywords = $request->get('keywords')) {
             $keywords = "%{$keywords}%";
 
-            $allmodels = Model::select('users.*', 'user_event.number', 'user_event.original_deposit', 'user_event.remaining_deposit', 'user_event.is_active as event_is_active')
-                ->leftJoin('user_event', 'user_event.user_id', '=', 'users.id');
-
-            $allmodels->whereRaw('(user_event.event_id IS NULL OR user_event.event_id != ?)', [$event->id]);
-            $allmodels->whereRaw('(users.name LIKE ?)', [
-                $keywords
+            $models->whereRaw('(users.name LIKE ? OR users.email LIKE ? OR users.phone LIKE ?)', [
+                $keywords, $keywords, $keywords
             ]);
-            $allmodels = $allmodels->get();
         }
 
         $models = $models->orderBy('user_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
