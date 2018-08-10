@@ -87,7 +87,7 @@ class PropertiesController extends Controller
         $bids = \App\Models\Bid::with(['property.status' => function ($query) {
                 $query->whereIn('property_status.slug', ['APPROVED', 'OPTIONED', 'SOLD']);
             }])
-            ->where('event_id', '=', $event->id)->orderBy('created_at', 'desc')->get()->unique('property_id')->toArray();
+            ->where('event_id', '=', $event->id)->orderBy('bid.offer', 'desc')->get()->unique('property_id')->toArray();
 
         $bidsTotal = 0;
         foreach ($bids as $bid) {
