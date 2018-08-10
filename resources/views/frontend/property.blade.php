@@ -138,7 +138,7 @@
                                 $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
                             ?>
 
-                            @if($days || $hours || $minutes)
+                            @if($days)
                                 <div class="price mt-3">
                                     <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
                                 </div>

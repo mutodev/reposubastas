@@ -34,8 +34,8 @@ class UsersController extends Controller
         if ($keywords = $request->get('keywords')) {
             $keywords = "%{$keywords}%";
 
-            $models->whereRaw('(users.name LIKE ? OR users.email LIKE ? OR users.phone LIKE ?)', [
-                $keywords, $keywords, $keywords
+            $models->whereRaw('(users.name LIKE ? OR users.email LIKE ? OR users.phone LIKE ? OR users.broker_name LIKE ? OR users.spouse_name LIKE ? OR users.license LIKE ?)', [
+                $keywords, $keywords, $keywords, $keywords, $keywords, $keywords
             ]);
         }
 

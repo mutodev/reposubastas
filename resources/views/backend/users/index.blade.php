@@ -60,7 +60,7 @@
         {{ __('Total:') }} {{ $models->total()  }}
     </div>
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 @if ($event)
@@ -69,7 +69,13 @@
                 </th>
                 @endif
                 <th>
-                    {{ __('Name') }}
+                    {{ __('Client') }}
+                </th>
+                <th>
+                    {{ __('Spouse') }}
+                </th>
+                <th>
+                    {{ __('Broker') }}
                 </th>
                 <th>
                     {{ __('Email') }}
@@ -95,7 +101,9 @@
                         {{ $model->number }}
                     </td>
                     @endif
-                    <td width="100%">{{ $model->name }}</td>
+                    <td>{{ $model->name }}</td>
+                    <td>{{ $model->spouse_name }}</td>
+                    <td>{{ $model->broker_name }}</td>
                     <td>{{ $model->email }}</td>
                     <td>{{ $model->phone }}</td>
                     @if ($event)

@@ -64,7 +64,7 @@
         {{ __('Total:') }} {{ $models->total() }}
     </div>
 
-    <table class="table mt-3">
+    <table class="table table-bordered mt-3">
         <thead>
             <tr>
                 <th>
