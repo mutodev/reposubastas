@@ -64,7 +64,27 @@ class PropertiesController extends Controller
 
         $models = $query->orderBy('property_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
 
-        return view('backend.properties.index', compact('models', 'events', 'event'));
+        $properties = \App\Models\Property::with(['status', 'events' => function ($query) use ($event) {
+            $query->where('events.id', $event->id);
+        }])
+            ->whereNotNull('properties.status_id')->get();
+
+        $byStatus = [];
+        foreach ($properties as $property) {
+            $byStatus[$property->status->name_en] = @$byStatus[$property->status->name_en] + 1;
+        }
+
+        $bids = \App\Models\Bid::with(['property.status' => function ($query) {
+                $query->whereIn('property_status.slug', ['APPROVED', 'OPTIONED', 'SOLD']);
+            }])
+            ->where('event_id', '=', $event->id)->orderBy('created_at', 'desc')->get()->unique('property_id')->toArray();
+
+        $bidsTotal = 0;
+        foreach ($bids as $bid) {
+            $bidsTotal += (float)$bid['offer'];
+        }
+
+        return view('backend.properties.index', compact('models', 'events', 'event', 'bidsTotal', 'byStatus'));
     }
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)

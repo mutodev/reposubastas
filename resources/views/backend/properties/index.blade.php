@@ -64,6 +64,23 @@
         {{ __('Total:') }} {{ $models->total() }}
     </div>
 
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th>Sum of bids</th>
+            @foreach($byStatus as $status => $total)
+                <th>{{ $status }}</th>
+            @endforeach
+        </tr>
+        <tr>
+            <td>${{ number_format($bidsTotal) }}</td>
+            @foreach($byStatus as $total)
+                <td>{{ number_format($total) }}</td>
+            @endforeach
+        </tr>
+        </tbody>
+    </table>
+
     <table class="table table-bordered mt-3">
         <thead>
             <tr>

@@ -50,9 +50,9 @@
                                 {{ __('Actions') }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a  class="dropdown-item" href="{{ route('backend.events.view', ['id' => $model->id]) }}">
-                                    {{ __('View')  }}
-                                </a>
+                                {{--<a  class="dropdown-item" href="{{ route('backend.events.view', ['id' => $model->id]) }}">--}}
+                                    {{--{{ __('View')  }}--}}
+                                {{--</a>--}}
                                 <a  class="dropdown-item" href="{{ route('backend.properties.index', ['event' => $model->id]) }}">
                                     {{ __('Properties')  }}
                                 </a>

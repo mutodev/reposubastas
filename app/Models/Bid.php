@@ -21,6 +21,11 @@ class Bid extends Model
         'is_winner'
     ];
 
+    public function property()
+    {
+        return $this->belongsTo('App\Models\Property', 'property_id');
+    }
+
     public static function boot(){
         parent::boot();
 

@@ -72,14 +72,27 @@ class EventsController extends Controller
 
     public function view(Model $model)
     {
-        $bids = \App\Models\Bid::where('event_id', '=', $model->id)->orderBy('id', 'desc')->get()->unique('property_id')->toArray();
+        $properties = \App\Models\Property::with(['status', 'events' => function ($query) use ($model) {
+                $query->where('events.id', $model->id);
+            }])
+            ->whereNotNull('properties.status_id')->get();
+
+        $byStatus = [];
+        foreach ($properties as $property) {
+            $byStatus[$property->status->name_en] = @$byStatus[$property->status->name_en] + 1;
+        }
+
+        $bids = \App\Models\Bid::with(['property.status' => function ($query) use ($model) {
+                $query->whereIn('property_status.slug', ['APPROVED', 'OPTIONED', 'SOLD']);
+            }])
+            ->where('event_id', '=', $model->id)->orderBy('created_at', 'desc')->get()->unique('property_id')->toArray();
 
         $bidsTotal = 0;
         foreach ($bids as $bid) {
             $bidsTotal += (float)$bid['offer'];
         }
 
-        return view('backend.events.view', compact('model', 'bidsTotal'));
+        return view('backend.events.view', compact('model', 'bidsTotal', 'byStatus'));
     }
 
     public function live(Model $model)

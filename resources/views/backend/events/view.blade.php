@@ -28,6 +28,12 @@
                 <th>Sum of bids</th>
                 <td>${{ number_format($bidsTotal) }}</td>
             </tr>
+            @foreach($byStatus as $status => $total)
+                <tr>
+                    <th>{{ $status }}</th>
+                    <td>{{ number_format($total) }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
