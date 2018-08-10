@@ -186,7 +186,9 @@
                                     @endif
                                 @else
                                     <strong>{{ __('Reserve') }}:</strong> ${{ number_format($property->reserve) }}<br />
-                                    <strong>{{ __('Investor') }}:</strong> {{ $property->investor->name }}
+                                    @if ($property->investor_id)
+                                        <strong>{{ __('Investor') }}:</strong> {{ $property->investor->name }} (#{{ $property->investor_reference_id }})
+                                    @endif
                                 @endif
                             </td>
                             <td valign="top">

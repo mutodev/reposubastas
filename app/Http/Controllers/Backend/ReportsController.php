@@ -21,6 +21,7 @@ class ReportsController extends Controller
                 $join->on('user_event.user_id', '=', 'properties.optioned_by');
                 $join->on('user_event.event_id', '=', \DB::raw($event->id));
             })
+            ->where('property_event.number', '>', 0)
             ->orderBy('property_event.number')->get();
 
         header('Content-Type: application/csv');
@@ -57,8 +58,8 @@ class ReportsController extends Controller
 
             fputcsv($file, [
                 $property->catalog_number,
-                $property->investor->name,
-                $property->investor_reference_id,
+                ($property->investor_id ? $property->investor->name : null),
+                ($property->investor_id ? $property->investor_reference_id : null),
                 $property->address,
                 $property->city,
                 $property->lister_broker,
