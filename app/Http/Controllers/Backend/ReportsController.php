@@ -62,9 +62,9 @@ class ReportsController extends Controller
                 ($lastBid ? $lastBid->number : null),
                 $status ? $status->name_en : null,
                 $property->sold_closing_at,
-                ($lastBid ? $lastBid->offer : null),
+                $property->optioned_price,
                 ($lastBid ? $lastBid->name : null),
-                $property->deposit,
+                $property->check_amount,
                 $property->optioned_method,
                 $property->comments
             ]);

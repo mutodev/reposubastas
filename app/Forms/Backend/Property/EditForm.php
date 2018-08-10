@@ -41,7 +41,7 @@ class EditForm extends Form
             ->add('optioned_price', 'number', ['label' => __('Approved Sale Price')])
             ->add('check_number', 'text')
             ->add('check_type', 'text')
-            ->add('check_amount', 'number')
+            ->add('check_amount', 'number', ['label' => __('Optioned Deposit Amount')])
             ->add('bank', 'text')
             ->add('optioned_method', 'select', [
                 'choices' => [
