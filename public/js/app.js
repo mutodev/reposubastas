@@ -56544,6 +56544,14 @@ var render = function() {
                                     )
                                   ]
                                 )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.auction.property.is_cash_only
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger" },
+                                  [_vm._v("Solo Cash")]
+                                )
                               : _vm._e()
                           ]),
                           _vm._v(" "),
