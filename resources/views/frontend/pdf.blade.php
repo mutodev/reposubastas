@@ -140,6 +140,10 @@
             border-top-left-radius: 4px !important;
             border-top-right-radius: 4px !important;
         }
+
+        .adminText {
+            font-size: 10px;
+        }
     </style>
 
     <?php $propertiesByNumber->chunk(6, function($properties) { ?>
@@ -185,10 +189,12 @@
                                         <strong>{{ __('Cuerdas') }}:</strong> {{ round($property->cuerdas, 2) }}
                                     @endif
                                 @else
-                                    <strong>{{ __('Reserve') }}:</strong> ${{ number_format($property->reserve) }}<br />
-                                    @if ($property->investor_id)
-                                        <strong>{{ __('Investor') }}:</strong> {{ $property->investor->name }} (#{{ $property->investor_reference_id }})
-                                    @endif
+                                    <span class="adminText">
+                                        <strong>{{ __('Reserve') }}:</strong> ${{ number_format($property->reserve) }}<br />
+                                        @if ($property->investor_id)
+                                            <strong>{{ __('Investor') }}:</strong> {{ $property->investor->name }} (#{{ $property->investor_reference_id }})
+                                        @endif
+                                    </span>
                                 @endif
                             </td>
                             <td valign="top">
@@ -200,7 +206,7 @@
                                         <br /><strong>{{ __('Baths') }}:</strong> {{ number_format($property->bathrooms) }}
                                     @endif
                                 @else
-                                    <strong>{{ __('Last Offer') }}:</strong> ${{ number_format(@$property->getBids($property->event_id)[0]['offer']) }}
+                                    <span class="adminText"><strong>{{ __('Last Offer') }}:</strong> ${{ number_format(@$property->getBids($property->event_id)[0]['offer']) }}</span>
                                 @endif
                             </td>
                         </tr>
