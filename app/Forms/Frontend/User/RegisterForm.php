@@ -19,7 +19,7 @@ class RegisterForm extends Form
 
         $this
             ->add('name', 'text', ['label' => __('Name'), 'rules' => 'required'])
-            ->add('email', 'text', ['label' => __('Email'), 'rules' => "required|string|email|max:255|unique:users"])
+            ->add('email', 'text', ['label' => __('Email'), 'rules' => "required|string|email|max:255"])
             ->add('password', 'password', ['label' => __('Password'), 'rules' => "{$required}string|min:6"])
 //            ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => "{$required}"])
             ->add('martial_status', 'select', [
@@ -56,7 +56,7 @@ class RegisterForm extends Form
                 'policy' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'policy']).'">'.__('Privacy Policy').'</a>'
             ])]);
         } else {
-            $this->add('number', 'text', ['label' => __('Number (# Paleta)'), 'rules' => 'required']);
+            $this->add('number', 'text', ['label' => __('Number (# Paleta)')]);
         }
 
         $this->add('submit', 'submit', ['label' => __('Register')]);

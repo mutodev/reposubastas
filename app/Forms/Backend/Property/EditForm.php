@@ -35,7 +35,7 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
-            ->add('sold_closing_at', 'datetime-local')
+            ->add('sold_closing_at', 'date')
             ->add('optioned_by', 'select', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',
@@ -44,8 +44,8 @@ class EditForm extends Form
                 'selected' => ($this->model && $this->model->optioned_by) ? $this->model->optioned_by : null,
                 'choices' => $usersArray
             ])
-            ->add('optioned_approved_at', 'datetime-local')
-            ->add('optioned_end_at', 'datetime-local')
+            ->add('optioned_approved_at', 'date')
+            ->add('optioned_end_at', 'date')
             ->add('optioned_price', 'number', ['label' => __('Approved Sale Price')])
             ->add('check_number', 'text')
             ->add('check_type', 'text')
