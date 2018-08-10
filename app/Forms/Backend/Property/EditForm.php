@@ -13,7 +13,6 @@ class EditForm extends Form
     {
         $event = $this->getData('event');
 
-
         $users = $models = \App\User::select('users.*', 'user_event.number')
         ->leftJoin('user_event', function ($join) use ($event) {
             $join->on('user_event.user_id', '=', 'users.id');
