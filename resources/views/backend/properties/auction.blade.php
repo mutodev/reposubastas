@@ -21,22 +21,22 @@
                     </button>
                 </div>
             </div>
-            <button data-url="{{ route('backend.properties.auction', ['model' => $model->id, 'event' => $event->id, 'celebrate' => 1]) }}" class="celebrate dropdown-item">
+            <button data-url="{{ route('backend.properties.auction', ['model' => $model->id, 'event' => $event->id, 'celebrate' => 1]) }}" class="suspense d-inline btn btn-outline-success">
                 {{ __('Celebrate') }}
             </button>
-            <div class="d-inline dropdown">
-                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ __('Close Auction') }}
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    @foreach(App\Models\PropertyStatus::forSelect() as $value => $label)
-                        @if($loop->first) @continue @endif
-                        <a  class="dropdown-item" href="{{ route('backend.properties.auction.finish', ['model' => $model->id, 'event' => $event->id, 'status_id' => $value]) }}">
-                            {{ $label  }}
-                        </a>
-                    @endforeach
-                </div>
-            </div>
+            {{--<div class="d-inline dropdown">--}}
+                {{--<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                    {{--{{ __('Close Auction') }}--}}
+                {{--</button>--}}
+                {{--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">--}}
+                    {{--@foreach(App\Models\PropertyStatus::forSelect() as $value => $label)--}}
+                        {{--@if($loop->first) @continue @endif--}}
+                        {{--<a  class="dropdown-item" href="{{ route('backend.properties.auction.finish', ['model' => $model->id, 'event' => $event->id, 'status_id' => $value]) }}">--}}
+                            {{--{{ $label  }}--}}
+                        {{--</a>--}}
+                    {{--@endforeach--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <a class="d-inline btn btn-outline-danger" href="{{ route('backend.properties.auction.next', ['event' => $event->id, 'number' => $modelEvent->number, 'operator' => '<']) }}">
                 {{ __('Prev') }}
             </a>

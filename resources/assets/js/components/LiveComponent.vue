@@ -68,7 +68,7 @@
                 <div class="col">
                     <table style="height: 100%;width: 100%">
                         <tr>
-                            <td style="text-align: center; vertical-align: middle;">
+                            <td class="bidingArea" style="text-align: center; vertical-align: middle;">
                                 <img src="/images/logocenter.png" width="50%" />
                                 <br />
                                 <br />

@@ -56572,6 +56572,7 @@ var render = function() {
                       _c(
                         "td",
                         {
+                          staticClass: "bidingArea",
                           staticStyle: {
                             "text-align": "center",
                             "vertical-align": "middle"

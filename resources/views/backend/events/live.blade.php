@@ -11,10 +11,6 @@
             font-size: 4em;
         }
 
-        .backgroundRed{
-            background: #ff244d;
-        }
-
         .auctionBackground .row {
             position: absolute;
             top: 0;
@@ -34,6 +30,22 @@
             z-index: 9999999999;
         }
 
+        .auctionBackground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .backgroundRed {
+            background: #ff244d;
+        }
+
+        .backgroundRed .bidingArea {
+            color: white;
+        }
+
         .celebrate img {
             width: 100%;
         }
@@ -44,6 +56,7 @@
     <div class="celebrate">
         <img src="/images/celebrate.gif">
     </div>
+    <div class="background"></div>
     <div class="auctionBackground p-5">
         <live-component :auction="auction"></live-component>
     </div>
