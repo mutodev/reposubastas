@@ -19,7 +19,7 @@ class RegisterForm extends Form
 
         $this
             ->add('name', 'text', ['label' => __('Name'), 'rules' => 'required'])
-            ->add('email', 'text', ['label' => __('Email'), 'rules' => "{$required}string|email|max:255{$emailUnique}"])
+            ->add('email', 'text', ['label' => __('Email'), 'rules' => "required|string|email|max:255|unique:users"])
             ->add('password', 'password', ['label' => __('Password'), 'rules' => "{$required}string|min:6"])
 //            ->add('password_confirmation', 'password', ['label' => __('Password Confirmation'), 'rules' => "{$required}"])
             ->add('martial_status', 'select', [

@@ -11,7 +11,7 @@ class ReportsController extends Controller
 {
     public function report(Request $request, Event $event)
     {
-        $properties = Property::select('properties.*', 'property_event.number', 'property_event.is_active', 'user_event.number')
+        $properties = Property::select('properties.*', 'property_event.number as catalog_number', 'property_event.is_active', 'user_event.number as user_number')
             ->with(['type', 'status', 'investor', 'optionedUser'])
             ->join('property_event', function ($join) use ($event) {
                 $join->on('property_event.property_id', '=', 'properties.id');
@@ -50,20 +50,20 @@ class ReportsController extends Controller
 
             $status = $property->status_id ? $property->status : null;
 
-            $lastBid = null;
-            if ($status && in_array($status->slug, ['APPROVED', 'OPTIONED', 'SOLD'])) {
-                $lastBid = $property->getBids($event->id)->first();
-            }
+//            $lastBid = null;
+//            if ($status && in_array($status->slug, ['APPROVED', 'OPTIONED', 'SOLD'])) {
+//                $lastBid = $property->getBids($event->id)->first();
+//            }
 
             fputcsv($file, [
-                $property->number,
+                $property->catalog_number,
                 $property->investor->name,
                 $property->investor_reference_id,
                 $property->address,
                 $property->city,
                 $property->lister_broker,
                 $property->seller_broker,
-                ($lastBid ? $lastBid->number : null),
+                $property->user_number,
                 $status ? $status->name_en : null,
                 $property->sold_closing_at,
                 $property->optioned_price,
