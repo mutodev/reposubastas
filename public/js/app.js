@@ -15349,7 +15349,7 @@ var app = new Vue({
 
       this.auction.suspense = setInterval(function () {
         $('.auctionBackground').toggleClass("backgroundRed");
-      }, 800);
+      }, 500);
     },
     stopSuspense: function stopSuspense() {
       if (!this.auction.suspense) {
@@ -56464,6 +56464,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['auction'],
@@ -56489,45 +56493,63 @@ var render = function() {
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "wm" }, [
-                    _c("img", {
-                      staticClass: "card-img-top",
-                      staticStyle: { "max-height": "600px" },
-                      attrs: {
-                        width: "100%",
-                        src:
-                          "https://s3.amazonaws.com/reposubastas/" +
-                          _vm.auction.property[
-                            "image" + _vm.auction.property.main_image
-                          ]
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "property-badges" }, [
-                    _c("span", { staticClass: "badge badge-dark" }, [
-                      _vm._v(_vm._s(_vm.auction.propertyEvent.number))
-                    ]),
-                    _vm._v(" "),
-                    _vm.auction.property.status_id &&
-                    _vm.auction.property.status.is_public
-                      ? _c("span", { staticClass: "badge badge-danger" }, [
-                          _vm._v(_vm._s(_vm.auction.property.status.name_es))
+                _c(
+                  "table",
+                  { staticStyle: { height: "100%", width: "100%" } },
+                  [
+                    _c("tr", [
+                      _c("td", { staticStyle: { "ertical-align": "middle" } }, [
+                        _c("div", { staticClass: "card" }, [
+                          _c("div", { staticClass: "wm" }, [
+                            _c("img", {
+                              staticClass: "card-img-top",
+                              staticStyle: { "max-height": "600px" },
+                              attrs: {
+                                width: "100%",
+                                src:
+                                  "https://s3.amazonaws.com/reposubastas/" +
+                                  _vm.auction.property[
+                                    "image" + _vm.auction.property.main_image
+                                  ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "property-badges" }, [
+                            _c("span", { staticClass: "badge badge-dark" }, [
+                              _vm._v(_vm._s(_vm.auction.propertyEvent.number))
+                            ]),
+                            _vm._v(" "),
+                            _vm.auction.property.status_id &&
+                            _vm.auction.property.status.is_public
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger" },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.auction.property.status.name_es
+                                      )
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("h5", { staticClass: "card-title mb-0" }, [
+                              _vm._v(
+                                _vm._s(_vm.auction.property.address) +
+                                  ", " +
+                                  _vm._s(_vm.auction.property.city)
+                              )
+                            ])
+                          ])
                         ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h5", { staticClass: "card-title mb-0" }, [
-                      _vm._v(
-                        _vm._s(_vm.auction.property.address) +
-                          ", " +
-                          _vm._s(_vm.auction.property.city)
-                      )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col" }, [
@@ -56546,21 +56568,17 @@ var render = function() {
                         },
                         [
                           _c("img", {
-                            attrs: { src: "/images/logo.png", width: "50%" }
+                            attrs: {
+                              src: "/images/logocenter.png",
+                              width: "50%"
+                            }
                           }),
                           _vm._v(" "),
                           _c("br"),
                           _vm._v(" "),
                           _c("br"),
                           _vm._v(" "),
-                          _c("h2", { staticClass: "mt-3" }, [
-                            _c("span", [
-                              _vm._v(
-                                "Precio de venta: " +
-                                  _vm._s(_vm.price(_vm.auction.property.price))
-                              )
-                            ])
-                          ]),
+                          _c("h2", [_vm._v("Licitación")]),
                           _vm._v(" "),
                           _vm._l(_vm.auction.bids.slice(0, 1), function(bid) {
                             return _c(

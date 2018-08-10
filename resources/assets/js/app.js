@@ -43,7 +43,7 @@ const app = new Vue({
 
       this.auction.suspense = setInterval(function(){
         $('.auctionBackground').toggleClass("backgroundRed");
-      }, 800);
+      }, 500);
     },
     stopSuspense: function() {
       if (!this.auction.suspense) {
