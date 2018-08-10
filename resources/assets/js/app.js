@@ -57,9 +57,11 @@ const app = new Vue({
     startCelebrate: function() {
 
       $('.celebrate').show();
+      $('.celebrate img').attr('src', '/images/celebrate.gif');
 
       setTimeout(function () {
         $('.celebrate').hide();
+        $('.celebrate img').attr('src', 'gg');
       }, 8000);
     }
   }

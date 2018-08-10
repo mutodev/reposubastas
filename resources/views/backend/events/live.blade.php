@@ -28,6 +28,7 @@
             right: 0;
             bottom: 0;
             z-index: 9999999999;
+            overflow: hidden;
         }
 
         .auctionBackground {
@@ -54,7 +55,7 @@
 
 @section('main')
     <div class="celebrate">
-        <img src="/images/celebrate.gif">
+        <img src="">
     </div>
     <div class="background"></div>
     <div class="auctionBackground p-5">
@@ -63,5 +64,5 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="{{ asset('js/app.js', false) }}?v3" defer></script>
+    <script src="{{ asset('js/app.js', false) }}?v4" defer></script>
 @endsection

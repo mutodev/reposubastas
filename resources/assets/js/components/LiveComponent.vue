@@ -3,7 +3,7 @@
         <table style="height: 500px;width: 100%">
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
-                    <img src="/images/logo.png" />
+                    <img src="/images/logocenter.png" />
                 </td>
             </tr>
         </table>

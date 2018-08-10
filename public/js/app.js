@@ -15363,9 +15363,11 @@ var app = new Vue({
     startCelebrate: function startCelebrate() {
 
       $('.celebrate').show();
+      $('.celebrate img').attr('src', '/images/celebrate.gif');
 
       setTimeout(function () {
         $('.celebrate').hide();
+        $('.celebrate img').attr('src', 'gg');
       }, 8000);
     }
   }
@@ -56644,7 +56646,7 @@ var staticRenderFns = [
           {
             staticStyle: { "text-align": "center", "vertical-align": "middle" }
           },
-          [_c("img", { attrs: { src: "/images/logo.png" } })]
+          [_c("img", { attrs: { src: "/images/logocenter.png" } })]
         )
       ])
     ])
