@@ -17,6 +17,7 @@ class PropertyStatus extends Model
     protected $fillable = [
         'name_es',
         'name_en',
+        'slug',
         'is_public'
     ];
 

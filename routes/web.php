@@ -104,6 +104,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         });
 
         Route::prefix('{event}')->group(function () {
+            Route::get('report', 'Backend\ReportsController@report')->name('backend.reports.report');
+
             Route::prefix('properties')->group(function () {
                 Route::get('/', 'Backend\PropertiesController@index')->name('backend.properties.index');
                 Route::get('edit/{model?}', 'Backend\PropertiesController@edit')->name('backend.properties.edit');

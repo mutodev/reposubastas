@@ -65,6 +65,9 @@
                                 <a  class="dropdown-item" target="_blank" href="{{ route('backend.event.live', ['model' => $model->id]) }}">
                                     {{ __('Live')  }}
                                 </a>
+                                <a target="_blank" class="dropdown-item" href="{{ route('backend.reports.report', ['event' => $model->id]) }}">
+                                    {{ __('Report')  }}
+                                </a>
                             </div>
                         </div>
                     </td>

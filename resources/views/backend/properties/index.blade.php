@@ -25,6 +25,9 @@
                 <a target="_blank" class="dropdown-item" href="http://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', ['pageSlug' => 'properties', 'locale' => 'en', 'pdftest' => 1, 'admin' => 1, 'event_type' => 'LIVE'])) }}">
                     {{ __('Generate Admin PDF (English)') }}
                 </a>
+                <a target="_blank"  class="dropdown-item" href="{{ route('backend.reports.report', ['event' => $event->id]) }}">
+                    {{ __('Report')  }}
+                </a>
             </div>
         </div>
     </div>

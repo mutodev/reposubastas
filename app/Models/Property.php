@@ -85,7 +85,8 @@ class Property extends Model
         'financing_phone',
         'financing_contact',
         'main_image',
-        'sold_closing_at'
+        'sold_closing_at',
+        'comments'
     ];
 
     public function events()

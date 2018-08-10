@@ -18,6 +18,7 @@ class CreatePropertyStatusTable extends Migration
             $table->string('name_es');
             $table->string('name_en');
             $table->boolean('is_public');
+            $table->string('slug');
             $table->timestamps();
         });
     }

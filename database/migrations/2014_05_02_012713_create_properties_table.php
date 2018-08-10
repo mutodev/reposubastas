@@ -80,6 +80,7 @@ class CreatePropertiesTable extends Migration
             $table->string('financing_phone')->nullable();
             $table->string('financing_contact')->nullable();
             $table->decimal('optioned_price', 16)->nullable();
+            $table->text('comments')->nullable();
             $table->timestamps();
 
             $table->foreign('status_id')->references('id')->on('property_status');

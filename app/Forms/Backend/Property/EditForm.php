@@ -91,6 +91,7 @@ class EditForm extends Form
             ->add('lister_broker', 'text')
             ->add('seller_broker', 'text')
             ->add('commission', 'number', ['label' => __('Commission (%)')])
+            ->add('comments', 'textarea')
             ->add('submit', 'submit', ['label' => __('Save')]);
     }
 }

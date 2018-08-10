@@ -11,6 +11,9 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ route('backend.users.edit') }}?event_id={{ $model->id }}">{{ __('Add New User') }}</a>
                 <a class="dropdown-item" href="{{ route('backend.properties.edit', ['event' => $model->id]) }}">{{ __('Add New Property') }}</a>
+                <a target="_blank" class="dropdown-item" href="{{ route('backend.reports.report', ['event' => $model->id]) }}">
+                    {{ __('Report')  }}
+                </a>
             </div>
         </div>
     </div>
