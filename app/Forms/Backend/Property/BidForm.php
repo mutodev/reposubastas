@@ -9,7 +9,7 @@ class BidForm extends Form
     public function buildForm()
     {
         $this
-            ->add('number', 'number')
+            ->add('number', 'number', ['label' => __('Number (# Paleta)')])
             ->add('offer', 'number', ['rules' => 'required'])
             ->add('submit', 'submit', ['label' => __('Save')]);
     }
