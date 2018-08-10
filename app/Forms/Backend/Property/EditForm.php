@@ -32,6 +32,7 @@ class EditForm extends Form
             ->add('optioned_by', 'select', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',
+                'empty_value' => '-- Select One --',
                 'attr' => ['data-data' => ($this->model && $this->model->optioned_by) ? htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone])) : ''],
                 'selected' => ($this->model && $this->model->optioned_by) ? $this->model->optioned_by : null,
                 'choices' => $usersArray
@@ -47,7 +48,8 @@ class EditForm extends Form
                 'choices' => [
                     'FINANCED' => 'Financed',
                     'CASH'     => 'Cash'
-                ]
+                ],
+                'empty_value' => '-- Select One --',
             ])
             ->add('financing_bank', 'text')
             ->add('financing_phone', 'text')

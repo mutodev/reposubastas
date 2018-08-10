@@ -11,11 +11,15 @@ class ReportsController extends Controller
 {
     public function report(Request $request, Event $event)
     {
-        $properties = Property::select('properties.*', 'property_event.number', 'property_event.is_active')
-            ->with(['type', 'status', 'investor'])
+        $properties = Property::select('properties.*', 'property_event.number', 'property_event.is_active', 'user_event.number')
+            ->with(['type', 'status', 'investor', 'optionedUser'])
             ->join('property_event', function ($join) use ($event) {
                 $join->on('property_event.property_id', '=', 'properties.id');
                 $join->on('property_event.event_id', '=', \DB::raw($event->id));
+            })
+            ->leftJoin('user_event', function ($join) use ($event) {
+                $join->on('user_event.user_id', '=', 'properties.optioned_by');
+                $join->on('user_event.event_id', '=', \DB::raw($event->id));
             })
             ->orderBy('property_event.number')->get();
 
@@ -63,7 +67,7 @@ class ReportsController extends Controller
                 $status ? $status->name_en : null,
                 $property->sold_closing_at,
                 $property->optioned_price,
-                ($lastBid ? $lastBid->name : null),
+                ($property->optioned_by ? $property->optionedUser->name : null),
                 $property->check_amount,
                 $property->optioned_method,
                 $property->comments
