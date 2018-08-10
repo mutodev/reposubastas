@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Forms\Frontend\User\RegisterForm;
 use App\Forms\Backend\User\RegisterToEventForm;
+use App\Forms\Backend\User\EditForm;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -46,10 +47,12 @@ class UsersController extends Controller
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
+        $inEvent = !empty($event->id);
+
         if ($model) {
             $model->password = null;
 
-            if ($event) {
+            if ($inEvent) {
                 $modelEvent = DB::table('user_event')
                     ->where('user_id', '=', $model->id)
                     ->where('event_id', '=', $event->id)->first();
@@ -61,12 +64,15 @@ class UsersController extends Controller
             }
         }
 
-        $form = $formBuilder->create(RegisterForm::class, [
+        $formClass = $inEvent? RegisterForm::class : EditForm::class;
+
+        $form = $formBuilder->create($formClass, [
             'method' => 'POST',
             'url'    => Model::url('store', @$model->id, @$event->id),
             'model'  => $model
         ], [
-            'isBackend' => true
+            'isBackend' => true,
+            'event' => $event
         ]);
 
         return view('backend.users.edit', compact('form', 'model', 'event'));
@@ -74,7 +80,10 @@ class UsersController extends Controller
 
     public function store(FormBuilder $formBuilder, Event $event, Model $model = null)
     {
-        $form = $formBuilder->create(RegisterForm::class, [], [
+        $inEvent = !empty($event->id);
+        $formClass = $inEvent ? RegisterForm::class : EditForm::class;
+
+        $form = $formBuilder->create($formClass, [], [
             'isBackend' => true
         ]);
 
@@ -97,8 +106,13 @@ class UsersController extends Controller
         $model->fill($formValues);
         $model->save();
 
-        if ($event) {
+        if ($inEvent && @$formValues['number']) {
             $model->addToEvent($event->id, @$formValues['deposit'], $formValues['number']);
+        }
+
+        //Admin
+        if (!$inEvent) {
+            $model->assignRole('Admin');
         }
 
         return redirect(Model::url('index', null, @$event->id));
