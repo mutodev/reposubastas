@@ -14,7 +14,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="wm">
-                            <img class="card-img-top" width="100%" v-bind:src="'https://s3.amazonaws.com/reposubastas/'+auction.property['image'+auction.property.main_image]">
+                            <img class="card-img-top" width="100%" style="max-height: 600px" v-bind:src="'https://s3.amazonaws.com/reposubastas/'+auction.property['image'+auction.property.main_image]">
                         </div>
                         <div class="property-badges">
                             <span class="badge badge-dark">{{ auction.propertyEvent.number }}</span>

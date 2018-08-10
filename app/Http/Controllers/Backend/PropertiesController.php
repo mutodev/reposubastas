@@ -245,10 +245,12 @@ class PropertiesController extends Controller
     public function nextAuction(Request $request, Event $event)
     {
         $number = $request->get('number');
+        $operator = $request->get('operator', '>');
 
         $modelEvent = DB::table('property_event')
-            ->where('number', '>', $number)
-            ->where('event_id', '=', $event->id)->first();
+            ->where('number', $operator, $number)
+            ->where('event_id', '=', $event->id)
+            ->orderBy('number', ($operator == '>' ? 'asc' : 'desc'))->first();
 
         if (!$modelEvent) {
             Session::flash('success', __('Theres no more properties in this event'));
@@ -265,7 +267,7 @@ class PropertiesController extends Controller
         $bid = $model->endAuction($event->id, $request->get('status_id'));
 
         if ($bid) {
-            Session::flash('success', "#{$bid->number} - {$bid->name} is the winner!");
+            Session::flash('success', "Auction closed with winner!");
         } else {
             Session::flash('success', "Auction closed without winner!");
         }

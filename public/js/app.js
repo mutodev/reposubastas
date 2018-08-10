@@ -56493,6 +56493,7 @@ var render = function() {
                   _c("div", { staticClass: "wm" }, [
                     _c("img", {
                       staticClass: "card-img-top",
+                      staticStyle: { "max-height": "600px" },
                       attrs: {
                         width: "100%",
                         src:

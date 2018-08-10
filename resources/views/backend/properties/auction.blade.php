@@ -34,8 +34,12 @@
                     @endforeach
                 </div>
             </div>
+            <a class="d-inline btn btn-outline-danger" href="{{ route('backend.properties.auction.next', ['event' => $event->id, 'number' => $modelEvent->number, 'operator' => '<']) }}">
+                {{ __('Prev') }}
+            </a>
+            &nbsp;
             <a class="d-inline btn btn-outline-success" href="{{ route('backend.properties.auction.next', ['event' => $event->id, 'number' => $modelEvent->number]) }}">
-                {{ __('Next Property Auction') }}
+                {{ __('Next') }}
             </a>
         </div>
     </div>
