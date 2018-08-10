@@ -50,13 +50,7 @@
                 <ul class="list-group">
                     @foreach ($bids as $bid)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            @if (!$bid->user_id)
-                                <a class="btn btn-sm btn-primary" href="{{ route('backend.properties.bid.edit', ['model' => $model->id, 'event' => $event->id, 'bid_id' => $bid->id]) }}" >
-                                    {{ __('Assign Number (# Paleta)') }}
-                                </a>
-                            @else
-                                <strong>(Paleta #{{ $bid->number }}) {{ $bid->name }}</strong>
-                            @endif
+                            <strong>(Paleta #{{ $bid->number }}) {{ $bid->name }}</strong>
                             {{--@if ($bid->is_winner)--}}
                                 {{--<span class="badge badge-success badge-pill">{{ __('winner') }}</span>--}}
                             {{--@endif--}}
@@ -66,19 +60,17 @@
                 </ul>
             </div>
         </div>
-        @if (!$winner)
-            <div class="col-sm">
-                <div class="card">
-                    <div class="card-header">
-                        {{ __('Make Offer') }}
-                    </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('Make Offer') }}
+                </div>
 
-                    <div class="card-body">
-                        {!! form($form) !!}
-                    </div>
+                <div class="card-body">
+                    {!! form($form) !!}
                 </div>
             </div>
-        @endif
+        </div>
     </div>
     <div class="row mt-4">
         <div class="col-sm">
@@ -90,7 +82,7 @@
                 <ul class="list-group">
                     @foreach ($users as $user)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            #{{ $user->number }} - {{ $user->name }}
+                            (Paleta #{{ $user->number }}) {{ $user->name }}
                         </li>
                     @endforeach
                 </ul>

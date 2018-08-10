@@ -116,7 +116,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::post('photos/{model?}', 'Backend\PropertiesController@photos')->name('backend.properties.photos2');
                 Route::post('store/{model?}', 'Backend\PropertiesController@store')->name('backend.properties.store');
                 Route::get('auction/{model}', 'Backend\PropertiesController@auction')->name('backend.properties.auction');
-                Route::get('auction/bid/{model}', 'Backend\PropertiesController@editBid')->name('backend.properties.bid.edit');
+                Route::get('bid/{model}', 'Backend\PropertiesController@bids')->name('backend.properties.bid.index');
+                Route::get('bid/edit/{model}', 'Backend\PropertiesController@editBid')->name('backend.properties.bid.edit');
                 Route::post('auction/{model}', 'Backend\PropertiesController@bidStore')->name('backend.properties.bid.store');
                 Route::get('auction/{model}/close', 'Backend\PropertiesController@finishAuction')->name('backend.properties.auction.finish');
                 Route::get('auction-next', 'Backend\PropertiesController@nextAuction')->name('backend.properties.auction.next');

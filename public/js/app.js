@@ -15367,7 +15367,7 @@ Echo.channel('local').listen('Auction', function (e) {
 }).listen('Bid', function (e) {
   //app.auction.finished = e.bid.is_winner;
 
-  if (!app.auction.finished) {
+  if (!app.auction.finished && app.auction.property.id == e.bid.property_id) {
     app.auction.bids = [e.bid].concat(app.auction.bids);
   }
 }).listen('Suspense', function (e) {

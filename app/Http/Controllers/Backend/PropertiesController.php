@@ -523,6 +523,7 @@ class PropertiesController extends Controller
 
     public function bidStore(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
     {
+        $target = $request->get('target', 'auction');
         $bidId = $request->get('bid_id', false);
         $form = $formBuilder->create(BidForm::class);
 
@@ -555,12 +556,32 @@ class PropertiesController extends Controller
         $bid->save();
 
         //Broadcast
-        if (!$bidId) {
+        if (!$bidId && $target == 'auction') {
             event(new \App\Events\Bid($bid, $userEvent));
         }
 
         Session::flash('success', __('Offer saved successfully!'));
 
-        return redirect()->route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
+        return redirect()->route('backend.properties.'.$target, ['event' => $event->id, 'model' => $model->id, 'loaded' => true]);
+    }
+
+    public function bids(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        $modelEvent = $model->getEventData($event->id);
+        $bids = $model->getBids($event->id);
+
+        //Users
+        $users = User::select('users.*', 'users.name', 'user_event.number')
+            ->where('user_event.event_id', '=', $event->id)
+            ->where('user_event.is_active', '=', true)
+            ->join('user_event', 'user_event.user_id', '=', 'users.id')->get();
+
+        $form = $formBuilder->create(BidForm::class, [
+            'method' => 'POST',
+            'class' => 'form-horizontal',
+            'url'    => route('backend.properties.bid.store', ['event' => $event->id, 'model' => $model->id, 'target' => 'bid.index']),
+        ]);
+
+        return view('backend.properties.bid.index', compact('form', 'model', 'event', 'modelEvent', 'bids', 'users'));
     }
 }
