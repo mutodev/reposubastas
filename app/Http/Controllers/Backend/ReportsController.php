@@ -11,7 +11,7 @@ class ReportsController extends Controller
 {
     public function report(Request $request, Event $event)
     {
-        $properties = Property::select('properties.*', 'property_event.number as catalog_number', 'property_event.is_active', 'user_event.number as user_number')
+        $properties = Property::select('properties.*', 'property_event.number as catalog_number', 'property_event.is_active', 'user_event.number as optioned_user_number')
             ->with(['type', 'status', 'investor', 'optionedUser'])
             ->join('property_event', function ($join) use ($event) {
                 $join->on('property_event.property_id', '=', 'properties.id');
@@ -64,7 +64,7 @@ class ReportsController extends Controller
                 $property->city,
                 $property->lister_broker,
                 $property->seller_broker,
-                $property->user_number,
+                ($property->optioned_user_number ? $property->optioned_user_number : $property->user_number),
                 $status ? $status->name_en : null,
                 $property->sold_closing_at,
                 $property->optioned_price,
