@@ -44,6 +44,7 @@ class EditForm extends Form
                 'selected' => ($this->model && $this->model->optioned_by) ? $this->model->optioned_by : null,
                 'choices' => $usersArray
             ])
+            ->add('user_number', 'text')
             ->add('optioned_approved_at', 'date')
             ->add('optioned_end_at', 'date')
             ->add('optioned_price', 'number', ['label' => __('Approved Sale Price')])

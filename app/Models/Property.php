@@ -87,7 +87,8 @@ class Property extends Model
         'main_image',
         'sold_closing_at',
         'comments',
-        'is_cash_only'
+        'is_cash_only',
+        'user_number'
     ];
 
     public function events()

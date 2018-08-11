@@ -12,7 +12,14 @@ if ($('#status_id').length) {
   $('#optioned_price').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
-      values: ['3', '4', '5']
+      values: ['2', '3', '4', '5']
+    }
+  });
+
+  $('#user_number').parent().dependsOn({
+    // The selector for the depenency
+    '#status_id': {
+      values: ['2']
     }
   });
 
