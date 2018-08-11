@@ -56559,11 +56559,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "card-body" }, [
                             _c("h5", { staticClass: "card-title mb-0" }, [
-                              _vm._v(
-                                _vm._s(_vm.auction.property.address) +
-                                  ", " +
-                                  _vm._s(_vm.auction.property.city)
-                              )
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(_vm.auction.property.address) +
+                                    ", " +
+                                    _vm._s(_vm.auction.property.city)
+                                )
+                              ])
                             ])
                           ])
                         ])
@@ -56646,7 +56648,11 @@ var staticRenderFns = [
           {
             staticStyle: { "text-align": "center", "vertical-align": "middle" }
           },
-          [_c("img", { attrs: { src: "/images/logocenter.png" } })]
+          [
+            _c("img", {
+              attrs: { src: "/images/logocenter.png", width: "50%" }
+            })
+          ]
         )
       ])
     ])

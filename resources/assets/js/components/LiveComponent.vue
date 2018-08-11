@@ -3,7 +3,7 @@
         <table style="height: 500px;width: 100%">
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
-                    <img src="/images/logocenter.png" />
+                    <img src="/images/logocenter.png" width="50%" />
                 </td>
             </tr>
         </table>
@@ -25,7 +25,7 @@
                                         <span v-if="auction.property.is_cash_only" class="badge badge-danger">Solo Cash</span>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title mb-0">{{ auction.property.address }}, {{ auction.property.city }}</h5>
+                                        <h5 class="card-title mb-0"><strong>{{ auction.property.address }}, {{ auction.property.city }}</strong></h5>
                                         <!--<p class="card-text text-muted">-->
                                         <!--Tipo: {{ auction.property.type.name_es }}-->
 
