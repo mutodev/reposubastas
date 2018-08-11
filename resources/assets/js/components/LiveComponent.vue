@@ -22,7 +22,7 @@
                                     <div class="property-badges">
                                         <span class="badge badge-dark">{{ auction.propertyEvent.number }}</span>
                                         <span v-if="auction.property.status_id && auction.property.status.is_public" class="badge badge-danger">{{ auction.property.status.name_es }}</span>
-                                        <span v-if="auction.property.is_cash_only" class="badge badge-danger">Solo Cash</span>
+                                        <span v-if="auction.property.is_cash_only" class="badge badge-danger">Cash Only</span>
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title mb-0"><strong>{{ auction.property.address }}, {{ auction.property.city }}</strong></h5>

@@ -56552,7 +56552,7 @@ var render = function() {
                               ? _c(
                                   "span",
                                   { staticClass: "badge badge-danger" },
-                                  [_vm._v("Solo Cash")]
+                                  [_vm._v("Cash Only")]
                                 )
                               : _vm._e()
                           ]),
