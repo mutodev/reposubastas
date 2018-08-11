@@ -45,6 +45,7 @@ return [
 
     'custom_fields' => [
         'captcha' => App\Forms\Fields\CaptchaType::class,
-        'accept' => App\Forms\Fields\AcceptType::class
+        'accept' => App\Forms\Fields\AcceptType::class,
+        'datalist' => App\Forms\Fields\DatalistType::class
     ]
 ];

@@ -125,6 +125,10 @@ class PropertiesController extends Controller
             if ($model->optioned_end_at) {
                 $model->optioned_end_at = date("Y-m-d", strtotime($model->optioned_end_at));
             }
+
+            if ($model->optioned_by) {
+                $model->optioned_by = $model->optionedUser->name . ' (#'.$model->optionedUser->id.')';
+            }
         }
 
         if (!$model) {
@@ -181,6 +185,17 @@ class PropertiesController extends Controller
 
         $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
         $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
+
+
+        if ($formValues['optioned_by']) {
+            $formValues['optioned_by'] = str_replace(['(#', ')'], '', substr($formValues['optioned_by'], strpos($formValues['optioned_by'], '(#')));
+
+            $user = \App\User::find($formValues['optioned_by']);
+
+            if (!$user) {
+                $formValues['optioned_by'] = null;
+            }
+        }
 
         $model->fill($formValues);
         $model->save();

@@ -22,7 +22,7 @@ class EditForm extends Form
 
         $usersArray = [];
         foreach ($users->get() as $user) {
-            $usersArray[$user->id] = "(Paleta #{$user->number}) $user->name";
+            $usersArray[$user->name . ' (#'.$user->id.')'] = $user->id;
         }
 
         $this
@@ -36,11 +36,11 @@ class EditForm extends Form
                 'label' => __('Status')
             ])
             ->add('sold_closing_at', 'date')
-            ->add('optioned_by', 'select', [
+            ->add('optioned_by', 'datalist', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',
                 'empty_value' => '-- Select One --',
-                'attr' => ['data-data' => ($this->model && $this->model->optioned_by) ? htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone])) : ''],
+                //'attr' => ['data-data' => ($this->model && $this->model->optioned_by) ? htmlspecialchars(json_encode(['id' => $this->model->optioned_by, 'name' => $this->model->optionedUser->name, 'phone' => $this->model->optionedUser->phone])) : ''],
                 'selected' => ($this->model && $this->model->optioned_by) ? $this->model->optioned_by : null,
                 'choices' => $usersArray
             ])
