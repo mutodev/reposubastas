@@ -19,7 +19,7 @@ if ($('#status_id').length) {
   $('#user_number').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
-      values: ['2']
+      values: ['2', '3']
     }
   });
 
