@@ -94,7 +94,9 @@ class PropertiesController extends Controller
             $bidsTotal += (float)$bid['offer'];
         }
 
-        return view('backend.properties.index', compact('models', 'events', 'event', 'bidsTotal', 'byStatus'));
+        $selected = \Session::get('selected', []);
+
+        return view('backend.properties.index', compact('models', 'events', 'event', 'bidsTotal', 'byStatus', 'selected'));
     }
 
     public function edit(FormBuilder $formBuilder, Event $event, Model $model = null)
@@ -526,6 +528,35 @@ class PropertiesController extends Controller
 
         Session::flash('success', __('Property deleted!'));
         return redirect(route('backend.properties.index', ['event' => $event->id]));
+    }
+
+    public function select(Request $request, Event $event, Model $model)
+    {
+        $clear = $request->get('clear');
+
+        if ($clear) {
+            \Session::put('selected', []);
+        } else {
+            $selected = session()->pull('selected', []);
+
+            if(($key = array_search($model->id, $selected)) !== false) {
+                unset($selected[$key]);
+            } else {
+                $selected[] = $model->id;
+            }
+
+            \Session::put('selected', $selected);
+        }
+    }
+
+    public function printSelect(Request $request, Event $event)
+    {
+        $lang = $request->get('lang');
+        $selected = session()->pull('selected', []);
+
+        $url = route('frontend.page', ['pageSlug' => 'properties', 'locale' => $lang, 'pdftest' => 1, 'event_type' => 'LIVE', 'id' => $selected]);
+
+        return redirect('http://pdfmyurl.com/saveaspdf?url=' . urlencode($url));
     }
 
     public function editBid(Request $request, FormBuilder $formBuilder, Event $event, Model $model)

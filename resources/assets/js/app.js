@@ -100,3 +100,15 @@ $('.suspense, .celebrate').click(function (event) {
   $.ajax($(this).data('url'));
   return false;
 });
+
+$('.select').click(function () {
+  var self = this;
+
+  $.ajax($(this).data('url')).done(function() {
+    if ($(self).data('clear')) {
+      $('.selected').removeClass('selected');
+    } else {
+      $(self).closest('tr').toggleClass('selected');
+    }
+  });
+});

@@ -15402,6 +15402,18 @@ $('.suspense, .celebrate').click(function (event) {
   return false;
 });
 
+$('.select').click(function () {
+  var self = this;
+
+  $.ajax($(this).data('url')).done(function () {
+    if ($(self).data('clear')) {
+      $('.selected').removeClass('selected');
+    } else {
+      $(self).closest('tr').toggleClass('selected');
+    }
+  });
+});
+
 /***/ }),
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {

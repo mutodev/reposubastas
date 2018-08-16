@@ -17,6 +17,10 @@ label.required:after {
     vertical-align: text-bottom;
 }
 
+tr.selected {
+    background-color: #f1f1f1;
+}
+
 /*
  * Sidebar
  */

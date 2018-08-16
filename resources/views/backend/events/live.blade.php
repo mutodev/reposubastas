@@ -64,5 +64,5 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="{{ asset('js/app.js', false) }}?v7" defer></script>
+    <script src="{{ asset('js/app.js', false) }}?v8" defer></script>
 @endsection

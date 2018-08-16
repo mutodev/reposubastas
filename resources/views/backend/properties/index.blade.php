@@ -31,6 +31,18 @@
                 <a target="_blank"  class="dropdown-item" href="{{ route('backend.reports.report', ['event' => $event->id]) }}">
                     {{ __('Report')  }}
                 </a>
+                <button class="dropdown-item select" data-clear="clear" data-url="{{ route('backend.properties.select', ['event' => $event->id, 'model' => null, 'clear' => 'clear']) }}">
+                   {{ __('Clear Selection') }}
+                </button>
+                <a target="_blank"  class="dropdown-item" href="{{ route('backend.reports.report', ['event' => $event->id]) }}">
+                    {{ __('Print Selection')  }}
+                </a>
+                <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.print.select', ['event' => $event->id, 'lang' => 'es']) }}">
+                    {{ __('Generate Selection PDF (Spanish)') }}
+                </a>
+                <a target="_blank" class="dropdown-item" href="{{ route('backend.properties.print.select', ['event' => $event->id, 'lang' => 'en']) }}">
+                    {{ __('Generate Selection PDF (English)') }}
+                </a>
             </div>
         </div>
     </div>
@@ -112,7 +124,7 @@
         </thead>
         <tbody>
             @foreach ($models as $model)
-                <tr>
+                <tr class="{{ in_array($model->id, $selected) ? 'selected' : '' }}">
                     <td width="1">
                         {{ $model->events[0]->pivot->number }}
                     </td>
@@ -149,6 +161,9 @@
                                 <a onclick="return confirm('Are you sure you want to delete this item?');" class="dropdown-item" href="{{ route('backend.properties.delete', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Delete')  }}
                                 </a>
+                                <button class="dropdown-item select" data-url="{{ route('backend.properties.select', ['event' => $event->id, 'model' => $model->id]) }}">
+                                   {{ __('Select / Unselect') }}
+                                </button>
                             </div>
                         </div>
                     </td>

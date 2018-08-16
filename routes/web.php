@@ -110,6 +110,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('/', 'Backend\PropertiesController@index')->name('backend.properties.index');
                 Route::get('edit/{model?}', 'Backend\PropertiesController@edit')->name('backend.properties.edit');
                 Route::get('delete/{model}', 'Backend\PropertiesController@delete')->name('backend.properties.delete');
+                Route::get('select/{model?}', 'Backend\PropertiesController@select')->name('backend.properties.select');
+                Route::get('print/select', 'Backend\PropertiesController@printSelect')->name('backend.properties.print.select');
                 Route::get('photos/{model}', 'Backend\PropertiesController@photos')->name('backend.properties.photos');
                 Route::post('photo/{model?}', 'Backend\PropertiesController@photoDelete')->name('backend.properties.photo-delete');
                 Route::post('photo/main/{model?}', 'Backend\PropertiesController@photoMain')->name('backend.properties.photo-main');

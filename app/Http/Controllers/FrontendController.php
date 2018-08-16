@@ -116,6 +116,10 @@ class FrontendController extends Controller
             }
         }
 
+        if ($id = $request->get('id')) {
+            $query->whereIn('properties.id', $id);
+        }
+
         if ($request->get('pdftest')) {
             if ($request->get('admin')) {
                 $query->with('investor');

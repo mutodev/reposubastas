@@ -16,7 +16,7 @@
   <script type="text/javascript" src="{{ asset('js/plupload/plupload.dev.js', false) }}"></script>
   <script type="text/javascript" src="{{ asset('js/plupload/jquery.ui.plupload/jquery.ui.plupload.js', false) }}"></script>
 
-  <link href="{{ asset('css/backend.css', false) }}?v1" rel="stylesheet">
+  <link href="{{ asset('css/backend.css', false) }}?v2" rel="stylesheet">
 @endsection
 
 @section('content')
