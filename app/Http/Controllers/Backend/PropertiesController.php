@@ -552,7 +552,7 @@ class PropertiesController extends Controller
     public function printSelect(Request $request, Event $event)
     {
         $lang = $request->get('lang');
-        $selected = session()->pull('selected', []);
+        $selected = session()->get('selected', []);
 
         $url = route('frontend.page', ['pageSlug' => 'properties', 'locale' => $lang, 'pdftest' => 1, 'event_type' => 'LIVE', 'id' => $selected]);
 
