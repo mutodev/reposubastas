@@ -130,7 +130,7 @@
                                 $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
                             ?>
 
-                            @if(!$online && $days > 5)
+                            @if($online && $days > 5)
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                 <br />
