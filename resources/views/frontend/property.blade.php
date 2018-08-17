@@ -78,15 +78,18 @@
                         </div>
                     </div>
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
-                        <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
                         <?php
                         $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at));
                         $days = $endAt->diffInDays();
                         $hours = $endAt->diffInHours() - ($days * 24);
                         $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
+
+                        $today = new Carbon\Carbon();
                         ?>
 
-                        @if($days || $hours || $minutes)
+                        @if($today->lt($endAt))
+                            <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
+
                             <div class="property-remaining">
                                 @if($days)
                                     <strong class="unit">{{number_format($days)}}</strong>
@@ -113,40 +116,36 @@
                                     <strong>{{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</strong>
                                 @endif
                             </div>
+                        @endif
 
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Sale price') }}</strong>
-                                <br />
-                                <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
-                            </div>
+                        <div class="price mt-3">
+                            <strong class="text-dark-blue">{{ __('Sale price') }}</strong>
+                            <br />
+                            <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
+                        </div>
 
-                            <?php
-                                if (!$online) {
-                                    $endAt->subDays(2);
-                                }
+                        <?php
+                            if (!$online) {
+                                $endAt->subDays(2);
+                            }
+                        ?>
 
-                                $days = $endAt->diffInDays();
-                                $hours = $endAt->diffInHours() - ($days * 24);
-                                $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
-                            ?>
-
-                            @if($online && $days > 5)
+                        @if($online && $today->lt($endAt))
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                 <br />
                                 <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
                             </div>
-                            @endif
 
-                            @if($days > 5)
-                                <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
-                                </div>
+                            <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
+                            </div>
+                        @endif
 
-                                <div class="mt-3">
-                                    {!! form($form) !!}
-                                </div>
-                            @endif
+                        @if($today->lt($endAt) && ($online || !in_array($property->status->slug, ['OPTIONED', 'SOLD'])))
+                            <div class="mt-3">
+                                {!! form($form) !!}
+                            </div>
                         @endif
                     </div>
                 </div>
