@@ -81,5 +81,5 @@
 
 @section('footer_scripts')
     <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5320741e1495deeb"></script>
-    <script src="{{ asset('js/app.js', false) }}?v8" defer></script>
+    <script src="{{ asset('js/app.js', false) }}?v9" defer></script>
 @endsection
