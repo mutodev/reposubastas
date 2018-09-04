@@ -56713,7 +56713,7 @@ if ($('#status_id').length) {
   $('#check_number, #check_type, #bank, #check_amount, #optioned_by, #optioned_approved_at, #optioned_end_at, #optioned_method, #financing_bank, #financing_phone, #financing_contact').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
-      values: ['4']
+      values: ['4', '5']
     }
   });
 
