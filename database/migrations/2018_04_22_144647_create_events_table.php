@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('location');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->nullable();
             $table->dateTime('start_at')->nullable();
             $table->dateTime('live_at')->nullable();
             $table->dateTime('end_at')->nullable();

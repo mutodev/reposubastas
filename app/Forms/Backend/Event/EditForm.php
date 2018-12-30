@@ -13,7 +13,7 @@ class EditForm extends Form
             ->add('start_at', 'datetime-local', ['rules' => 'required'])
             ->add('live_at', 'datetime-local', ['rules' => 'required'])
             ->add('end_at', 'datetime-local', ['rules' => 'required'])
-            ->add('location', 'text')
+            ->add('location', 'text', ['rules' => 'required'])
             ->add('is_active', 'checkbox', [
                 'value' => 1,
                 'checked' => true,

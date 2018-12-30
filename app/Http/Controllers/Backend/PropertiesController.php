@@ -64,10 +64,13 @@ class PropertiesController extends Controller
 
         $models = $query->orderBy('property_event.number', 'asc')->paginate(50)->withPath($request->fullUrlWithQuery($request->all()));
 
-        $properties = \App\Models\Property::with(['status', 'events' => function ($query) use ($event) {
-            $query->where('events.id', $event->id);
-        }])
-            ->whereNotNull('properties.status_id')->get();
+        $properties = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
+            ->join('property_event', function($join) use ($event) {
+                $join->on('property_event.property_id', '=', 'properties.id');
+                $join->on('property_event.event_id', '=', DB::raw($event->id));
+            })
+            ->whereNotNull('properties.status_id')
+            ->get();
 
         $byStatus = [];
         foreach ($properties as $property) {
@@ -417,7 +420,7 @@ class PropertiesController extends Controller
                 $values['bedrooms']       = $row['Bedrooms'] ? intval($row['Bedrooms']) : null;
                 $values['bathrooms']      = $row['Bedrooms'] ? intval($row['Bathrooms']) : null;
                 $values['catastro']       = $row['CRIM Tax ID'] ? $row['CRIM Tax ID'] : null;
-                $values['price']          = floatval(trim(str_replace(['$', ','], '', $row[' LISTING PRICE '])));
+                $values['price']          = floatval(trim(str_replace(['$', ','], '', $row['LISTING PRICE'])));
                 $values['lister_broker']  = $row['BROKER'] ? $row['BROKER'] : null;
                 $values['start_at']       = date('Y-m-d H:i:s', strtotime($event->start_at));
                 $values['end_at']         = date('Y-m-d H:i:s', strtotime($event->end_at));
@@ -425,9 +428,7 @@ class PropertiesController extends Controller
                 $model->fill($values);
                 $model->save();
 
-                if ($values['number']) {
-                    $model->addToEvent($event->id, $values['number']);
-                }
+                $model->addToEvent($event->id, $values['number']);
             }
 
             Session::flash('success', __('Properties imported!'));

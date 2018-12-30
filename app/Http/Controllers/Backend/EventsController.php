@@ -27,6 +27,7 @@ class EventsController extends Controller
         if ($model) {
             $model->start_at = date("Y-m-d\TH:i:s", strtotime($model->start_at));
             $model->end_at = date("Y-m-d\TH:i:s", strtotime($model->end_at));
+            $model->live_at = date("Y-m-d\TH:i:s", strtotime($model->live_at));
         }
 
         $form = $formBuilder->create(EditForm::class, [
@@ -55,6 +56,7 @@ class EventsController extends Controller
         if ($formValues['start_at']) {
             $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
             $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
+            $formValues['live_at'] = date('Y-m-d H:i:s', strtotime($formValues['live_at']));
 
             //Update properties
             foreach ($model->properties()->get() as $property) {
