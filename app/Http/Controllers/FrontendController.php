@@ -170,6 +170,8 @@ class FrontendController extends Controller
         //Get last bid
         $bid = $property->getBids($property->event_id)->first();
 
+        $userEvent = null;
+
         //Handle post
         if ($request->isMethod('post')) {
             if (\Auth::guest()) {
