@@ -43,7 +43,8 @@ class ReportsController extends Controller
             'CLIENT',
             'DEPOSIT_AMOUNT',
             'FORM_OF_PURCHASE',
-            'COMMENTS'
+            'COMMENTS',
+            'PRICE'
         ]);
 
         foreach ($properties as $property) {
@@ -70,7 +71,8 @@ class ReportsController extends Controller
                 ($property->optioned_by ? $property->optionedUser->name : null),
                 $property->check_amount,
                 $property->optioned_method,
-                $property->comments
+                $property->comments,
+                $property->price
             ]);
         }
 
