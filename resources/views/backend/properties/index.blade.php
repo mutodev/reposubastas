@@ -126,7 +126,7 @@
             @foreach ($models as $model)
                 <tr class="{{ in_array($model->id, $selected) ? 'selected' : '' }}">
                     <td width="1">
-                        {{ $model->events[0]->pivot->number }}
+                        {{ $model->number }}
                     </td>
                     <td>{{ $model->type->name }}</td>
                     <td>{{ $model->address }}, {{ $model->city }}</td>

@@ -142,7 +142,7 @@
                             </div>
                         @endif
 
-                        @if($today->lt($endAt) && ($online || !in_array($property->status->slug, ['OPTIONED', 'SOLD'])))
+                        @if($today->lt($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))
                             <div class="mt-3">
                                 {!! form($form) !!}
                             </div>
