@@ -8,6 +8,8 @@ use DB;
 
 class Property extends Model
 {
+    public $cancel_reason = null;
+
     /**
      * The attributes that are mass assignable.
      *

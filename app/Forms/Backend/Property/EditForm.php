@@ -35,6 +35,7 @@ class EditForm extends Form
                 'choices' => PropertyStatus::forSelect(),
                 'label' => __('Status')
             ])
+            ->add('cancel_reason', 'text', ['label' => __('Cancel Reason')])
             ->add('sold_closing_at', 'date')
             ->add('optioned_by', 'datalist', [
                 'label' => __('Optioned By'),
