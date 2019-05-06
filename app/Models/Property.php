@@ -98,6 +98,11 @@ class Property extends Model
         return $this->belongsToMany('App\Models\Event', 'property_event')->withPivot('number', 'is_active');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\PropertyTag', 'property_tag_pivot');
+    }
+
     public function status()
     {
         return $this->belongsTo('App\Models\PropertyStatus', 'status_id');
@@ -157,6 +162,12 @@ class Property extends Model
             'number' => $number,
             'is_active' => $active
         ]);
+    }
+
+    public function addTag($tagId)
+    {
+        $this->tags()->detach();
+        $this->tags()->attach($tagId);
     }
 
     public function endAuction($eventId, $statusId = null)

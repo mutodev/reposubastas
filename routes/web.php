@@ -97,6 +97,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::post('store/{model?}', 'Backend\PagesController@store')->name('backend.pages.store');
         });
 
+        Route::prefix('tags')->group(function () {
+            Route::get('/', 'Backend\TagsController@index')->name('backend.tags.index');
+            Route::get('edit/{model?}', 'Backend\TagsController@edit')->name('backend.tags.edit');
+            Route::post('store/{model?}', 'Backend\TagsController@store')->name('backend.tags.store');
+        });
+
         Route::prefix('investors')->group(function () {
             Route::get('/', 'Backend\InvestorsController@index')->name('backend.investors.index');
             Route::get('edit/{model?}', 'Backend\InvestorsController@edit')->name('backend.investors.edit');
@@ -129,6 +135,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv');
                 Route::post('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv2');
                 Route::get('logs/{model}', 'Backend\PropertiesController@logs')->name('backend.properties.logs');
+                Route::get('add-tag/{model}', 'Backend\PropertiesController@addTag')->name('backend.properties.add-tag');
+                Route::post('add-tag/{model}', 'Backend\PropertiesController@addTag')->name('backend.properties.add-tag-post');
             });
 
             Route::prefix('users')->group(function () {
@@ -143,6 +151,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 });
 
 Route::get('/logout', 'Auth\LoginController@logout');
+
+Route::post('/deposit', 'FrontendController@deposit')->name('frontend.deposit-post');
 
 Route::get('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page');
 Route::post('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page-post');

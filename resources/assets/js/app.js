@@ -5,6 +5,8 @@
  */
 
 import * as VueGoogleMaps from "vue2-google-maps";
+import PayPal from 'vue-paypal-checkout';
+import axios from 'axios';
 
 require('./bootstrap');
 
@@ -27,6 +29,9 @@ Vue.component('live-component', require('./components/LiveComponent.vue'));
 
 const app = new Vue({
   el: '#app',
+  components: {
+    paypal: PayPal
+  },
   data: {
     auction: {
       property: null,
@@ -34,6 +39,10 @@ const app = new Vue({
       finished: false,
       suspense: null,
       celebrate: null
+    },
+    credentials: {
+      sandbox: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU',
+      production: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU'
     }
   },
   methods: {
@@ -63,6 +72,17 @@ const app = new Vue({
         $('.celebrate').hide();
         $('.celebrate img').attr('src', 'gg');
       }, 8000);
+    },
+    paymentAuthorized: function (data) {
+      console.log('Authorized', data);
+    },
+    paymentCompleted: async function (data) {
+      console.log('Completed', data);
+
+      await axios.post(window.location.href, data);
+    },
+    paymentCancelled: function (data) {
+      console.log('Cancelled', data);
     }
   }
 });
@@ -110,5 +130,50 @@ $('.select').click(function () {
     } else {
       $(self).closest('tr').toggleClass('selected');
     }
+  });
+});
+
+$('.selectProperty').click(function () {
+  var self = this;
+
+  $.ajax($(this).data('url')).done(function() {
+    console.log('Selected');
+  });
+});
+
+$('.bulkSendOffer').click(function (event) {
+  event.preventDefault();
+  var self = this;
+
+  var offer = $('.bulk-total-offer').val();
+
+  if (!offer) {
+    alert('Offer is required');
+    return;
+  }
+
+  var name = $('.bulk-name').val();
+
+  if (!name) {
+    alert('Name is required');
+    return;
+  }
+
+  var phone = $('.bulk-phone').val();
+
+  if (!phone) {
+    alert('Phone is required');
+    return;
+  }
+
+  $.ajax($(this).data('url')+'?'+jQuery.param({
+  offer: offer,
+  name: name,
+  phone: phone,
+})).done(function() {
+    $('.bulk-total-offer').val('');
+    $('.bulk-name').val('');
+    $('.bulk-phone').val('');
+    alert('Thanks, offer sent!');
   });
 });

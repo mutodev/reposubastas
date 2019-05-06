@@ -13,13 +13,13 @@
         <div class="container">
             @if (session('success'))
                 <div class="alert alert-success">
-                    {{ session('success') }}
+                    {!! session('success') !!}
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger">
-                    {{ session('error') }}
+                    {!! session('error') !!}
                 </div>
             @endif
 
@@ -27,7 +27,11 @@
             <h2 class="m-0">{{ $property->address }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
 
-            <div class="clearfix">
+            <div class="clearfix mb-3">
+{{--                <div class="float-left">--}}
+                    <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
+                    <button class="selectProperty btn btn-secondary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">Save</button>
+{{--                </div>--}}
                 <div class="addthis_inline_share_toolbox_zkje float-right"></div>
             </div>
 
@@ -145,6 +149,23 @@
                         @if($today->lt($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))
                             <div class="mt-3">
                                 {!! form($form) !!}
+
+                                <br />
+
+                                @if (!$userEvent || $userEvent->remaining_deposit <= 0)
+                                    {{ __('You must present your purchase intention by processing a minimum deposit') }}
+                                    <br />
+                                    <paypal
+                                            amount="1550.00"
+                                            currency="USD"
+                                            :client="credentials"
+                                            env="sandbox"
+                                            v-on:payment-authorized="paymentAuthorized"
+                                            v-on:payment-completed="paymentCompleted"
+                                            v-on:payment-cancelled="paymentCancelled"
+                                    >
+                                    </paypal>
+                                @endif
                             </div>
                         @endif
                     </div>

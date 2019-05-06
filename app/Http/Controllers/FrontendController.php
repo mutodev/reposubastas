@@ -150,7 +150,64 @@ class FrontendController extends Controller
         return compact('types', 'properties');
     }
 
+    public function bulk(FormBuilder $formBuilder, Request $request) {
+
+        $today = date('Y-m-d H:i:s');
+
+        $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
+            ->join('property_event', function($join) {
+                $join->on('property_event.property_id', '=', 'properties.id')
+                    ->where('property_event.is_active', '=', true);
+            })
+            ->join('events', function($join) use ($today) {
+                $join->on('events.id', '=', 'property_event.event_id')
+                    ->where('events.is_active', '=', true);
+            })
+            ->where('properties.start_at', '<=', $today)
+            ->where('properties.end_at', '>', $today);
+
+        $ids = session()->get('selected', []);
+
+        $query->whereIn('properties.id', $ids);
+
+        $properties = $query->orderBy('property_event.number')->paginate(100);
+
+        if ($request->ajax()) {
+            $email = $request->all();
+            foreach ($properties as $k => $property) {
+                $email['Property '.($k+1)] = $property->address . ' ' . $property->city;
+            }
+            $email['offer'] = '$'. number_format($email['offer']);
+
+            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Bulk Offer', $email));
+        }
+
+        return compact('properties');
+    }
+
     public function property(FormBuilder $formBuilder, $request) {
+
+        $id = $request->get('id');
+
+        if ($request->ajax()) {
+            $clear = $request->get('clear');
+
+            if ($clear) {
+                \Session::put('selected', []);
+            } else {
+                $selected = session()->pull('selected', []);
+
+                if(($key = array_search($id, $selected)) !== false) {
+                    unset($selected[$key]);
+                } else {
+                    $selected[] = $id;
+                }
+
+                \Session::put('selected', $selected);
+            }
+
+            return;
+        }
 
         $today = date('Y-m-d H:i:s');
 
@@ -181,8 +238,24 @@ class FrontendController extends Controller
 
             $userEvent = \DB::table('user_event')->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first();
 
+            if ($request->ajax()) {
+                \DB::table('user_event')
+                    ->where('id', $userEvent->id)
+                    ->update(['remaining_deposit' => @$request->get('transactions')[0]['amount']['total'], 'is_active' => true]);
+                die('done');
+            }
+
             if (!$userEvent || $userEvent->remaining_deposit <= 0) {
-                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit'));
+                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . '<paypal
+                                            amount="1550.00"
+                                            currency="USD"
+                                            :client="credentials"
+                                            env="sandbox"
+                                            v-on:payment-authorized="paymentAuthorized"
+                                            v-on:payment-completed="paymentCompleted"
+                                            v-on:payment-cancelled="paymentCancelled"
+                                    >
+                                    </paypal>');
             } else {
                 $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class);
 
@@ -205,7 +278,7 @@ class FrontendController extends Controller
 
                     //\Auth::user()->addToEvent($property->event_id, 0);
 
-                    $formValues['property_number'] = $property->number;
+                    $formValues['property_number'] = $property->id;
                     $formValues['user'] = \Auth::user()->name;
 
                     Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Offer', $formValues));

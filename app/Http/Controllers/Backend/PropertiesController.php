@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Forms\Backend\Property\EditForm;
 use App\Forms\Backend\Property\RegisterToEventForm;
+use App\Forms\Backend\Property\AddTagForm;
 use App\Forms\Backend\Property\BidForm;
 use App\Forms\Backend\Property\ImportForm;
 use Kris\LaravelFormBuilder\FormBuilder;
@@ -331,6 +332,34 @@ class PropertiesController extends Controller
         ]);
 
         return view('backend.users.register-to-event', compact('form', 'model'));
+    }
+
+    public function addTag(Request $request, FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        //Handle post
+        if ($request->isMethod('post')) {
+            $form = $formBuilder->create(AddTagForm::class);
+
+            if (!$form->isValid()) {
+                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            }
+
+            $formValues = $form->getFieldValues();
+
+            $model->addTag($formValues['tag_id']);
+
+            Session::flash('success', __('Property added to tag!'));
+
+            return redirect()->route('backend.properties.index', ['event' => $event->id]);
+        }
+
+        $form = $formBuilder->create(AddTagForm::class, [
+            'method' => 'POST',
+            'url'    => route('backend.properties.add-tag-post', ['event' => $event->id, 'model' => $model->id]),
+            'model'  => $model
+        ]);
+
+        return view('backend.properties.add-tag', compact('form', 'model'));
     }
 
     public function generatePdf(Event $event, $locale = 'es')
