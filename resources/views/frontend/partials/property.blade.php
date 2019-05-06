@@ -12,6 +12,10 @@
         @if($property->status_id && $property->status->is_public)
             <span class="badge badge-danger">{{ $property->status->name }}</span>
         @endif
+
+        @if($property->tags->count() > 0)
+            <span class="badge badge-danger">{{ $property->tags[0]['name_'.App::getLocale()] }}</span>
+        @endif
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ $property->address }}, {{ $property->city }}</h5>
