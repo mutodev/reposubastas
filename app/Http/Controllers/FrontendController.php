@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
-use App\Models\Bid;
-use Kris\LaravelFormBuilder\FormBuilder;
-use Illuminate\Http\Request;
-use App\Models\Page;
-use App\Models\PropertyType;
-use View;
 use App;
-use Jenssegers\Date\Date;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
-use PDF;
 use App\Mail\Contact;
+use App\Models\Bid;
+use App\Models\Page;
+use App\Models\Property;
+use App\Models\PropertyType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Jenssegers\Date\Date;
+use Kris\LaravelFormBuilder\FormBuilder;
+use PDF;
+use View;
 
 class FrontendController extends Controller
 {
-    public function page(FormBuilder $formBuilder, Request $request, $locale, $pageSlug = null) {
+    public function page(FormBuilder $formBuilder, Request $request, $locale, $pageSlug = null)
+    {
         //dd('dd');
         App::setLocale($locale);
         Date::setLocale($locale);
@@ -51,7 +52,8 @@ class FrontendController extends Controller
         return view("frontend.{$view}", $data);
     }
 
-    public function homepage(FormBuilder $formBuilder, $request) {
+    public function homepage(FormBuilder $formBuilder, $request)
+    {
         $types = PropertyType::forSelect();
 
         $event = App\Models\Event::orderBy('created_at', 'desc')->first();
@@ -59,16 +61,17 @@ class FrontendController extends Controller
         return compact('types', 'event');
     }
 
-    public function properties(FormBuilder $formBuilder, Request $request) {
+    public function properties(FormBuilder $formBuilder, Request $request)
+    {
 
         $today = date('Y-m-d H:i:s');
 
         $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
-            ->join('property_event', function($join) {
+            ->join('property_event', function ($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
             })
-            ->join('events', function($join) use ($today) {
+            ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true);
             })
@@ -150,22 +153,23 @@ class FrontendController extends Controller
         return compact('types', 'properties');
     }
 
-    public function bulk(FormBuilder $formBuilder, Request $request) {
+    public function bulk(FormBuilder $formBuilder, Request $request)
+    {
 
         $today = date('Y-m-d H:i:s');
 
         $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
-            ->join('property_event', function($join) {
+            ->join('property_event', function ($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
             })
-            ->leftJoin('property_tag_pivot', function($join) {
+            ->leftJoin('property_tag_pivot', function ($join) {
                 $join->on('property_tag_pivot.property_id', '=', 'properties.id');
             })
-            ->leftJoin('property_tag', function($join) use ($today) {
+            ->leftJoin('property_tag', function ($join) use ($today) {
                 $join->on('property_tag.id', '=', 'property_tag_pivot.property_tag_id');
             })
-            ->join('events', function($join) use ($today) {
+            ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true);
             })
@@ -181,9 +185,9 @@ class FrontendController extends Controller
         if ($request->ajax()) {
             $email = $request->all();
             foreach ($properties as $k => $property) {
-                $email['Property '.($k+1)] = $property->address . ' ' . $property->city;
+                $email['Property ' . ($k + 1)] = $property->address . ' ' . $property->city;
             }
-            $email['offer'] = '$'. number_format($email['offer']);
+            $email['offer'] = '$' . number_format($email['offer']);
 
             Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Bulk Offer', $email));
         }
@@ -191,11 +195,12 @@ class FrontendController extends Controller
         return compact('properties');
     }
 
-    public function property(FormBuilder $formBuilder, $request) {
+    public function property(FormBuilder $formBuilder, $request)
+    {
 
         $id = $request->get('id');
 
-        if ($request->ajax()) {
+        if ($request->ajax() && empty($request->get('transactions'))) {
             $clear = $request->get('clear');
 
             if ($clear) {
@@ -203,7 +208,7 @@ class FrontendController extends Controller
             } else {
                 $selected = session()->pull('selected', []);
 
-                if(($key = array_search($id, $selected)) !== false) {
+                if (($key = array_search($id, $selected)) !== false) {
                     unset($selected[$key]);
                 } else {
                     $selected[] = $id;
@@ -218,11 +223,11 @@ class FrontendController extends Controller
         $today = date('Y-m-d H:i:s');
 
         $property = Property::select('properties.*', 'property_event.number', 'events.start_at as event_start_at', 'events.live_at as event_live_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
-            ->join('property_event', function($join) {
+            ->join('property_event', function ($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
             })
-            ->join('events', function($join) use ($today) {
+            ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true);
             })
@@ -233,7 +238,7 @@ class FrontendController extends Controller
         //Get last bid
         $bid = $property->getBids($property->event_id)->first();
 
-        $userEvent = null;
+        $userEvent = App\Models\UserEvent::query()->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first();
 
         //Handle post
         if ($request->isMethod('post')) {
@@ -242,12 +247,26 @@ class FrontendController extends Controller
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
             }
 
-            $userEvent = \DB::table('user_event')->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first();
-
             if ($request->ajax()) {
-                \DB::table('user_event')
-                    ->where('id', $userEvent->id)
-                    ->update(['remaining_deposit' => @$request->get('transactions')[0]['amount']['total'], 'is_active' => true]);
+                //Deposit log
+                $UserDeposit = new App\Models\UserDeposit();
+                $UserDeposit->fill([
+                    'amount' => @$request->get('transactions')[0]['amount']['total'],
+                    'user_id' => \Auth::user()->id
+                ]);
+                $UserDeposit->save();
+
+                if (!$userEvent) {
+                    $userEvent = new App\Models\UserEvent();
+                }
+
+                $userEvent->fill([
+                    'remaining_deposit' => @$request->get('transactions')[0]['amount']['total'],
+                    'user_id' => \Auth::user()->id,
+                    'event_id' => $property->event_id,
+                    'is_active' => true
+                ]);
+                $userEvent->save();
                 die('done');
             }
 
@@ -260,8 +279,7 @@ class FrontendController extends Controller
                                             v-on:payment-authorized="paymentAuthorized"
                                             v-on:payment-completed="paymentCompleted"
                                             v-on:payment-cancelled="paymentCancelled"
-                                    >
-                                    </paypal>');
+                                    ></paypal>');
             } else {
                 $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class);
 
@@ -282,8 +300,6 @@ class FrontendController extends Controller
                     $bid->is_winner = false;
                     $bid->save();
 
-                    //\Auth::user()->addToEvent($property->event_id, 0);
-
                     $formValues['property_number'] = $property->id;
                     $formValues['user'] = \Auth::user()->name;
 
@@ -298,8 +314,8 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'property', 'id' => $property->id]),
-            'model'  => [
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'property', 'id' => $property->id]),
+            'model' => [
                 'offer' => intval($bid->offer ?? $property->price)
             ]
         ]);
@@ -310,7 +326,8 @@ class FrontendController extends Controller
         return compact('types', 'property', 'online', 'form', 'bid', 'userEvent');
     }
 
-    public function register($formBuilder, $request) {
+    public function register($formBuilder, $request)
+    {
 
         //Handle post
         if ($request->isMethod('post')) {
@@ -347,13 +364,14 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\User\RegisterForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register'])
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register'])
         ]);
 
         return compact('form');
     }
 
-    public function login($formBuilder, $request) {
+    public function login($formBuilder, $request)
+    {
 
         //Handle post
         if ($request->isMethod('post')) {
@@ -373,13 +391,14 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\User\LoginForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'login'])
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'login'])
         ]);
 
         return compact('form');
     }
 
-    public function contact($formBuilder, $request) {
+    public function contact($formBuilder, $request)
+    {
 
         //Handle post
         if ($request->isMethod('post')) {
@@ -398,7 +417,7 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\ContactForm::class, [
             'method' => 'POST',
-            'url'    => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'contact'])
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'contact'])
         ]);
 
         return compact('form');

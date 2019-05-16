@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Bid;
 use \App\User as Model;
+use \App\Models\UserDeposit;
 use \App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -195,5 +197,40 @@ class UsersController extends Controller
         ]);
 
         return view('backend.users.register-to-event', compact('form', 'model'));
+    }
+
+    public function deposits(Request $request, Event $event = null, Model $model = null)
+    {
+        //Refund
+        if ($depositId = $request->get('deposit_id')) {
+            DB::table('user_deposit')
+                ->where('id', $depositId)
+                ->update(['refunded' => true]);
+
+            Session::flash('success', __('Deposit marked as refunded!'));
+            return redirect(Model::url('deposits', @$model->id, @$event->id));
+        }
+
+        $Query = UserDeposit::select('user_deposit.*', 'users.name')
+            ->leftJoin('users', 'users.id', '=', 'user_deposit.user_id');
+
+        if ($model) {
+            $Query->where('user_deposit.user_id', '=', $model->id);
+        }
+
+        $models = $Query->orderBy('user_deposit.created_at', 'desc')->get();
+
+        $Query = Bid::select('bid.*', 'users.name', 'properties.*');
+
+        if ($model) {
+            $Query->where('bid.user_id', '=', $model->id);
+        }
+
+        $bids = $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
+            ->leftJoin('properties', 'properties.id', '=', 'bid.property_id')
+            ->orderBy('bid.created_at', 'desc')
+            ->get();
+
+        return view('backend.users.deposits', compact('models', 'model', 'bids', 'event'));
     }
 }

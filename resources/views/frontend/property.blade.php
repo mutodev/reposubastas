@@ -152,7 +152,7 @@
 
                                 <br />
 
-                                @if (!$userEvent || $userEvent->remaining_deposit <= 0)
+                                @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))
                                     {{ __('You must present your purchase intention by processing a minimum deposit') }}
                                     <br />
                                     <paypal

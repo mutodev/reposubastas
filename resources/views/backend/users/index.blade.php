@@ -120,6 +120,9 @@
                                 <a  class="dropdown-item" href="{{ \App\User::url('edit', @$model->id, @$event->id) }}">
                                     {{ __('Edit')  }}
                                 </a>
+                                <a  class="dropdown-item" href="{{ \App\User::url('deposits', @$model->id, @$event->id) }}">
+                                    {{ __('Offers \ Deposits')  }}
+                                </a>
                             </div>
                         </div>
                     </td>
