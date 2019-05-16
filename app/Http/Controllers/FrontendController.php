@@ -238,7 +238,7 @@ class FrontendController extends Controller
         //Get last bid
         $bid = $property->getBids($property->event_id)->first();
 
-        $userEvent = App\Models\UserEvent::query()->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first();
+        $userEvent = !\Auth::guest() ? App\Models\UserEvent::query()->where('user_id', \Auth::user()->id)->where('event_id', $property->event_id)->where('is_active', true)->first() : null;
 
         //Handle post
         if ($request->isMethod('post')) {
