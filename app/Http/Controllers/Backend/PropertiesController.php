@@ -204,7 +204,6 @@ class PropertiesController extends Controller
         }
 
         $model->fill($formValues);
-        $model->cancel_reason = @$formValues['cancel_reason'];
         $model->save();
 
         //Assign next number
@@ -671,14 +670,5 @@ class PropertiesController extends Controller
         ]);
 
         return view('backend.properties.bid.index', compact('form', 'model', 'event', 'modelEvent', 'bids', 'users'));
-    }
-
-    public function logs(Request $request, Event $event, Model $model)
-    {
-        $models = App\Models\PropertyStatusLog::with(['oldStatus', 'newStatus', 'optionedBy'])
-            ->where('property_id', '=', $model->id)
-            ->orderBy('created_at', 'desc')->get();
-
-        return view('backend.properties.logs', compact('model', 'event', 'models'));
     }
 }

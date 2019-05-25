@@ -16,13 +16,6 @@ if ($('#status_id').length) {
     }
   });
 
-  $('#cancel_reason').parent().dependsOn({
-    // The selector for the depenency
-    '#status_id': {
-      values: ['6']
-    }
-  });
-
   $('#user_number').parent().dependsOn({
     // The selector for the depenency
     '#status_id': {
