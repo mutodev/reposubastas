@@ -275,7 +275,7 @@ class FrontendController extends Controller
                                             amount="1550.00"
                                             currency="USD"
                                             :client="credentials"
-                                            env="sandbox"
+                                            env="production"
                                             v-on:payment-authorized="paymentAuthorized"
                                             v-on:payment-completed="paymentCompleted"
                                             v-on:payment-cancelled="paymentCancelled"

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}?v2" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css', false) }}?v4" rel="stylesheet">
     <style>
         .property-badges .badge {
             font-size: 2.5em;

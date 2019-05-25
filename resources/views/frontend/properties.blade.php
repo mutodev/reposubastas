@@ -21,6 +21,10 @@
                 </div>
             @endif
 
+            <div class="clearfix mb-3">
+                <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
+            </div>
+
             <div class="properties-filters">
                 <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
                     <input type="hidden" name="type" value="{{ request()->get('type') }}" />

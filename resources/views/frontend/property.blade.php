@@ -30,7 +30,7 @@
             <div class="clearfix mb-3">
 {{--                <div class="float-left">--}}
                     <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
-                    <button class="selectProperty btn btn-secondary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">Save</button>
+                    <button class="selectProperty btn btn-secondary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Save') }}</button>
 {{--                </div>--}}
                 <div class="addthis_inline_share_toolbox_zkje float-right"></div>
             </div>
@@ -159,7 +159,7 @@
                                             amount="1550.00"
                                             currency="USD"
                                             :client="credentials"
-                                            env="sandbox"
+                                            env="production"
                                             v-on:payment-authorized="paymentAuthorized"
                                             v-on:payment-completed="paymentCompleted"
                                             v-on:payment-cancelled="paymentCancelled"
