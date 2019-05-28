@@ -110,13 +110,19 @@ body {
 .properties-search {
     background-image: url('/images/bg-online.jpg');
     background-size: cover;
+    background-position: center;
+}
+
+.icono-home {
+    margin: 0 auto;
+    background: url(/images/repo_online_button.svg) no-repeat;
 }
 
 .properties-search .homeText {
     color: white;
     font-weight: bold;
     text-align: left !important;
-    margin: 30px auto;
+    margin: 30px auto 0 auto;
     width: 95%;
 }
 
@@ -128,8 +134,13 @@ body {
 
 @media only screen and (min-width : 768px) {
     .properties-search .homeText {
-        margin: 140px auto;
+        margin: 140px auto 0 auto;
         width: 390px;
+    }
+
+    .icono-home {
+        width: 390px;
+        height: 95px;
     }
 }
 

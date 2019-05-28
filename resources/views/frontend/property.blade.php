@@ -138,7 +138,7 @@
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                 <br />
-                                <strong class="unit">${{ number_format(intval($bid->offer ?? $property->reserve ?? 0)) }}</strong>
+                                <strong class="unit">${{ number_format(intval($bid->offer ?? 0)) }}</strong>
                             </div>
 
                             <div class="price mt-3">

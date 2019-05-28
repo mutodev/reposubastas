@@ -15883,8 +15883,8 @@ var app = new Vue({
       celebrate: null
     },
     credentials: {
-      sandbox: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU',
-      production: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU'
+      sandbox: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4',
+      production: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4'
     }
   },
   methods: {
