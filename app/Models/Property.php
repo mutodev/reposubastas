@@ -214,4 +214,26 @@ class Property extends Model
             $this["image{$index}_thumb"] = $thumbFilename;
         }
     }
+
+    public function clearStatus() {
+        $model = new PropertyStatusLog();
+        $model->fill([
+            'property_id' => $this->id,
+            'old_status_id' => $this['status_id'],
+            'new_status_id' => null,
+            'optioned_by' => $this['optioned_by'],
+            'payload' => json_encode(array_merge($this->toArray(), ['cancel_reason' => 'Moved to other event']))
+        ]);
+        $this->save();
+
+        $this->status = null;
+        $this->optioned_by = null;
+        $this->deposit = null;
+        $this->check_number = null;
+        $this->check_type = null;
+        $this->bank = null;
+        $this->check_number = null;
+        $this->save();
+
+    }
 }

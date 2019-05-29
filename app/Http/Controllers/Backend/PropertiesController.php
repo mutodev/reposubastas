@@ -328,6 +328,7 @@ class PropertiesController extends Controller
             $formValues = $form->getFieldValues();
 
             $model->addToEvent($formValues['event_id'], $formValues['number']);
+            $model->clearStatus();
 
             Session::flash('success', __('Property added to event!'));
 
