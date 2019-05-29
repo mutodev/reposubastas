@@ -159,7 +159,7 @@
                                             amount="1575.00"
                                             currency="USD"
                                             :client="credentials"
-                                            env="production"
+                                            env="live"
                                             v-on:payment-authorized="paymentAuthorized"
                                             v-on:payment-completed="paymentCompleted"
                                             v-on:payment-cancelled="paymentCancelled"

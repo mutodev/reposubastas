@@ -226,13 +226,20 @@ class Property extends Model
         ]);
         $this->save();
 
-        $this->status = null;
+        $this->status_id = null;
         $this->optioned_by = null;
         $this->deposit = null;
         $this->check_number = null;
         $this->check_type = null;
         $this->bank = null;
         $this->check_number = null;
+        $this->optioned_approved_at = null;
+        $this->optioned_end_at = null;
+        $this->optioned_price = null;
+        $this->optioned_method = null;
+        $this->financing_bank = null;
+        $this->financing_phone = null;
+        $this->financing_contact = null;
         $this->save();
 
     }
