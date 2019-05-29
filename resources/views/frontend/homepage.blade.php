@@ -4,7 +4,7 @@
     <div class="properties-search position-relative text-center p-5">
         <h1 class="homeText">{{ __('NOW THE OPPORTUNITY IS AT REACH OF A CLICK') }}</h1>
 
-        <div class="icono-home col-xs-12"></div>
+        <a href="/{{ App::getLocale() }}/properties?type=&keywords=&event_type=ONLINE&price_min=0&price_max=9999999" class="icono-home col-xs-12"></a>
 
         <table width="100%">
             <tr>

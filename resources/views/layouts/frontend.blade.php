@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}?v4" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css', false) }}?v5" rel="stylesheet">
 @endsection
 
 @section('main')

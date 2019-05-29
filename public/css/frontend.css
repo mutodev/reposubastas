@@ -114,7 +114,10 @@ body {
 }
 
 .icono-home {
+    display: block;
     margin: 0 auto;
+    width: 95%;
+    height: 95px;
     background: url(/images/repo_online_button.svg) no-repeat;
 }
 
