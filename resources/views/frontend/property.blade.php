@@ -156,7 +156,7 @@
                                     {{ __('You must present your purchase intention by processing a minimum deposit') }}
                                     <br />
                                     <paypal
-                                            amount="1550.00"
+                                            amount="1575.00"
                                             currency="USD"
                                             :client="credentials"
                                             env="production"

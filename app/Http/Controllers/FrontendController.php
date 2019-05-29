@@ -197,7 +197,6 @@ class FrontendController extends Controller
 
     public function property(FormBuilder $formBuilder, $request)
     {
-
         $id = $request->get('id');
 
         if ($request->ajax() && empty($request->get('transactions'))) {
@@ -252,7 +251,8 @@ class FrontendController extends Controller
                 $UserDeposit = new App\Models\UserDeposit();
                 $UserDeposit->fill([
                     'amount' => @$request->get('transactions')[0]['amount']['total'],
-                    'user_id' => \Auth::user()->id
+                    'user_id' => \Auth::user()->id,
+                    'property_id' => $property->id
                 ]);
                 $UserDeposit->save();
 
@@ -270,9 +270,11 @@ class FrontendController extends Controller
                 die('done');
             }
 
-            if (!$userEvent || $userEvent->remaining_deposit <= 0) {
+            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+
+            if (!$userEvent || !$userDeposit) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . '<paypal
-                                            amount="1550.00"
+                                            amount="1575.00"
                                             currency="USD"
                                             :client="credentials"
                                             env="production"
@@ -297,6 +299,7 @@ class FrontendController extends Controller
                     $bid->property_id = $property->id;
                     $bid->event_id = $property->event_id;
                     $bid->offer = intval($formValues['offer']);
+                    $bid->type = $formValues['type'];
                     $bid->is_winner = false;
                     $bid->save();
 
@@ -308,6 +311,14 @@ class FrontendController extends Controller
                     Session::flash('success', __('Offer submitted'));
                 } else {
                     Session::flash('error', __('The offer must be greater than actual offer'));
+                    $bid = new Bid;
+                    $bid->user_id = \Auth::user()->id;
+                    $bid->property_id = $property->id;
+                    $bid->event_id = $property->event_id;
+                    $bid->offer = intval($formValues['offer']);
+                    $bid->type = $formValues['type'];
+                    $bid->is_winner = false;
+                    $bid->save();
                 }
             }
         }

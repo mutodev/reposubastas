@@ -16,6 +16,7 @@ class UserDeposit extends Model
     protected $fillable = [
         'amount',
         'user_id',
+        'property_id',
         'refunded'
     ];
 

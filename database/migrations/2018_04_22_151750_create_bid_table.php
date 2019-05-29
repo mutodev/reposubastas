@@ -19,6 +19,7 @@ class CreateBidTable extends Migration
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->decimal('offer', 16);
+            $table->enum('type', ['Cash', 'Financed'])->nullable();
             $table->boolean('is_winner');
             $table->timestamps();
 

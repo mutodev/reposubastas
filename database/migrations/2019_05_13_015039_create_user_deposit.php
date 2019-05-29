@@ -16,11 +16,13 @@ class CreateUserDeposit extends Migration
         Schema::create('user_deposit', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('property_id')->nullable();
             $table->decimal('amount')->nullable();
             $table->boolean('refunded');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
         });
     }
 

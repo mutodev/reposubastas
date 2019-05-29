@@ -14,6 +14,14 @@ class OfferForm extends Form
     public function buildForm()
     {
         $this->add('offer', 'number', ['label' => false, 'rules' => 'required']);
+        $this->add('type', 'select', [
+            'rules' => 'required',
+            'choices' => [
+                'Financed' => __('Financed'),
+                'Cash' => __('Cash'),
+            ],
+            'label' => __('Cash/Financed')
+        ]);
         $this->add('accept_terms', 'accept', ['value' => 1, 'rules' => 'accepted', 'label' => __('I agree to REPOSUBASTA :terms', [
             'terms' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'terms']).'">'.__('Terms').'</a>'
         ])]);

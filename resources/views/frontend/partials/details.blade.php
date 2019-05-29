@@ -64,12 +64,20 @@
                 @endif
             </div>
             <div class="col-12 p-0 col-md-4">
-                @if($property->open_house)
-                <strong class="text-dark-blue">{{ __('Inspection date') }}</strong>
+                @if($online)
+                    <strong class="text-dark-blue">{{ __('Inspection date') }}</strong>
 
-                <div class="mb-3">
-                    <span>{{ $property->open_house }}</span>
-                </div>
+                    <div class="mb-3">
+                        <span>{{ __('Call for appointment') }}</span>
+                    </div>
+                @else
+                    @if($property->open_house)
+                    <strong class="text-dark-blue">{{ __('Inspection date') }}</strong>
+
+                    <div class="mb-3">
+                        <span>{{ $property->open_house }}</span>
+                    </div>
+                    @endif
                 @endif
 
                 <strong class="text-dark-blue">{{ __('Transaction') }}</strong>
