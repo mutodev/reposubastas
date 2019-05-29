@@ -135,6 +135,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('pdf/{locale?}', 'Backend\PropertiesController@generatePdf')->name('backend.properties.pdf');
                 Route::get('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv');
                 Route::post('csv', 'Backend\PropertiesController@importCSV')->name('backend.properties.importcsv2');
+                Route::get('logs/{model}', 'Backend\PropertiesController@logs')->name('backend.properties.logs');
             });
 
             Route::prefix('users')->group(function () {

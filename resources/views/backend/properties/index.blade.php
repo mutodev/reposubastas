@@ -152,6 +152,9 @@
                                 <a  class="dropdown-item" href="{{ route('backend.properties.photos', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Photos')  }}
                                 </a>
+                                <a  class="dropdown-item" href="{{ route('backend.properties.logs', ['event' => $event->id, 'model' => $model->id]) }}">
+                                                                        {{ __('Logs')  }}
+                                </a>
                                 <a  class="dropdown-item" href="{{ route('backend.properties.auction', ['event' => $event->id, 'model' => $model->id]) }}">
                                     {{ __('Live')  }}
                                 </a>

@@ -36,6 +36,7 @@ class EditForm extends Form
                 'label' => __('Status')
             ])
             ->add('sold_closing_at', 'date')
+            ->add('cancel_reason', 'text', ['label' => __('Cancel Reason')])
             ->add('optioned_by', 'datalist', [
                 'label' => __('Optioned By'),
                 'style' => 'width:200px',

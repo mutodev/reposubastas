@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Models\PropertyStatusLog;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,24 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        \App\Models\Property::updated(function($property)
+        {
+            $newValues = $property->getDirty();
+
+            //Status changed
+            if (in_array('status_id', array_keys($property->getDirty()))) {
+                        //Create log
+                        $original = $property->getOriginal();
+                        $model = new PropertyStatusLog();
+                        $model->fill([
+                                'property_id' => $property->id,
+                                'old_status_id' => $original['status_id'],
+                                'new_status_id' => $newValues['status_id'],
+                                'optioned_by' => $original['optioned_by'],
+                                'payload' => json_encode(array_merge($original, ['cancel_reason' => $property->cancel_reason]))
+                                ]);
+                        $model->save();
+                    }
+        });
     }
 }
