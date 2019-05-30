@@ -201,6 +201,8 @@ class UsersController extends Controller
 
     public function deposits(Request $request, Event $event = null, Model $model = null)
     {
+        $search = $request->all();
+
         //Refund
         if ($depositId = $request->get('deposit_id')) {
             DB::table('user_deposit')
@@ -218,7 +220,22 @@ class UsersController extends Controller
             $Query->where('user_deposit.user_id', '=', $model->id);
         }
 
-        $models = $Query->orderBy('user_deposit.created_at', 'desc')->get();
+        if (isset($search['date_from'])) {
+            $Query->where('user_deposit.created_at', '>=', "{$search['date_from']} 00:00:00");
+        }
+
+        if (isset($search['date_to'])) {
+            $Query->where('user_deposit.created_at', '<=', "{$search['date_to']} 00:00:00");
+        }
+
+        $models = $Query->orderBy('user_deposit.created_at', 'desc')->paginate(25)->withPath($request->fullUrlWithQuery($request->all()));
+
+        return view('backend.users.deposits', compact('models', 'model', 'event'));
+    }
+
+    public function offers(Request $request, Event $event = null, Model $model = null)
+    {
+        $search = $request->all();
 
         $Query = Bid::select('bid.*', 'users.name', 'properties.*');
 
@@ -226,11 +243,19 @@ class UsersController extends Controller
             $Query->where('bid.user_id', '=', $model->id);
         }
 
-        $bids = $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
+        if (isset($search['date_from'])) {
+            $Query->where('user_deposit.created_at', '>=', "{$search['date_from']} 00:00:00");
+        }
+
+        if (isset($search['date_to'])) {
+            $Query->where('user_deposit.created_at', '<=', "{$search['date_to']} 00:00:00");
+        }
+
+        $models = $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
             ->leftJoin('properties', 'properties.id', '=', 'bid.property_id')
             ->orderBy('bid.created_at', 'desc')
-            ->get();
+            ->paginate(25)->withPath($request->fullUrlWithQuery($request->all()));
 
-        return view('backend.users.deposits', compact('models', 'model', 'bids', 'event'));
+        return view('backend.users.offers', compact('model', 'models', 'event'));
     }
 }

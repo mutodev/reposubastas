@@ -182,17 +182,40 @@ class FrontendController extends Controller
 
         $properties = $query->orderBy('property_event.number')->paginate(100);
 
-        if ($request->ajax()) {
-            $email = $request->all();
+        //Handle post
+        if ($request->isMethod('post')) {
+            $form = $formBuilder->create(App\Forms\Frontend\Property\BulkForm::class);
+
+            if (!$form->isValid()) {
+                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            }
+
+            if (count($properties) > 5) {
+                Session::flash('error', __('There is a maximun limit of 5 properties'));
+                return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
+            }
+
+            $email = $form->getFieldValues();
             foreach ($properties as $k => $property) {
                 $email['Property ' . ($k + 1)] = $property->address . ' ' . $property->city;
             }
             $email['offer'] = '$' . number_format($email['offer']);
 
             Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Bulk Offer', $email));
+
+            Session::flash('success', __('Offer sent! We will reply as soon as possible'));
+
+            session()->set('selected', []);
+
+            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk']);
         }
 
-        return compact('properties');
+        $form = $formBuilder->create(App\Forms\Frontend\Property\BulkForm::class, [
+            'method' => 'POST',
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])
+        ]);
+
+        return compact('properties', 'form');
     }
 
     public function property(FormBuilder $formBuilder, $request)
@@ -251,8 +274,7 @@ class FrontendController extends Controller
                 $UserDeposit = new App\Models\UserDeposit();
                 $UserDeposit->fill([
                     'amount' => @$request->get('transactions')[0]['amount']['total'],
-                    'user_id' => \Auth::user()->id,
-                    'property_id' => $property->id
+                    'user_id' => \Auth::user()->i
                 ]);
                 $UserDeposit->save();
 
@@ -270,9 +292,9 @@ class FrontendController extends Controller
                 die('done');
             }
 
-            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded != 1 AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
 
-            if (!$userEvent || !$userDeposit) {
+            if (!$userDeposit) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . '<paypal
                                             amount="1575.00"
                                             currency="USD"
@@ -305,6 +327,10 @@ class FrontendController extends Controller
 
                     $formValues['property_number'] = $property->id;
                     $formValues['user'] = \Auth::user()->name;
+
+                    //Attach deposit to property
+                    $userDeposit->property_id = $property->id;
+                    $userDeposit->save();
 
                     Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 

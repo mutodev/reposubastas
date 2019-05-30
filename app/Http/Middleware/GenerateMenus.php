@@ -25,7 +25,8 @@ class GenerateMenus
                 $menu->add('<span title="icon people" aria-hidden="true" class="oi oi-people"></span> ' . __('Event \ Users'), ['url' => route('backend.event.users.index', ['event' => $eventId]), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             }
 
-            $menu->add('<span title="icon envelope-open" aria-hidden="true" class="oi oi-envelope-open"></span> '.__('Deposits \ Bids'), ['url' => route('backend.users.deposits'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
+            $menu->add('<span title="icon envelope-open" aria-hidden="true" class="oi oi-envelope-open"></span> '.__('Deposits'), ['url' => route('backend.users.deposits'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
+            $menu->add('<span title="icon envelope-open" aria-hidden="true" class="oi oi-envelope-open"></span> '.__('Bids'), ['url' => route('backend.users.offers'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             $menu->add('<span title="icon building" aria-hidden="true" class="oi oi-document"></span> '.__('Tags'), ['url' => route('backend.tags.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             $menu->add('<span title="icon building" aria-hidden="true" class="oi oi-document"></span> '.__('Investors'), ['url' => route('backend.investors.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);
             $menu->add('<span title="icon people" aria-hidden="true" class="oi oi-people"></span> '.__('Administrators'), ['url' => route('backend.users.index'), 'class' => 'nav-item'])->link->attr(['class' => 'nav-link']);

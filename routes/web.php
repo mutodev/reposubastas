@@ -90,6 +90,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::post('store/{model?}', 'Backend\UsersController@store')->name('backend.users.store');
             Route::post('assign_number/{model}', 'Backend\UsersController@assignNumber')->name('backend.users.assign_number');
             Route::get('/deposits', 'Backend\UsersController@deposits')->name('backend.users.deposits');
+            Route::get('/offers', 'Backend\UsersController@offers')->name('backend.users.offers');
         });
 
         Route::prefix('pages')->group(function () {

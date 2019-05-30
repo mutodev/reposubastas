@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',  ($model ? $model->name . " - " : '') . 'Deposits')
+@section('title',  ($model ? $model->name . " - " : '') . 'Bids')
 
 @section('toolbar')
 
@@ -26,30 +26,23 @@
                 {{ __('User') }}
             </th>
             <th>
-                {{ __('Amount') }}
+                {{ __('Property') }}
+            </th>
+            <th>
+                {{ __('Offer') }}
             </th>
             <th>
                 {{ __('Date') }}
             </th>
-            <th>
-                {{ __('Refund') }}
-            </th>
         </tr>
         </thead>
         <tbody>
-        @foreach ($models as $deposit)
+        @foreach ($models as $bid)
             <tr>
-                <td>{{ $deposit->name }}</td>
-                <td>${{ number_format($deposit->amount) }}</td>
-                <td>{{ \Carbon\Carbon::parse($deposit->created_at)->format('d/m/Y h:i A')}}</td>
-                <td>@if ($deposit->refunded)
-                        Refunded
-                    @else
-                        <a  class="btn btn-primary" href="{{ \App\User::url('deposits', @$model->id, @$event->id) }}?deposit_id={{ $deposit->id }}">
-                            {{ __('Refund')  }}
-                        </a>
-                    @endif
-                </td>
+                <td>{{ $bid->name }}</td>
+                <td>{{ $bid->address }}</td>
+                <td>${{ number_format($bid->offer) }}</td>
+                <td>{{ \Carbon\Carbon::parse($bid->created_at)->format('d/m/Y h:i A')}}</td>
             </tr>
         @endforeach
         </tbody>

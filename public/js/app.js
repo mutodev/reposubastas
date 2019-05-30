@@ -15998,43 +15998,6 @@ $('.selectProperty').click(function () {
   });
 });
 
-$('.bulkSendOffer').click(function (event) {
-  event.preventDefault();
-  var self = this;
-
-  var offer = $('.bulk-total-offer').val();
-
-  if (!offer) {
-    alert('Offer is required');
-    return;
-  }
-
-  var name = $('.bulk-name').val();
-
-  if (!name) {
-    alert('Name is required');
-    return;
-  }
-
-  var phone = $('.bulk-phone').val();
-
-  if (!phone) {
-    alert('Phone is required');
-    return;
-  }
-
-  $.ajax($(this).data('url') + '?' + jQuery.param({
-    offer: offer,
-    name: name,
-    phone: phone
-  })).done(function () {
-    $('.bulk-total-offer').val('');
-    $('.bulk-name').val('');
-    $('.bulk-phone').val('');
-    alert('Thanks, offer sent!');
-  });
-});
-
 /***/ }),
 /* 57 */
 /***/ (function(module, exports, __webpack_require__) {

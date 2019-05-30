@@ -39,22 +39,9 @@
                 @endif
             @endforeach
 
-            <form class="form">
-                <div class="form-group">
-                    {{ __('Name') }}:&nbsp;
-                    <input required type="text" name="name" class="form-control bulk-name" />
-                </div>
-                <div class="form-group">
-                    {{ __('Phone') }}:&nbsp;
-                    <input required type="text" name="name" class="form-control bulk-phone" />
-                </div>
-                <div class="form-group">
-                    {{ __('Total offer') }}:&nbsp;
-                    <input required type="number" name="offer" class="form-control bulk-total-offer" />
-                </div>
-
-                <button class="btn bulkSendOffer" data-url="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Send offer') }}</button>
-            </form>
+            <div class="col-sm-6 mx-auto">
+                {!! form($form) !!}
+            </div>
         </div>
     </div>
 @endsection
