@@ -362,7 +362,7 @@ class FrontendController extends Controller
         ]);
 
         $types = PropertyType::forSelect();
-        $online = empty($property->event_is_online);
+        $online = $property->event_is_online;
 
         return compact('types', 'property', 'online', 'form', 'bid', 'userEvent');
     }
