@@ -14,6 +14,11 @@ class EditForm extends Form
             ->add('live_at', 'datetime-local', ['rules' => 'required'])
             ->add('end_at', 'datetime-local', ['rules' => 'required'])
             ->add('location', 'text', ['rules' => 'required'])
+            ->add('is_online', 'checkbox', [
+                'value' => 1,
+                'checked' => true,
+                'label' => __('Is online?')
+            ])
             ->add('is_active', 'checkbox', [
                 'value' => 1,
                 'checked' => true,

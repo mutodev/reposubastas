@@ -19,6 +19,7 @@ class Event extends Model
         'live_at',
         'end_at',
         'is_active',
+        'is_online'
     ];
 
     public function properties()

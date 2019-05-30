@@ -41,7 +41,7 @@
     </div>
 
     <ul class="list-group list-group-flush">
-        @if($property->event_live_at)
+        @if($property->event_live_at && !$property->event_is_online)
             <li class="list-group-item border-0 bg-dark-blue">
                 {{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
             </li>

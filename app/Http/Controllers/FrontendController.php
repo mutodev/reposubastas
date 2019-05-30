@@ -63,10 +63,9 @@ class FrontendController extends Controller
 
     public function properties(FormBuilder $formBuilder, Request $request)
     {
-
         $today = date('Y-m-d H:i:s');
 
-        $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
+        $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.is_online as event_is_online', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location')
             ->join('property_event', function ($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
@@ -217,7 +216,8 @@ class FrontendController extends Controller
 
         $form = $formBuilder->create(App\Forms\Frontend\Property\BulkForm::class, [
             'method' => 'POST',
-            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])
+            'url' => route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk']),
+            'model'  => \Auth::user()
         ]);
 
         return compact('properties', 'form');
@@ -249,7 +249,7 @@ class FrontendController extends Controller
 
         $today = date('Y-m-d H:i:s');
 
-        $property = Property::select('properties.*', 'property_event.number', 'events.start_at as event_start_at', 'events.live_at as event_live_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
+        $property = Property::select('properties.*', 'property_event.number', 'events.is_online as event_is_online', 'events.start_at as event_start_at', 'events.live_at as event_live_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
             ->join('property_event', function ($join) {
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
@@ -362,7 +362,7 @@ class FrontendController extends Controller
         ]);
 
         $types = PropertyType::forSelect();
-        $online = empty($property->number);
+        $online = empty($property->event_is_online);
 
         return compact('types', 'property', 'online', 'form', 'bid', 'userEvent');
     }
