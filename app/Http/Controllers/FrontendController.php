@@ -200,8 +200,9 @@ class FrontendController extends Controller
             }
 
             $email = $form->getFieldValues();
+            $email['User'] = \Auth::user()->name;
             foreach ($properties as $k => $property) {
-                $email['Property ' . ($k + 1)] = $property->address . ' ' . $property->city;
+                $email['Property ' . ($k + 1)] = "(ID: {$property->id}, CATALOGO: {$property->number}) " . $property->address . ' ' . $property->city;
             }
             $email['offer'] = '$' . number_format($email['offer']);
 
