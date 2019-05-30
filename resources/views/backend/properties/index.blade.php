@@ -130,7 +130,7 @@
                     </td>
                     <td>{{ $model->type->name }}</td>
                     <td>{{ $model->address }}, {{ $model->city }}</td>
-                    <td>@if($model->status_id){{ $model->status->name }}@endif</td>
+                    <td>@if($model->status_id){{ $model->status->name }}@else{{__('Available')}}@endif</td>
                     <td>
                         {{ Jenssegers\Date\Date::parse($model->start_at)->format('j M Y, g:ia')}}
                     </td>
