@@ -13,13 +13,19 @@ class OfferForm extends Form
 
     public function buildForm()
     {
+        $typeOptions = [
+            'Financed' => __('Financed'),
+            'Cash' => __('Cash')
+        ];
+
+        if ($this->data['is_cash_only']) {
+            unset($typeOptions['Financed']);
+        }
+
         $this->add('offer', 'number', ['label' => false, 'rules' => 'required']);
         $this->add('type', 'select', [
             'rules' => 'required',
-            'choices' => [
-                'Financed' => __('Financed'),
-                'Cash' => __('Cash'),
-            ],
+            'choices' => $typeOptions,
             'label' => __('Cash/Financed')
         ]);
         $this->add('accept_terms', 'accept', ['value' => 1, 'rules' => 'accepted', 'label' => __('I agree to REPOSUBASTA :terms', [

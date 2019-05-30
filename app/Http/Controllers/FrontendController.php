@@ -359,6 +359,8 @@ class FrontendController extends Controller
             'model' => [
                 'offer' => intval($bid->offer ?? $property->price)
             ]
+        ], [
+            'is_cash_only' => $property->is_cash_only
         ]);
 
         $types = PropertyType::forSelect();
