@@ -206,21 +206,7 @@ class PropertiesController extends Controller
         $model->fill($formValues);
         $model->cancel_reason = @$formValues['cancel_reason'];
         $model->save();
-
-        //Assign next number
-        if (empty($formValues['number'])) {
-            $property = Model::select('properties.*', 'property_event.number', 'property_event.is_active')
-                ->join('property_event', function($join) use ($event) {
-                    $join->on('property_event.property_id', '=', 'properties.id');
-                    $join->on('property_event.event_id', '=', DB::raw($event->id));
-                })
-                ->orderBy('property_event.number', 'desc')
-                ->first();
-
-            $formValues['number'] = $property ? ($property->number + 1) : 1;
-        }
-
-        $model->addToEvent($event->id, $formValues['number']);
+        $model->addToEvent($event->id, null);
 
         return redirect()->route('backend.properties.index', ['event' => $event->id]);
     }

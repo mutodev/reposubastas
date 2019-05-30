@@ -190,8 +190,13 @@ class FrontendController extends Controller
                 return redirect()->back()->withErrors($form->getErrors())->withInput();
             }
 
+            if (count($properties) < 2) {
+                Session::flash('error', __('There is a minimum limit of 2 properties'));
+                return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
+            }
+
             if (count($properties) > 5) {
-                Session::flash('error', __('There is a maximun limit of 5 properties'));
+                Session::flash('error', __('There is a maximum limit of 5 properties'));
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
             }
 
@@ -299,7 +304,6 @@ class FrontendController extends Controller
                                             amount="1575.00"
                                             currency="USD"
                                             :client="credentials"
-                                            env="live"
                                             v-on:payment-authorized="paymentAuthorized"
                                             v-on:payment-completed="paymentCompleted"
                                             v-on:payment-cancelled="paymentCancelled"

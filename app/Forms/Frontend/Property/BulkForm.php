@@ -14,6 +14,8 @@ class BulkForm extends Form
     public function buildForm()
     {
         $this->add('name', 'text', ['label' => __('Name'), 'rules' => 'required']);
+        $this->add('email', 'email', ['label' => __('Email'), 'rules' => 'required']);
+        $this->add('phone', 'email', ['label' => __('Phone'), 'rules' => 'required']);
         $this->add('offer', 'number', ['label' => __('Offer'), 'rules' => 'required']);
         $this->add('type', 'select', [
             'rules' => 'required',
