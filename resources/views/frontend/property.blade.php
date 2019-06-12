@@ -135,11 +135,19 @@
                         ?>
 
                         @if($online && $today->lt($endAt))
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
-                                <br />
-                                <strong class="unit">${{ number_format(intval($bid->offer ?? 0)) }}</strong>
-                            </div>
+                            @if(@$bid->offer)
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
+                                    <br />
+                                    <strong class="unit">${{ number_format(intval($bid->offer ?? 0)) }}</strong>
+                                </div>
+                            @else
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ __('Starting bid') }}</strong>
+                                    <br />
+                                    <strong class="unit">${{ number_format(intval($property->reserve ?? 0)) }}</strong>
+                                </div>
+                            @endif
 
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>

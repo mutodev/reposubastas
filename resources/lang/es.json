@@ -113,5 +113,6 @@
   "Offer sent! We will reply as soon as possible": "Oferta enviada",
   "Offer": "Oferta",
   "There is a minimum limit of 2 properties": "Debe seleccionar mas de una propiedad",
-  "There is a maximum limit of 5 properties": "Debe seleccionar hasta cinco propiedades"
+  "There is a maximum limit of 5 properties": "Debe seleccionar hasta cinco propiedades",
+  "Starting bid": "Oferta inicial"
 }
