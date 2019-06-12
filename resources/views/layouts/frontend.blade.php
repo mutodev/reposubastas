@@ -20,18 +20,18 @@
                 @else
                     <a class="site-header-item py-2 d-inline-block mr-3" href="/logout">{{ __('Logout') }}</a>
                 @endif
-                <div class="btn-group">
-                    <button class="btn bg-light-blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ App::getLocale() == 'es' ? __('Español') : __('English') }}
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
-                        @if (App::getLocale() == 'en')
-                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'es']) }}">{{ __('Español') }}</a>
-                        @else
-                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'en']) }}">{{ __('English') }}</a>
-                        @endif
-                    </div>
-                </div>
+{{--                <div class="btn-group">--}}
+{{--                    <button class="btn bg-light-blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                        {{ App::getLocale() == 'es' ? __('Español') : __('English') }}--}}
+{{--                    </button>--}}
+{{--                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">--}}
+{{--                        @if (App::getLocale() == 'en')--}}
+{{--                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'es']) }}">{{ __('Español') }}</a>--}}
+{{--                        @else--}}
+{{--                            <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'en']) }}">{{ __('English') }}</a>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </nav>
