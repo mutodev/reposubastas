@@ -141,7 +141,7 @@
                                     <br />
                                     <strong class="unit">${{ number_format(intval($bid->offer ?? 0)) }}</strong>
                                 </div>
-                            @else
+                            @elseif($property->reserve)
                                 <div class="price mt-3">
                                     <strong class="text-dark-blue">{{ __('Starting bid') }}</strong>
                                     <br />
