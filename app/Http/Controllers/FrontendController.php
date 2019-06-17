@@ -280,7 +280,8 @@ class FrontendController extends Controller
                 $UserDeposit = new App\Models\UserDeposit();
                 $UserDeposit->fill([
                     'amount' => @$request->get('transactions')[0]['amount']['total'],
-                    'user_id' => \Auth::user()->i
+                    'user_id' => \Auth::user()->id,
+                    'property_id' => $property->id
                 ]);
                 $UserDeposit->save();
 
@@ -298,7 +299,7 @@ class FrontendController extends Controller
                 die('done');
             }
 
-            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded != 1 AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
 
             if (!$userDeposit) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . '<paypal
@@ -310,7 +311,9 @@ class FrontendController extends Controller
                                             v-on:payment-cancelled="paymentCancelled"
                                     ></paypal>');
             } else {
-                $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class);
+                $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [], [
+                    'is_cash_only' => $property->is_cash_only
+                ]);
 
                 if (!$form->isValid()) {
                     return redirect()->back()->withErrors($form->getErrors())->withInput();
