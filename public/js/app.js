@@ -15883,8 +15883,8 @@ var app = new Vue({
       celebrate: null
     },
     credentials: {
-      sandbox: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps',
-      production: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps'
+      sandbox: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU',
+      production: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU'
     }
   },
   methods: {
@@ -15915,19 +15915,17 @@ var app = new Vue({
         $('.celebrate img').attr('src', 'gg');
       }, 8000);
     },
-    paymentAuthorized: function paymentAuthorized(data) {
-      console.log('Authorized', data);
-    },
     paymentCompleted: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(data) {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('Completed', data);
+                _context.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.post('/paypal', data);
 
-                _context.next = 3;
-                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.post(window.location.href, data);
+              case 2:
+                window.location.reload();
 
               case 3:
               case 'end':
@@ -15942,10 +15940,7 @@ var app = new Vue({
       }
 
       return paymentCompleted;
-    }(),
-    paymentCancelled: function paymentCancelled(data) {
-      console.log('Cancelled', data);
-    }
+    }()
   }
 });
 

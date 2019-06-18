@@ -23,17 +23,18 @@
                 </div>
             @endif
 
+            <div class="row mb-3">
+                <div class="col-xs-12 col-sm-6">
+                    <button class="selectProperty btn-block btn btn-primary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Save') }}</button>
+                </div>
+                <div class="col-xs-12 col-sm-6 text-right">
+                    @include('frontend.partials.bidding', ['id' => $property->id])
+                </div>
+            </div>
+
             <strong class="text-dark-blue">{{ __('Property') }}</strong>
             <h2 class="m-0">{{ $property->address }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
-
-            <div class="clearfix mb-3">
-{{--                <div class="float-left">--}}
-                    <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
-                    <button class="selectProperty btn btn-secondary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Save') }}</button>
-{{--                </div>--}}
-                <div class="addthis_inline_share_toolbox_zkje float-right"></div>
-            </div>
 
             <div class="container">
                 <div class="row">
@@ -80,6 +81,10 @@
                                 <span class="badge badge-danger">{{ $property->status->name }}</span>
                             @endif
                         </div>
+
+                        <div class="addthis_inline_share_toolbox_zkje"></div>
+
+                        @include('frontend.partials.details', compact('property', 'online'))
                     </div>
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
                         <?php
@@ -163,23 +168,13 @@
                                 @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))
                                     {{ __('You must present your purchase intention by processing a minimum deposit') }}
                                     <br />
-                                    <paypal
-                                            amount="1575.00"
-                                            currency="USD"
-                                            :client="credentials"
-                                            v-on:payment-authorized="paymentAuthorized"
-                                            v-on:payment-completed="paymentCompleted"
-                                            v-on:payment-cancelled="paymentCancelled"
-                                    >
-                                    </paypal>
+                                    @include('frontend.partials.paypal')
                                 @endif
                             </div>
                         @endif
                     </div>
                 </div>
             </div>
-
-            @include('frontend.partials.details', compact('property', 'online'))
 
             @if($property->latitude && $property->longitude)
             <h5 class="mt-3">{{ __('Map') }}</h5>

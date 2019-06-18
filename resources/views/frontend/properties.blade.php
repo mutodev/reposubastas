@@ -21,8 +21,14 @@
                 </div>
             @endif
 
-            <div class="clearfix mb-3">
-                <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
+            <div class="row mb-3">
+                <div class="col-xs-12 col-sm-6">
+                    <a class="btn btn-block btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 text-right">
+                    @include('frontend.partials.bidding')
+                </div>
             </div>
 
             <div class="properties-filters">

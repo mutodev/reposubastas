@@ -13,9 +13,13 @@
 
             @if (session('error'))
                 <div class="alert alert-danger">
-                    {{ session('error') }}
+                    {!! session('error') !!}
                 </div>
             @endif
+
+            <div class="text-right">
+                @include('frontend.partials.bidding')
+            </div>
 
             @if(!$properties->total())
                 <div class="py-5">

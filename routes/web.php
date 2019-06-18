@@ -91,6 +91,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::post('assign_number/{model}', 'Backend\UsersController@assignNumber')->name('backend.users.assign_number');
             Route::get('/deposits', 'Backend\UsersController@deposits')->name('backend.users.deposits');
             Route::get('/offers', 'Backend\UsersController@offers')->name('backend.users.offers');
+            Route::get('deposit/{model}', 'Backend\UsersController@deposit')->name('backend.users.deposit');
+            Route::post('deposit/{model}', 'Backend\UsersController@depositPost')->name('backend.users.deposit');
         });
 
         Route::prefix('pages')->group(function () {
@@ -148,6 +150,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
                 Route::get('register-to-event/{model}', 'Backend\UsersController@registerToEvent')->name('backend.event.users.register-to-event');
                 Route::post('register-to-event/{model}', 'Backend\UsersController@registerToEvent')->name('backend.event.users.register-to-event-post');
                 Route::get('/deposits/{model}', 'Backend\UsersController@deposits')->name('backend.event.users.deposits');
+                Route::get('deposit/{model}', 'Backend\UsersController@deposit')->name('backend.event.users.deposit');
+                Route::post('deposit/{model}', 'Backend\UsersController@depositPost')->name('backend.event.users.deposit-post');
             });
         });
     });
@@ -157,8 +161,11 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::post('/deposit', 'FrontendController@deposit')->name('frontend.deposit-post');
 
+Route::post('/paypal', 'FrontendController@paypal')->name('frontend.paypal');
+
 Route::get('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page');
 Route::post('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.page-post');
+
 
 Route::get('/', function () {
     $request = Request::create('es', 'GET', array());

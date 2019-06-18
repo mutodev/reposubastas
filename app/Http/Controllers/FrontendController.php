@@ -183,34 +183,42 @@ class FrontendController extends Controller
 
         //Handle post
         if ($request->isMethod('post')) {
-            $form = $formBuilder->create(App\Forms\Frontend\Property\BulkForm::class);
 
-            if (!$form->isValid()) {
-                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
+
+            if (!$userDeposit) {
+                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
+                return redirect()->back()->withInput();
+            }else {
+                $form = $formBuilder->create(App\Forms\Frontend\Property\BulkForm::class);
+
+                if (!$form->isValid()) {
+                    return redirect()->back()->withErrors($form->getErrors())->withInput();
+                }
+
+                if (count($properties) < 2) {
+                    Session::flash('error', __('There is a minimum limit of 2 properties'));
+                    return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
+                }
+
+                if (count($properties) > 5) {
+                    Session::flash('error', __('There is a maximum limit of 5 properties'));
+                    return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
+                }
+
+                $email = $form->getFieldValues();
+                $email['User'] = \Auth::user()->name;
+                foreach ($properties as $k => $property) {
+                    $email['Property ' . ($k + 1)] = "(ID: {$property->id}, CATALOGO: {$property->number}) " . $property->address . ' ' . $property->city;
+                }
+                $email['offer'] = '$' . number_format($email['offer']);
+
+                Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Bulk Offer', $email));
+
+                Session::flash('success', __('Offer sent! We will reply as soon as possible'));
+
+                \Session::put('selected', []);
             }
-
-            if (count($properties) < 2) {
-                Session::flash('error', __('There is a minimum limit of 2 properties'));
-                return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
-            }
-
-            if (count($properties) > 5) {
-                Session::flash('error', __('There is a maximum limit of 5 properties'));
-                return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk'])->withInput();
-            }
-
-            $email = $form->getFieldValues();
-            $email['User'] = \Auth::user()->name;
-            foreach ($properties as $k => $property) {
-                $email['Property ' . ($k + 1)] = "(ID: {$property->id}, CATALOGO: {$property->number}) " . $property->address . ' ' . $property->city;
-            }
-            $email['offer'] = '$' . number_format($email['offer']);
-
-            Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Bulk Offer', $email));
-
-            Session::flash('success', __('Offer sent! We will reply as soon as possible'));
-
-            session()->set('selected', []);
 
             return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'bulk']);
         }
@@ -275,41 +283,10 @@ class FrontendController extends Controller
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
             }
 
-            if ($request->ajax()) {
-                //Deposit log
-                $UserDeposit = new App\Models\UserDeposit();
-                $UserDeposit->fill([
-                    'amount' => @$request->get('transactions')[0]['amount']['total'],
-                    'user_id' => \Auth::user()->id,
-                    'property_id' => $property->id
-                ]);
-                $UserDeposit->save();
-
-                if (!$userEvent) {
-                    $userEvent = new App\Models\UserEvent();
-                }
-
-                $userEvent->fill([
-                    'remaining_deposit' => @$request->get('transactions')[0]['amount']['total'],
-                    'user_id' => \Auth::user()->id,
-                    'event_id' => $property->event_id,
-                    'is_active' => true
-                ]);
-                $userEvent->save();
-                die('done');
-            }
-
             $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
 
             if (!$userDeposit) {
-                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . '<paypal
-                                            amount="1575.00"
-                                            currency="USD"
-                                            :client="credentials"
-                                            v-on:payment-authorized="paymentAuthorized"
-                                            v-on:payment-completed="paymentCompleted"
-                                            v-on:payment-cancelled="paymentCancelled"
-                                    ></paypal>');
+                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
             } else {
                 $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [], [
                     'is_cash_only' => $property->is_cash_only
@@ -468,5 +445,17 @@ class FrontendController extends Controller
         ]);
 
         return compact('form');
+    }
+
+    public function paypal(Request $request)
+    {
+        //Deposit log
+        $UserDeposit = new App\Models\UserDeposit();
+        $UserDeposit->fill([
+            'amount' => (float)$request->get('transactions')[0]['amount']['total'] - 75,
+            'user_id' => \Auth::user()->id
+        ]);
+        $UserDeposit->save();
+        die('done');
     }
 }

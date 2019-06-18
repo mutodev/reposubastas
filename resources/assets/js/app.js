@@ -41,8 +41,8 @@ const app = new Vue({
       celebrate: null
     },
     credentials: {
-      sandbox: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps',
-      production: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps'
+      sandbox: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU',
+      production: 'AamK8wR0r-AFA7X6QSAXQBMzY2OYD5Qq4JCIdQw3yQ6IIN1binfDmyW6veP8q_KZFLHdfBpI9eCaV0IU'
     }
   },
   methods: {
@@ -73,16 +73,9 @@ const app = new Vue({
         $('.celebrate img').attr('src', 'gg');
       }, 8000);
     },
-    paymentAuthorized: function (data) {
-      console.log('Authorized', data);
-    },
     paymentCompleted: async function (data) {
-      console.log('Completed', data);
-
-      await axios.post(window.location.href, data);
-    },
-    paymentCancelled: function (data) {
-      console.log('Cancelled', data);
+      await axios.post('/paypal', data);
+      window.location.reload();
     }
   }
 });

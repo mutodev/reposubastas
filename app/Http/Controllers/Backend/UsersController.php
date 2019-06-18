@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Forms\Frontend\User\RegisterForm;
 use App\Forms\Backend\User\RegisterToEventForm;
 use App\Forms\Backend\User\EditForm;
+use App\Forms\Backend\User\DepositForm;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -257,5 +258,36 @@ class UsersController extends Controller
             ->paginate(25)->withPath($request->fullUrlWithQuery($request->all()));
 
         return view('backend.users.offers', compact('model', 'models', 'event'));
+    }
+
+    public function deposit(FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        $form = $formBuilder->create(DepositForm::class, [
+            'method' => 'POST',
+            'url'    => Model::url('deposit-post', @$model->id, @$event->id),
+            'model'  => $model
+        ]);
+
+        return view('backend.users.deposit', compact('form', 'model', 'event'));
+    }
+
+    public function depositPost(FormBuilder $formBuilder, Event $event, Model $model)
+    {
+        $form = $formBuilder->create(DepositForm::class, [], [
+            'isBackend' => true
+        ]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $formValues = $form->getFieldValues();
+        $formValues['user_id'] = $model->id;
+
+        $deposit = new UserDeposit();
+        $deposit->fill($formValues);
+        $deposit->save();
+
+        return redirect(Model::url('index', null, @$event->id));
     }
 }

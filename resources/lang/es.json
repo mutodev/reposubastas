@@ -114,5 +114,11 @@
   "Offer": "Oferta",
   "There is a minimum limit of 2 properties": "Debe seleccionar mas de una propiedad",
   "There is a maximum limit of 5 properties": "Debe seleccionar hasta cinco propiedades",
-  "Starting bid": "Oferta mínima"
+  "Starting bid": "Oferta mínima",
+  "to": "para",
+  "or": "o",
+  "You are ready to start bidding": "Estás listo para comenzar a ofertar",
+  "You can bid on :offersLeft properties": "Puedes ofertar en :offersLeft propiedades",
+  "You can bid on :offersLeft property": "Puedes ofertar en :offersLeft propiedad",
+  "To be able to offer a deposit is required": "Para poder ofertar se requiere un depósito"
 }
