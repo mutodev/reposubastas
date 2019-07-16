@@ -40,4 +40,14 @@ class Event extends Model
             ->where('user_event.is_active', '=', true)
             ->join('user_event', 'user_event.user_id', '=', 'users.id')->get();
     }
+
+    public static function forSelect($empty = '-- Select One --') {
+        $events = [];
+        $events[''] = __($empty);
+        foreach (self::all() as $event) {
+            $events[$event->id] = $event->name;
+        }
+
+        return $events;
+    }
 }

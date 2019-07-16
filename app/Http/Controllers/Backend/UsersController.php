@@ -214,8 +214,10 @@ class UsersController extends Controller
             return redirect(Model::url('deposits', @$model->id, @$event->id));
         }
 
-        $Query = UserDeposit::select('user_deposit.*', 'users.name')
+        $Query = UserDeposit::select('user_deposit.*', 'users.name as user', 'properties.address', 'properties.city', 'properties.price', 'investor.name as investor')
             ->leftJoin('users', 'users.id', '=', 'user_deposit.user_id');
+        $Query->leftJoin('properties', 'properties.id', '=', 'user_deposit.property_id')
+            ->leftJoin('investor', 'investor.id', '=', 'properties.investor_id');
 
         if ($model) {
             $Query->where('user_deposit.user_id', '=', $model->id);
@@ -229,6 +231,17 @@ class UsersController extends Controller
             $Query->where('user_deposit.created_at', '<=', "{$search['date_to']} 00:00:00");
         }
 
+        if (isset($search['investor'])) {
+            $Query->where('properties.investor_id', '=', $search['investor']);
+        }
+
+        if (isset($search['user'])) {
+            $userKeyword = '%'.$search['user'].'%';
+            $Query->whereRaw('(users.name LIKE ? OR users.email LIKE ? OR users.phone LIKE ? OR users.broker_name LIKE ? OR users.spouse_name LIKE ? OR users.license LIKE ?)', [
+                $userKeyword, $userKeyword, $userKeyword, $userKeyword, $userKeyword, $userKeyword
+            ]);
+        }
+
         $models = $Query->orderBy('user_deposit.created_at', 'desc')->paginate(25)->withPath($request->fullUrlWithQuery($request->all()));
 
         return view('backend.users.deposits', compact('models', 'model', 'event'));
@@ -238,7 +251,10 @@ class UsersController extends Controller
     {
         $search = $request->all();
 
-        $Query = Bid::select('bid.*', 'users.name', 'properties.*');
+        $Query = Bid::select('bid.*', 'users.name as user', 'properties.address', 'properties.city', 'properties.price', 'investor.name as investor');
+        $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
+            ->leftJoin('properties', 'properties.id', '=', 'bid.property_id')
+            ->leftJoin('investor', 'investor.id', '=', 'properties.investor_id');
 
         if ($model) {
             $Query->where('bid.user_id', '=', $model->id);
@@ -252,9 +268,26 @@ class UsersController extends Controller
             $Query->where('user_deposit.created_at', '<=', "{$search['date_to']} 00:00:00");
         }
 
-        $models = $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
-            ->leftJoin('properties', 'properties.id', '=', 'bid.property_id')
-            ->orderBy('bid.created_at', 'desc')
+        if (isset($search['event'])) {
+            $Query->where('bid.event_id', '=', $search['event']);
+        }
+
+        if (isset($search['investor'])) {
+            $Query->where('properties.investor_id', '=', $search['investor']);
+        }
+
+        if (isset($search['user'])) {
+            $userKeyword = '%'.$search['user'].'%';
+            $Query->whereRaw('(users.name LIKE ? OR users.email LIKE ? OR users.phone LIKE ? OR users.broker_name LIKE ? OR users.spouse_name LIKE ? OR users.license LIKE ?)', [
+                $userKeyword, $userKeyword, $userKeyword, $userKeyword, $userKeyword, $userKeyword
+            ]);
+        }
+
+        if (isset($search['type'])) {
+            $Query->where('bid.type', '=', $search['type']);
+        }
+
+        $models = $Query->orderBy('bid.created_at', 'desc')
             ->paginate(25)->withPath($request->fullUrlWithQuery($request->all()));
 
         return view('backend.users.offers', compact('model', 'models', 'event'));
