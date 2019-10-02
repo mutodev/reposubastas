@@ -444,7 +444,7 @@ class PropertiesController extends Controller
                 $values['cuerdas']        = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) : null;
                 $values['sqm_area']       = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) * 3930.34 : null;
                 $values['bedrooms']       = $row['Bedrooms'] ? intval($row['Bedrooms']) : null;
-                $values['bathrooms']      = $row['Bedrooms'] ? intval($row['Bathrooms']) : null;
+                $values['bathrooms']      = $row['Bathrooms'] ? intval($row['Bathrooms']) : null;
                 $values['catastro']       = $row['CRIM Tax ID'] ? $row['CRIM Tax ID'] : null;
                 $values['price']          = floatval(trim(str_replace(['$', ','], '', $row['LISTING PRICE'])));
                 $values['lister_broker']  = $row['BROKER'] ? $row['BROKER'] : null;

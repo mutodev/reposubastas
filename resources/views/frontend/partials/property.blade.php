@@ -1,6 +1,6 @@
 <a href="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}" class="card col-md-4 p-0 border-0">
     <div class="wm">
-        <img class="card-img-top" height="200" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}">
+        <img class="card-img-top" height="200" src="@if($property->image1){{ $property->getMainImage('_thumb') }}@elsedata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAADICAYAAABMFuzmAAACUElEQVR42u3UMREAAAgEIO3f0vsYDsZwgRD0JFsAj1pEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCJARICIRASICBCRiAARASISESAiQEQiAkQEiEhEgIgAEYkIEBEgIhEBIgJEJCLg2wHnddqXj/FAiwAAAABJRU5ErkJggg==@endif" alt="{{ $property->address }}">
     </div>
     <div class="property-badges">
         @if($property->number)
@@ -51,7 +51,7 @@
             </li>
         @endif
         <li class="list-group-item border-0">
-            <span>{{ __('Sale price') }}: ${{ number_format($property->price) }}</span>
+            <span>{{ __('Sale price') }}: @if($property->price > 0)${{ number_format($property->price) }}@else<a href="{{ route('frontend.page', ['pageSlug' => 'contact', 'locale' => \App::getLocale()]) }}">{{ __('Request price') }}</a>@endif</span>
         </li>
     </ul>
 </a>
