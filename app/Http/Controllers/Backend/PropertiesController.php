@@ -429,25 +429,25 @@ class PropertiesController extends Controller
                 }
 
                 $values = [];
-                $values['number']         = $row['CATALOG ORDER'] ? $row['CATALOG ORDER'] : null;
-                $values['type_id']        = $types[$row['PROPERTY TYPE']];
+                $values['number']         = @$row['CATALOG ORDER'] ? $row['CATALOG ORDER'] : null;
+                $values['type_id']        = @$types[$row['PROPERTY TYPE']];
                 $values['investor_id']    = $investorId;
                 $values['investor_reference_id'] = $row['PROPERTY ID'] ? $row['PROPERTY ID'] : null;
                 $values['source_id']      = $sourceId;
-                $values['address']        = $row['PROPERTY ADDRESS'];
-                $values['city']           = $row['CITY'];
-                $values['latitude']       = $row['Latitude'] ? $row['Latitude'] : null;
-                $values['longitude']      = $row['Longitude'] ? $row['Longitude'] : null;
-                $values['description_es'] = $row['DESCRIPTION'];
-                $values['description_en'] = $row['DESCRIPTION'];
-                $values['sqf_area']       = $row['Building Size (SqFt)'] ? floatval(trim(str_replace(['$', ','], '', $row['Building Size (SqFt)']))) : null;
-                $values['cuerdas']        = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) : null;
-                $values['sqm_area']       = $row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) * 3930.34 : null;
-                $values['bedrooms']       = $row['Bedrooms'] ? intval($row['Bedrooms']) : null;
-                $values['bathrooms']      = $row['Bathrooms'] ? intval($row['Bathrooms']) : null;
-                $values['catastro']       = $row['CRIM Tax ID'] ? $row['CRIM Tax ID'] : null;
+                $values['address']        = @$row['PROPERTY ADDRESS'];
+                $values['city']           = @$row['CITY'];
+                $values['latitude']       = @$row['Latitude'] ? $row['Latitude'] : null;
+                $values['longitude']      = @$row['Longitude'] ? $row['Longitude'] : null;
+                $values['description_es'] = @$row['DESCRIPTION'];
+                $values['description_en'] = @$row['DESCRIPTION'];
+                $values['sqf_area']       = @$row['Building Size (SqFt)'] ? floatval(trim(str_replace(['$', ','], '', $row['Building Size (SqFt)']))) : null;
+                $values['cuerdas']        = @$row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) : null;
+                $values['sqm_area']       = @$row['Land Parcel Size (Cdas)'] ? floatval(trim(str_replace(['$', ','], '', $row['Land Parcel Size (Cdas)']))) * 3930.34 : null;
+                $values['bedrooms']       = @$row['Bedrooms'] ? intval($row['Bedrooms']) : null;
+                $values['bathrooms']      = @$row['Bathrooms'] ? intval($row['Bathrooms']) : null;
+                $values['catastro']       = @$row['CRIM Tax ID'] ? $row['CRIM Tax ID'] : null;
                 $values['price']          = floatval(trim(str_replace(['$', ','], '', $row['LISTING PRICE'])));
-                $values['lister_broker']  = $row['BROKER'] ? $row['BROKER'] : null;
+                $values['lister_broker']  = @$row['BROKER'] ? $row['BROKER'] : null;
                 $values['start_at']       = date('Y-m-d H:i:s', strtotime($event->start_at));
                 $values['end_at']         = date('Y-m-d H:i:s', strtotime($event->end_at));
 
