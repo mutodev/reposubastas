@@ -452,9 +452,14 @@ class PropertiesController extends Controller
                 $values['end_at']         = date('Y-m-d H:i:s', strtotime($event->end_at));
 
                 $model->fill($values);
-                $model->save();
+                try {
+                    $model->save();
 
-                $model->addToEvent($event->id, $values['number']);
+                    $model->addToEvent($event->id, $values['number']);
+                } catch (\Exception $e) {
+                    echo 'Error';
+                    var_dump($row);
+                }
             }
 
             Session::flash('success', __('Properties imported!'));
