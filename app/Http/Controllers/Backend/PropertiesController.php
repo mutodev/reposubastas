@@ -457,8 +457,8 @@ class PropertiesController extends Controller
 
                     $model->addToEvent($event->id, $values['number']);
                 } catch (\Exception $e) {
-                    echo 'Error';
                     var_dump($row);
+                    echo $e->getMessage().'<br />';
                 }
             }
 
