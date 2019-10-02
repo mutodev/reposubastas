@@ -55,7 +55,7 @@
             </li>
         @endif
         <li class="list-group-item border-0">
-            <span>{{ __('Sale price') }}: @if($property->price > 0)${{ number_format($property->price) }}@else<a href="{{ route('frontend.page', ['pageSlug' => 'contact', 'locale' => \App::getLocale()]) }}">{{ __('Request price') }}</a>@endif</span>
+            <span>{{ __('Sale price') }}: @if($property->price > 0) ${{ number_format($property->price) }} @else {{ __('Request price') }} @endif</span>
         </li>
     </ul>
 </a>
