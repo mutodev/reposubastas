@@ -463,7 +463,7 @@ class PropertiesController extends Controller
             }
 
             Session::flash('success', __('Properties imported!'));
-            return redirect(route('backend.properties.index', ['event' => $event->id]));
+            //return redirect(route('backend.properties.index', ['event' => $event->id]));
         }
 
         $form = $formBuilder->create(ImportForm::class, [
