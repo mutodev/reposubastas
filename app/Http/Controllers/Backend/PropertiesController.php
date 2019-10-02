@@ -430,7 +430,7 @@ class PropertiesController extends Controller
 
                 $values = [];
                 $values['number']         = @$row['CATALOG ORDER'] ? $row['CATALOG ORDER'] : null;
-                $values['type_id']        = @$types[$row['PROPERTY TYPE']];
+                $values['type_id']        = @$types[trim($row['PROPERTY TYPE'])];
                 $values['investor_id']    = $investorId;
                 $values['investor_reference_id'] = $row['PROPERTY ID'] ? $row['PROPERTY ID'] : null;
                 $values['source_id']      = $sourceId;
