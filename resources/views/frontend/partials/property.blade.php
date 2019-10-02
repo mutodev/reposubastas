@@ -7,7 +7,7 @@
         @endif
     </div>
     <div class="property-badges">
-        @if($property->number)
+        @if(!$property->event_is_online)
             <span class="badge badge-dark">{{ $property->number }}</span>
         @else
             <span class="badge badge-dark"><span class="oi oi-globe"></span></span>

@@ -86,11 +86,7 @@ class FrontendController extends Controller
         }
 
         if ($eventType = $request->get('event_type')) {
-            if ($eventType == 'LIVE') {
-                $query->whereNotNull('property_event.number');
-            } elseif ($eventType == 'ONLINE') {
-                $query->whereNull('property_event.number');
-            }
+            $query->where('events.is_online', '=', ($eventType == 'LIVE') ? '0': '1');
         }
 
         if ($priceMin = $request->get('price_min')) {
