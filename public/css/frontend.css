@@ -111,6 +111,7 @@ body {
     background-image: url('/images/bg-online.jpg');
     background-size: cover;
     background-position: center;
+    height: 400px;
 }
 
 .icono-home {
