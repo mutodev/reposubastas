@@ -12,15 +12,15 @@ body {
  */
 
 .site-header {
-    background-color: white;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
-    box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.75);
+    background-color: transparent !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1020;
 }
 .site-header a.site-header-item {
-    color: #3A3A3A;
+    color: white;
     transition: ease-in-out color .15s;
     line-height: 48px;
     height: 68px;
@@ -112,6 +112,64 @@ body {
     background-size: cover;
     background-position: center;
     height: 400px;
+}
+
+.main-logo {
+    background: url('/images/main-logo.svg') no-repeat;
+    width: 200px;
+    height: 45px;
+}
+
+.main-logo-black {
+    background: url('/images/main-logo-black.svg') no-repeat;
+    width: 200px;
+    height: 45px;
+}
+
+.homepage-bottom {
+    background-image: url('/images/bg-online.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 600px;
+    color: white;
+}
+
+.homepage-top {
+    background-image: url('/images/metro.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 800px;
+    color: white;
+    margin-top: -76px;
+}
+
+.homepage-top .btn {
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 0;
+}
+
+.homepage-top .btn-primary,
+.homepage-top .btn-primary:hover {
+    background: #05A7D5;
+    border-color: #05A7D5;
+}
+
+.homepage-top .btn-outline-secondary {
+    border-color: white !important;
+    color: white !important;
+}
+
+.homepage-top .homeText {
+    color: white;
+    margin-top: 3em;
+    font-size: 70px;
+    letter-spacing: 3px;
+    line-height: 75px;
+}
+
+.homepage-top span {
+    font-size: 1.5em;
 }
 
 .icono-home {
@@ -245,4 +303,66 @@ body {
 .homepage .card:hover {
     background-color: #20ABD5;
     border-color: #20ABD5;
+}
+
+.box-top-right {
+    background: white;
+    -ms-transform: rotate(3deg);
+    -webkit-transform: rotate(3deg);
+    transform: rotate(3deg);
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    right: -50%;
+    top: -50px;
+    z-index: 1000;
+    margin-right: 5px;
+}
+
+.box-top-left {
+    background: white;
+    -ms-transform: rotate(177deg);
+    -webkit-transform: rotate(177deg);
+    transform: rotate(177deg);
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    left: -50%;
+    top: -50px;
+    z-index: 1000;
+    margin-left: 5px;
+}
+
+.steps-control .btn {
+    background: transparent !important;
+    border-color: white !important;
+    color: white;
+}
+
+.box-bottom-right {
+    background: white;
+    -ms-transform: rotate(357deg);
+    -webkit-transform: rotate(357deg);
+    transform: rotate(357deg);
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    right: -50%;
+    bottom: -50px;
+    z-index: 1000;
+    margin-right: 5px;
+}
+
+.box-bottom-left {
+    background: white;
+    -ms-transform: rotate(183deg);
+    -webkit-transform: rotate(183deg);
+    transform: rotate(183deg);
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    left: -50%;
+    bottom: -50px;
+    z-index: 1000;
+    margin-left: 5px;
 }
