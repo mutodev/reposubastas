@@ -25,6 +25,7 @@ class Property extends Model
         'bedrooms',
         'bathrooms',
         'price',
+        'buyer_prima',
         'check_number',
         'check_amount',
         'check_type',

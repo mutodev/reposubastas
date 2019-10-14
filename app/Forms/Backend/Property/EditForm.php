@@ -82,6 +82,7 @@ class EditForm extends Form
             ->add('zonification_es', 'text', ['label' => __('Zoning (Spanish)')])
             ->add('zonification_en', 'text', ['label' => __('Zoning (English)')])
             ->add('price', 'number', ['rules' => 'numeric', 'label' => __('Sale Price')])
+            ->add('buyer_prima', 'number', ['rules' => 'numeric', 'label' => __('Buyer Prima')])
             //TODO Previous apraisal
             ->add('is_cash_only', 'checkbox', ['label' => __('Cash only')])
             ->add('bedrooms', 'number')

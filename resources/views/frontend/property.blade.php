@@ -133,6 +133,14 @@
                             <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
                         </div>
 
+                        @if($property->buyer_prima)
+                        <div class=" mt-3">
+                            <small class="text-dark-blue">{{ __('Commission to be paid by the Buyer') }}</small>
+                            <br />
+                            <small>%{{ number_format(intval($property->buyer_prima)) }}</small>
+                        </div>
+                        @endif
+
                         <?php
                             if (!$online) {
                                 $endAt->subDays(2);
