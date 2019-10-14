@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}?v7" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css', false) }}?v8" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -69,7 +69,13 @@
             </div>
             <div class="row">
                 <div class="col-6 col-md">
-                    <div class="main-logo-black"></div>
+                    <div class="clearfix">
+                        <div class="main-logo-black float-left"></div>
+
+                        <a target="_blank" href="https://www.facebook.com/reposubasta/" class="fb-icon float-left ml-3"></a>
+                        <a target="_blank" href="https://www.instagram.com/reposubasta/" class="ig-icon float-left ml-1"></a>
+                        <a target="_blank" href="https://twitter.com/reposubasta" class="tt-icon float-left ml-1"></a>
+                    </div>
                 </div>
                 <div class="col-6 col-md text-right">
                     <small class="d-block mb-3 text-muted">&copy; {{ date('Y') }}</small>

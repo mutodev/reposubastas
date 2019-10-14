@@ -134,40 +134,6 @@ body {
     color: white;
 }
 
-.homepage-top {
-    background-image: url('/images/metro.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 800px;
-    color: white;
-    margin-top: -76px;
-}
-
-.homepage-top .btn {
-    padding-left: 60px;
-    padding-right: 60px;
-    border-radius: 0;
-}
-
-.homepage-top .btn-primary,
-.homepage-top .btn-primary:hover {
-    background: #05A7D5;
-    border-color: #05A7D5;
-}
-
-.homepage-top .btn-outline-secondary {
-    border-color: white !important;
-    color: white !important;
-}
-
-.homepage-top .homeText {
-    color: white;
-    margin-top: 3em;
-    font-size: 70px;
-    letter-spacing: 3px;
-    line-height: 75px;
-}
-
 .homepage-top span {
     font-size: 1.5em;
 }
@@ -365,4 +331,82 @@ body {
     bottom: -50px;
     z-index: 1000;
     margin-left: 5px;
+}
+
+.fb-icon {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url('/images/FBicon.svg') no-repeat;
+}
+.tt-icon {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url('/images/TTicon.svg') no-repeat;
+}
+.ig-icon {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url('/images/IGicon.svg') no-repeat;
+}
+
+.homepage-top {
+    color: white;
+    margin-top: -76px;
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    z-index: 9999999;
+}
+
+.homepage-top .btn {
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 0;
+}
+
+.homepage-top .btn-primary,
+.homepage-top .btn-primary:hover {
+    background: #05A7D5;
+    border-color: #05A7D5;
+}
+
+.homepage-top .btn-outline-secondary {
+    border-color: white !important;
+    color: white !important;
+}
+
+.homepage-top .homeText {
+    color: white;
+    margin-top: 3em;
+    font-size: 70px;
+    letter-spacing: 3px;
+    line-height: 75px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    #carouselExampleIndicators .carousel-item,
+    #carouselExampleIndicators .carousel-item img {
+        width: 700px !important;
+        height: 700px !important;
+    }
+
+    .homepage-top .homeText {
+        color: white;
+        margin-top: 110px;
+        font-size: 40px;
+        letter-spacing: 3px;
+        line-height: 1;
+    }
+
+    .homepage-top .btn {
+        width: 100%;
+    }
+
+    .homepage-top .btn-outline-secondary {
+        margin-left: 0 !important;
+    }
 }

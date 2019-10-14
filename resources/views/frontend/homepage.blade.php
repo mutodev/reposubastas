@@ -1,12 +1,25 @@
 @extends('frontend.base')
 
 @section('sub_header')
-    <div class="homepage-top position-relative p-5">
-        <div class="container">
-            <h1 class="homeText">{{ __('THE') }}<br /> <strong>{{ __('BIGGEST AUCTION') }} </strong><br />{{ __('OF THE YEAR') }}</h1>
-            <span>{{ __('NOVEMBER') }} 23, 2019 | VIVO BEACH CLUB</span><br />
-            <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
-            <a class="btn btn-outline-secondary ml-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="homepage-top">
+                <div class="container">
+                    <h1 class="homeText">{{ __('THE') }}<br /> <strong>{{ __('BIGGEST AUCTION') }} </strong><br />{{ __('OF THE YEAR') }}</h1>
+                    <span>{{ __('NOVEMBER') }} 23, 2019 | VIVO BEACH CLUB</span><br />
+                    <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
+                    <a class="btn btn-outline-secondary ml-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
+                </div>
+            </div>
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="/images/aerial.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/residential.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/metro.jpg" alt="Third slide">
+            </div>
         </div>
     </div>
 
