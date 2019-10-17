@@ -15,7 +15,7 @@
                 <strong class="text-dark-blue">{{ __('Details') }}</strong>
 
                 <div>
-                    <strong>{{ __('Type') }}:</strong> <span>{{ $property->type->name }}</span>
+                    <strong>{{ __('Property Type') }}:</strong> <span>{{ $property->type->name }}</span>
                 </div>
                 @if($property->zonification)
                     <div>
@@ -89,7 +89,7 @@
                 <strong class="text-dark-blue">{{ __('Event') }}</strong>
 
                 <div>
-                    <strong>{{ __('Type of auction') }}:</strong> <span>{{ $online ? __('Online') : __('Live') }}</span>
+                    <strong>{{ $online ? __('Online Auction') : __('Live Auction') }}</strong>
                 </div>
 
                 @if(!$online)

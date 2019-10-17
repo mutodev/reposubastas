@@ -16,10 +16,11 @@
   "Open House": "Inspección",
   "Open house": "Inspección",
   "Type": "Tipo",
+  "Property Type": "Tipo de propiedad",
   "Inspection date": "Fecha de inspección",
   "Date": "Fecha",
   "Price": "Precio",
-  "YOUR INTELLIGENT INVESTMENT BEGINS": "COMIENZA TU INVERSIÓN INTELIGENTE",
+  "YOUR SMART INVESTMENT IN PR": "SU INVERSIÓN INTELIGENTE EN PR",
   "Square feets": "Pies cuadrados",
   "Square meters": "Metros cuadrados",
   "Property": "Propiedad",
@@ -36,6 +37,8 @@
   "Type of auction": "Tipo de subasta",
   "Online": "En línea",
   "Live": "En vivo",
+  "Online Auction": "Subasta en línea",
+  "Live Auction": "Subasta en vivo",
   "Auction place": "Lugar de subasta",
   "Event begins in": "Evento comienza en",
   "days": "días",
@@ -131,5 +134,6 @@
   "You just have to follow the steps:": "Solo tienes que seguir los pasos:",
   "WELCOME": "BIENVENIDOS",
   "Reposubasta welcomes you to new business opportunities where your smart investment is our priority. Each event offers you commercial, residential and land properties with the best discounts on the market. Participate in the experience and start your financial independence with solidity.":"Reposubasta te da la bienvenida a nuevas oportunidades de negocio donde tu inversión inteligente es nuestra prioridad.  Cada evento te ofrece propiedades comerciales, residenciales y terrenos con los mejores descuentos del mercado.  Participa de la experiencia y comienza tu independencia financiera con solidez.",
-  "Commission to be paid by the Buyer":"Comisión a pagar por el Comprador"
+  "Commission to be paid by the Buyer":"Comisión a pagar por el Comprador",
+  "The photos of the land are for illustrative purposes and do not necessarily represent the exact boundaries and fit of the property": "Las fotos de los terrenos son para propósitos ilustrativos y no necesariamente representan las colindancias y cabidas exactas de la propiedad"
 }

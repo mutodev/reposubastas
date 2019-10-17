@@ -2,7 +2,7 @@
     <div class="col-md-5 p-lg-5 mx-auto my-4 my-sm-5">
         <div class="bg-dark-blue p-2 p-sm-4 mx-auto rounded properties-search-box mw-75">
             <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
-                <h1 class="display-5 font-weight-normal">{{ __('YOUR INTELLIGENT INVESTMENT BEGINS') }}</h1>
+                <h1 class="display-5 font-weight-normal">{{ __('YOUR SMART INVESTMENT IN PR') }}</h1>
                 <div class="input-group mr-sm-2">
                     <select name="type" class="custom-select">
                         @foreach(App\Models\PropertyType::forSelect('All Properties') as $value => $label)

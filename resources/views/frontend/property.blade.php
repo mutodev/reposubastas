@@ -84,6 +84,10 @@
 
                         <div class="addthis_inline_share_toolbox_zkje"></div>
 
+                        @if($property->type->slug === 'LAND')
+                        <div class="text-danger">* {{ __('The photos of the land are for illustrative purposes and do not necessarily represent the exact boundaries and fit of the property') }}</div>
+                        @endif
+
                         @include('frontend.partials.details', compact('property', 'online'))
                     </div>
                     <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
