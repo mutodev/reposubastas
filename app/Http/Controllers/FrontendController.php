@@ -313,7 +313,7 @@ class FrontendController extends Controller
                     $userDeposit->property_id = $property->id;
                     $userDeposit->save();
 
-                    Mail::to(explode(',', env('CONTACT_EMAIL')))->send(new Contact('REPOSUBASTA - Offer', $formValues));
+                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,valdezm@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
