@@ -168,7 +168,7 @@ Route::post('/{locale}/{pageSlug?}', 'FrontendController@page')->name('frontend.
 
 
 Route::get('/', function () {
-    $request = Request::create('es', 'GET', array());
+    $request = Request::create('en', 'GET', array());
     return Route::dispatch($request);
 });
 
