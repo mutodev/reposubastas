@@ -34,9 +34,9 @@
             <div style="position: relative; z-index: 99999999">
                 <div class="display-6 text-uppercase font-weight-bold">{{ __('WELCOME') }}</div>
 
-                <p class="mt-3">{{ __('Reposubasta welcomes you to new business opportunities where your smart investment is our priority. Each event offers you commercial, residential and land properties with the best discounts on the market. Participate in the experience and start your financial independence with solidity.') }}</p>
+                <p class="mt-3">{{ __('Reposubasta welcomes you to a new business opportunity where your smart investment is our priority. Each event offers you commercial, residential and land properties with the best discounts on the Puerto Rico market. Participate in the experience and have a firm start your financial independence.') }}</p>
 
-                <br /><br /><a href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'terms']) }}">Términos y Condiciones</a>
+                <br /><br /><a href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'terms']) }}">{{ __('Terms and Conditions') }}</a>
             </div>
         </div>
     </div>
