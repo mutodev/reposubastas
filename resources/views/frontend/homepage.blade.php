@@ -7,8 +7,8 @@
                 <div class="container">
                     <h1 class="homeText">{{ __('THE') }}<br /> <strong>{{ __('BIGGEST AUCTION') }} </strong><br />{{ __('OF THE YEAR') }}</h1>
                     <span>{{ __('NOVEMBER') }} 23, 2019 | VIVO BEACH CLUB</span><br />
-                    <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
-                    <a class="btn btn-outline-secondary ml-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
+                    <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
+                    <a class="btn btn-outline-secondary ml-sm-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
                 </div>
             </div>
             <div class="carousel-item active">
