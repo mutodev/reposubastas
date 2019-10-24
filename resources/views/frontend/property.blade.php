@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 p-0">
-                        <div id="gallery" class="carousel slide" data-ride="carousel">
+                        <div id="gallery" class="carousel slide" data-ride="carousel" data-interval="false">
                             <ol class="carousel-indicators">
                                 @if($property->youtube_video)
                                     <li data-target="#gallery" data-slide-to="0" class="active"></li>
