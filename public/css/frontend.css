@@ -409,4 +409,8 @@ body {
     .homepage-top .btn-outline-secondary {
         margin-left: 0 !important;
     }
+
+    .properties-search-box {
+        margin-top: 150px;
+    }
 }
