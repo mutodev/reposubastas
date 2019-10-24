@@ -17,6 +17,7 @@ class Property extends Model
     protected $fillable = [
         'type_id',
         'status_id',
+        'youtube_video',
         'investor_id',
         'optioned_by',
         'source_id',

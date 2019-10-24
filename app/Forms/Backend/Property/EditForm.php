@@ -104,6 +104,7 @@ class EditForm extends Form
             ->add('seller_broker', 'text')
             ->add('commission', 'number', ['label' => __('Commission (%)')])
             ->add('comments', 'textarea')
+            ->add('youtube_video', 'text')
             ->add('submit', 'submit', ['label' => __('Save')]);
     }
 }

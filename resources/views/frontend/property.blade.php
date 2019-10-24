@@ -41,19 +41,29 @@
                     <div class="col-md-8 p-0">
                         <div id="gallery" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
+                                @if($property->youtube_video)
+                                    <li data-target="#gallery" data-slide-to="0" class="active"></li>
+                                @endif
                                 @foreach(range(1, 10) as $index)
                                 @if(!($image = $property->getImage($index)))
                                     @continue
                                 @endif
-                                <li data-target="#gallery" data-slide-to="{{ $index - 1 }}" class="@if($index == 1) active @endif"></li>
+                                <li data-target="#gallery" data-slide-to="{{ $property->youtube_video ? $index : $index - 1 }}" class="@if($index == 1 && !$property->youtube_video) active @endif"></li>
                                 @endforeach
                             </ol>
                             <div class="carousel-inner">
+                                @if($property->youtube_video)
+                                    <div class="carousel-item active">
+                                        <div class="wm">
+                                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{$youtubeId}}?controls=0&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                @endif
                                 @foreach(range(1, 10) as $index)
                                 @if(!($image = $property->getImage($index)))
                                     @continue
                                 @endif
-                                <div class="carousel-item @if($index == 1) active @endif">
+                                <div class="carousel-item @if($index == 1 && !$property->youtube_video) active @endif">
                                     <div class="wm">
                                         <img class="d-block w-100" src="{{ $image }}" alt="First slide">
                                     </div>

@@ -343,7 +343,13 @@ class FrontendController extends Controller
         $types = PropertyType::forSelect();
         $online = $property->event_is_online;
 
-        return compact('types', 'property', 'online', 'form', 'bid', 'userEvent');
+        $youtubeId = null;
+        if ($property->youtube_video) {
+            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $property->youtube_video, $match);
+            $youtubeId = isset($match[1]) ? $match[1] : $property->youtube_video;
+        }
+
+        return compact('types', 'property', 'online', 'form', 'bid', 'userEvent', 'youtubeId');
     }
 
     public function register($formBuilder, $request)
