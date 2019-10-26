@@ -27,3 +27,9 @@
         </div>
     </div>
 @endsection
+
+@section('footer_extra_scripts')
+    @if ($page->slug_en === 'register-success')
+        <!-- Event snippet for RR-subasta-2019-11 conversion page --> <script> gtag('event', 'conversion', {'send_to': 'AW-763964033/LPnHCL_tw7EBEIHVpOwC'}); </script>
+    @endif
+@endsection
