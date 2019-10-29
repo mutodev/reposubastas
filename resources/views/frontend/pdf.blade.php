@@ -212,6 +212,11 @@
                             </td>
                         </tr>
                     </table>
+
+                    @if($property->buyer_prima)
+                        
+                        <strong>{{ __('Commission to be paid by the Buyer') }}</strong> {{$property->buyer_prima}}%
+                    @endif
                 </div>
             </div>
             @if ($count == $columns)

@@ -149,9 +149,9 @@
 
                         @if($property->buyer_prima)
                         <div class=" mt-3">
-                            <small class="text-dark-blue">{{ __('Commission to be paid by the Buyer') }}</small>
+                            <strong class="text-dark-blue">{{ __('Commission to be paid by the Buyer') }}</strong>
                             <br />
-                            <small>%{{ number_format(intval($property->buyer_prima)) }}</small>
+                            <strong>{{ number_format(intval($property->buyer_prima)) }}%</strong>
                         </div>
                         @endif
 
