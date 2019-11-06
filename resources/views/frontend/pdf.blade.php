@@ -214,7 +214,7 @@
                     </table>
 
                     @if($property->buyer_prima)
-                        
+
                         <strong>{{ __('Commission to be paid by the Buyer') }}</strong> {{$property->buyer_prima}}%
                     @endif
                 </div>
@@ -268,7 +268,7 @@
                     {{ $property->open_house }}
                 </td>
                 <td>
-                    ${{ number_format($property->price) }}
+                    @if($property->price > 0) ${{ number_format($property->price) }} @else {{ __('Request price') }} @endif
                 </td>
                 <td>
                     @if($property->deposit)${{ number_format($property->deposit) }}@endif
