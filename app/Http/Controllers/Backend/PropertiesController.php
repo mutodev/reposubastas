@@ -206,7 +206,7 @@ class PropertiesController extends Controller
         $model->fill($formValues);
         $model->cancel_reason = @$formValues['cancel_reason'];
         $model->save();
-        $model->addToEvent($event->id, null);
+        $model->addToEvent($event->id, $formValues['number']);
 
         return redirect()->route('backend.properties.index', ['event' => $event->id]);
     }
