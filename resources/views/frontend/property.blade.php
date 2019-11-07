@@ -147,13 +147,11 @@
                             <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
                         </div>
 
-                        @if($property->buyer_prima)
                         <div class=" mt-3">
                             <strong class="text-dark-blue">{{ __('Commission to be paid by the Buyer') }}</strong>
                             <br />
-                            <strong>{{ number_format(intval($property->buyer_prima)) }}%</strong>
+                            <strong>@if($property->buyer_prima){{ number_format(intval($property->buyer_prima)) }}%@else 1%@endif</strong>
                         </div>
-                        @endif
 
                         <?php
                             if (!$online) {

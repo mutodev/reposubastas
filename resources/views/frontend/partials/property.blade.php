@@ -56,10 +56,9 @@
         @endif
         <li class="list-group-item border-0">
             <span>{{ __('Sale price') }}: @if($property->price > 0) ${{ number_format($property->price) }} @else {{ __('Request price') }} @endif</span>
-            @if($property->buyer_prima)
+
                 <br />
-                <small style="font-size: .5em">{{ __('Commission to be paid by the Buyer') }} {{$property->buyer_prima}}%</small>
-            @endif
+                <small style="font-size: .5em">{{ __('Commission to be paid by the Buyer') }}: @if($property->buyer_prima){{ number_format(intval($property->buyer_prima)) }}%@else 1%@endif</small>
         </li>
     </ul>
 </a>
