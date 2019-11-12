@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div>
+    <div style="margin-top: 40px">
         <div class="container position-relative text-center">
             <div class="box-top-left"></div>
             <div class="box-top-right"></div>
