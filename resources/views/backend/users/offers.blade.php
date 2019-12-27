@@ -85,7 +85,7 @@
         <tbody>
         @foreach ($models as $bid)
             <tr>
-                <td>{{ $bid->user }}</td>
+                <td>{{ $bid->user }} <br />{{ $bid->user_phone }} - {{ $bid->user_email }}</td>
                 <td>${{ number_format($bid->offer) }} - {{ $bid->type }}</td>
                 <td>[{{ $bid->investor }}] {{ $bid->property_id }} - {{ $bid->address }}, {{ $bid->city }}</td>
                 <td>{{ \Carbon\Carbon::parse($bid->created_at)->format('d/m/Y h:i A')}}</td>

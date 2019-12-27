@@ -251,7 +251,7 @@ class UsersController extends Controller
     {
         $search = $request->all();
 
-        $Query = Bid::select('bid.*', 'users.name as user', 'properties.address', 'properties.city', 'properties.price', 'investor.name as investor');
+        $Query = Bid::select('bid.*', 'users.name as user','users.email as user_email', 'users.phone as user_phone', 'properties.address', 'properties.city', 'properties.price', 'investor.name as investor');
         $Query->leftJoin('users', 'users.id', '=', 'bid.user_id')
             ->leftJoin('properties', 'properties.id', '=', 'bid.property_id')
             ->leftJoin('investor', 'investor.id', '=', 'properties.investor_id');
