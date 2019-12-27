@@ -308,12 +308,14 @@ class FrontendController extends Controller
 
                     $formValues['property_number'] = $property->id;
                     $formValues['user'] = \Auth::user()->name;
+                    $formValues['email'] = \Auth::user()->email;
+                    $formValues['phone'] = \Auth::user()->phone;
 
                     //Attach deposit to property
                     $userDeposit->property_id = $property->id;
                     $userDeposit->save();
 
-                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,valdezm@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
+                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
