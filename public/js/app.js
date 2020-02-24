@@ -78791,10 +78791,15 @@ var render = function() {
                           }
                         },
                         [
-                          _c("img", {
+                          _c("iframe", {
                             attrs: {
-                              src: "/images/logocenter.png",
-                              width: "50%"
+                              width: "560",
+                              height: "315",
+                              src: "https://www.youtube.com/embed/efMlJig1_SU",
+                              frameborder: "0",
+                              allow:
+                                "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                              allowfullscreen: ""
                             }
                           }),
                           _vm._v(" "),

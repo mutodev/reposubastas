@@ -69,7 +69,7 @@
                     <table style="height: 100%;width: 100%">
                         <tr>
                             <td class="bidingArea" style="text-align: center; vertical-align: middle;">
-                                <img src="/images/logocenter.png" width="50%" />
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/efMlJig1_SU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 <br />
                                 <br />
                                 <h2>Licitación</h2>
