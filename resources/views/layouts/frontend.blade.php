@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/frontend.css', false) }}?v10" rel="stylesheet">
+    <link href="/css/frontend.css?v10" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -87,7 +87,7 @@
 
 @section('footer_scripts')
     <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5320741e1495deeb"></script>
-    <script src="{{ asset('js/app.js', false) }}?v15" defer></script>
+    <script src="/js/app.js?v15" defer></script>
     <!-- Global site tag (gtag.js) - Google Ads: 763964033 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-763964033"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-763964033'); </script>
     @yield('footer_extra_scripts')
