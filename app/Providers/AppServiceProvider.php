@@ -13,9 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        if(env('APP_ENV') == 'production') {
-//            \URL::forceScheme('https');
-//        }
+        if(env('APP_ENV') === 'production') {
+            \URL::forceScheme('https');
+        }
 
         view()->composer('frontend.partials.bidding', function ($view) {
             $userDeposits = [];
@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
             view()->share('depositAmount', $depositAmount);
             view()->share('offersLeft', $offersLeft);
         });
+
     }
 
     /**
