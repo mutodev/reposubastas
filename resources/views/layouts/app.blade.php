@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="{{ asset('css/backend.css', false) }}?v2" rel="stylesheet">
+    <link href="/css/backend.css?v3" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 @endsection
 
@@ -61,5 +61,5 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="{{ asset('js/app.js', false) }}?v17" defer></script>
+    <script src="/js/app.js?v18" defer></script>
 @endsection

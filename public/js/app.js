@@ -78785,10 +78785,7 @@ var render = function() {
                         "td",
                         {
                           staticClass: "bidingArea gg",
-                          staticStyle: {
-                            "text-align": "center",
-                            "vertical-align": "middle"
-                          },
+                          staticStyle: { "text-align": "center" },
                           attrs: { valign: "top" }
                         },
                         [
