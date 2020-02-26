@@ -78788,13 +78788,14 @@ var render = function() {
                           staticStyle: {
                             "text-align": "center",
                             "vertical-align": "middle"
-                          }
+                          },
+                          attrs: { valign: "top" }
                         },
                         [
                           _c("iframe", {
                             attrs: {
-                              width: "560",
-                              height: "315",
+                              width: "100%",
+                              height: "70%",
                               src: "https://www.youtube.com/embed/efMlJig1_SU",
                               frameborder: "0",
                               allow:

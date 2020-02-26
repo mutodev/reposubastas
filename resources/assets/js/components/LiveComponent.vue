@@ -68,8 +68,8 @@
                 <div class="col">
                     <table style="height: 100%;width: 100%">
                         <tr>
-                            <td class="bidingArea" style="text-align: center; vertical-align: middle;">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/efMlJig1_SU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <td class="bidingArea" style="text-align: center; vertical-align: middle;" valign="top">
+                                <iframe width="100%" height="70%" src="https://www.youtube.com/embed/efMlJig1_SU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 <br />
                                 <br />
                                 <h2>Licitación</h2>
