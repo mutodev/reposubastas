@@ -72,5 +72,9 @@
 
     <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
     <script type="text/javascript">
-      var player = videojs('videojs'); </script>
+        setTimeout(function() {
+          var player = videojs('videojs');
+          console.log('Loaded');
+        }, 5000)
+    </script>
 @endsection
