@@ -78720,65 +78720,72 @@ var render = function() {
                   { staticStyle: { height: "100%", width: "100%" } },
                   [
                     _c("tr", [
-                      _c("td", { staticStyle: { "ertical-align": "middle" } }, [
-                        _c("div", { staticClass: "card" }, [
-                          _c("div", { staticClass: "wm" }, [
-                            _c("img", {
-                              staticClass: "card-img-top",
-                              staticStyle: { "max-height": "600px" },
-                              attrs: {
-                                width: "100%",
-                                src:
-                                  "https://s3.amazonaws.com/reposubastas/" +
-                                  _vm.auction.property[
-                                    "image" + _vm.auction.property.main_image
-                                  ]
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "property-badges" }, [
-                            _c("span", { staticClass: "badge badge-dark" }, [
-                              _vm._v(_vm._s(_vm.auction.propertyEvent.number))
+                      _c(
+                        "td",
+                        {
+                          staticStyle: { "ertical-align": "middle" },
+                          attrs: { valign: "top" }
+                        },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "wm" }, [
+                              _c("img", {
+                                staticClass: "card-img-top",
+                                staticStyle: { "max-height": "600px" },
+                                attrs: {
+                                  width: "100%",
+                                  src:
+                                    "https://s3.amazonaws.com/reposubastas/" +
+                                    _vm.auction.property[
+                                      "image" + _vm.auction.property.main_image
+                                    ]
+                                }
+                              })
                             ]),
                             _vm._v(" "),
-                            _vm.auction.property.status_id &&
-                            _vm.auction.property.status.is_public
-                              ? _c(
-                                  "span",
-                                  { staticClass: "badge badge-danger" },
-                                  [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.auction.property.status.name_es
+                            _c("div", { staticClass: "property-badges" }, [
+                              _c("span", { staticClass: "badge badge-dark" }, [
+                                _vm._v(_vm._s(_vm.auction.propertyEvent.number))
+                              ]),
+                              _vm._v(" "),
+                              _vm.auction.property.status_id &&
+                              _vm.auction.property.status.is_public
+                                ? _c(
+                                    "span",
+                                    { staticClass: "badge badge-danger" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.auction.property.status.name_es
+                                        )
                                       )
-                                    )
-                                  ]
-                                )
-                              : _vm._e(),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.auction.property.is_cash_only
+                                ? _c(
+                                    "span",
+                                    { staticClass: "badge badge-danger" },
+                                    [_vm._v("Cash Only")]
+                                  )
+                                : _vm._e()
+                            ]),
                             _vm._v(" "),
-                            _vm.auction.property.is_cash_only
-                              ? _c(
-                                  "span",
-                                  { staticClass: "badge badge-danger" },
-                                  [_vm._v("Cash Only")]
-                                )
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title mb-0" }, [
-                              _c("strong", [
-                                _vm._v(
-                                  _vm._s(_vm.auction.property.address) +
-                                    ", " +
-                                    _vm._s(_vm.auction.property.city)
-                                )
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h5", { staticClass: "card-title mb-0" }, [
+                                _c("strong", [
+                                  _vm._v(
+                                    _vm._s(_vm.auction.property.address) +
+                                      ", " +
+                                      _vm._s(_vm.auction.property.city)
+                                  )
+                                ])
                               ])
                             ])
                           ])
-                        ])
-                      ])
+                        ]
+                      )
                     ])
                   ]
                 )

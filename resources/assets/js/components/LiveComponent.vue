@@ -14,7 +14,7 @@
                 <div class="col">
                     <table style="height: 100%;width: 100%">
                         <tr>
-                            <td style="ertical-align: middle;">
+                            <td style="ertical-align: middle;" valign="top">
                                 <div class="card">
                                     <div class="wm">
                                         <img class="card-img-top" width="100%" style="max-height: 600px" v-bind:src="'https://s3.amazonaws.com/reposubastas/'+auction.property['image'+auction.property.main_image]">
