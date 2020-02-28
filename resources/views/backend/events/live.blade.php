@@ -75,6 +75,6 @@
         setTimeout(function() {
           var player = videojs('videojs');
           console.log('Loaded');
-        }, 5000)
+        }, 50000)
     </script>
 @endsection
