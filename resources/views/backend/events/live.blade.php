@@ -51,6 +51,8 @@
             width: 100%;
         }
     </style>
+    <link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+    <link href="https://unpkg.com/silvermine-videojs-quality-selector@1.1.2/dist/css/quality-selector.css" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -64,5 +66,11 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="/js/app.js?v15" defer></script>
+    <script src="/js/app.js?v16" defer></script>
+
+    <script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+
+    <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
+    <script type="text/javascript">
+      var player = videojs('videojs'); </script>
 @endsection

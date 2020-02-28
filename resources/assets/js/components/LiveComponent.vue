@@ -69,7 +69,16 @@
                     <table style="height: 100%;width: 100%">
                         <tr>
                             <td class="bidingArea gg" style="text-align: center;" valign="top">
-                                <iframe width="100%" height="70%" src="https://www.youtube.com/embed/efMlJig1_SU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <!-- Paste the following into the <body> -->
+                                <video id="videojs" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls preload="auto">
+
+                                    <source src="https://595b85410a151.streamlock.net:443/8006/8006/playlist.m3u8" type="application/x-mpegURL">
+                                    <source src="rtmps://595b85410a151.streamlock.net:443/8006/8006" type="application/flash">
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                    </p>
+                                </video>
                                 <br />
                                 <br />
                                 <h2>Licitación</h2>

@@ -78681,6 +78681,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['auction'],
@@ -78789,17 +78798,7 @@ var render = function() {
                           attrs: { valign: "top" }
                         },
                         [
-                          _c("iframe", {
-                            attrs: {
-                              width: "100%",
-                              height: "70%",
-                              src: "https://www.youtube.com/embed/efMlJig1_SU",
-                              frameborder: "0",
-                              allow:
-                                "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
-                              allowfullscreen: ""
-                            }
-                          }),
+                          _vm._m(1),
                           _vm._v(" "),
                           _c("br"),
                           _vm._v(" "),
@@ -78859,6 +78858,51 @@ var staticRenderFns = [
         )
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "video",
+      {
+        staticClass:
+          "video-js vjs-fluid vjs-default-skin vjs-big-play-centered",
+        attrs: { id: "videojs", controls: "", preload: "auto" }
+      },
+      [
+        _c("source", {
+          attrs: {
+            src:
+              "https://595b85410a151.streamlock.net:443/8006/8006/playlist.m3u8",
+            type: "application/x-mpegURL"
+          }
+        }),
+        _vm._v(" "),
+        _c("source", {
+          attrs: {
+            src: "rtmps://595b85410a151.streamlock.net:443/8006/8006",
+            type: "application/flash"
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "vjs-no-js" }, [
+          _vm._v(
+            "\n                                    To view this video please enable JavaScript, and consider upgrading to a web browser that\n                                    "
+          ),
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "https://videojs.com/html5-video-support/",
+                target: "_blank"
+              }
+            },
+            [_vm._v("supports HTML5 video")]
+          )
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
