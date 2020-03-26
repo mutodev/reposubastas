@@ -56,9 +56,9 @@
                                 {{ __('Filter Results') }}
                             </button>
 
-                            <a target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}" class="btn btn-sm mt-sm-4 ml-2">
-                                {{ __('Print Results') }}
-                            </a>
+{{--                            <a target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}" class="btn btn-sm mt-sm-4 ml-2">--}}
+{{--                                {{ __('Print Results') }}--}}
+{{--                            </a>--}}
                         </div>
                     </div>
                 </form>
