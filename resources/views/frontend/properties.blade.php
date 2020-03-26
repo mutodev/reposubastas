@@ -36,15 +36,15 @@
                     <input type="hidden" name="type" value="{{ request()->get('type') }}" />
                     <input type="hidden" name="keywords" value="{{ request()->get('keywords') }}" />
                     <div class="form-row">
-                        <div class="float-left mb-3">
-                            <strong class="text-dark-blue">{{ __('View') }}:</strong><br />
+{{--                        <div class="float-left mb-3">--}}
+{{--                            <strong class="text-dark-blue">{{ __('View') }}:</strong><br />--}}
 
-                            <select class="form-control" name="event_type">
-                                @foreach(['' => __('All'), 'LIVE' => __('Only live auctions'), 'ONLINE' => __('Only online auctions')] as $value => $label)
-                                    <option @if(request()->get('event_type') == $value) selected @endif value="{{ $value }}">{{ $label }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+{{--                            <select class="form-control" name="event_type">--}}
+{{--                                @foreach(['' => __('All'), 'LIVE' => __('Only live auctions'), 'ONLINE' => __('Only online auctions')] as $value => $label)--}}
+{{--                                    <option @if(request()->get('event_type') == $value) selected @endif value="{{ $value }}">{{ $label }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div style="width: 215px" class="float-left mb-3 ml-sm-3">
                             <strong class="text-dark-blue">{{ __('Price range') }}:</strong><br />
                             <input style="width: 100px" type="number" class="form-control d-inline" name="price_min" id="price-min" value="{{ request()->get('price_min', 0) }}">
