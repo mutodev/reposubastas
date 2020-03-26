@@ -8,7 +8,7 @@
                     <h1 class="homeText">{{ __('THE') }}<br /> <strong>{{ __('BIGGEST AUCTION') }} </strong><br />{{ __('OF THE YEAR') }}</h1>
                     <span>{{ __('NOVEMBER') }} 23, 2019 | VIVO BEACH CLUB</span><br />
                     <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
-                    <a class="btn btn-danger mt-3" target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}">{{ __('Download catalog') }}</a>
+{{--                    <a class="btn btn-danger mt-3" target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}">{{ __('Download catalog') }}</a>--}}
                     <a class="btn btn-outline-secondary ml-sm-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
                 </div>
             </div>
