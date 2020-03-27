@@ -13,13 +13,13 @@
         <div class="container">
             @if (session('success'))
                 <div class="alert alert-success">
-                    {!! Session::get('success') !!}
+                    {!! session('success') !!}
                 </div>
             @endif
 
             @if (session('error'))
                 <div class="alert alert-danger">
-                    {!! Session::get('error') !!}
+                    {!! session('error') !!}
                 </div>
             @endif
 

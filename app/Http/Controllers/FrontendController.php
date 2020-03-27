@@ -230,6 +230,8 @@ class FrontendController extends Controller
 
     public function property(FormBuilder $formBuilder, $request)
     {
+        Session::forget(['error', 'success']);
+
         $id = $request->get('id');
 
         if ($request->ajax() && empty($request->get('transactions'))) {
