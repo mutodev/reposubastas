@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="/css/frontend.css?v5" rel="stylesheet">
+    <link href="/css/frontend.css?v11" rel="stylesheet">
     <style>
         .property-badges .badge {
             font-size: 2.5em;
@@ -66,7 +66,7 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="/js/app.js?v16" defer></script>
+    <script src="/js/app.js?v19" defer></script>
 
     <script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
 

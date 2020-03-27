@@ -41,7 +41,7 @@ const app = new Vue({
       celebrate: null
     },
     credentials: {
-      sandbox: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps',
+      sandbox: 'AQX_h6Ta_g4OgiMreaa_K-x21lH604zbL3kkEBJXvsZ8c2U8sy2YPhlciMev8iMneLl82BkfJSlr6XR2',
       production: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps'
     }
   },

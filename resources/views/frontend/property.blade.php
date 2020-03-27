@@ -100,7 +100,7 @@
 
                         @include('frontend.partials.details', compact('property', 'online'))
                     </div>
-                    <div class="col p-0 @if($online) pl-sm-5 pr-sm-5 pt-sm-5 @else pl-sm-5 @endif">
+                    <div class="col p-0 pl-sm-4 pr-sm-4 pt-sm-4">
                         <?php
                         $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at));
                         $days = $endAt->diffInDays();

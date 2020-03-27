@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="/css/frontend.css?v10" rel="stylesheet">
+    <link href="/css/frontend.css?v11" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -24,7 +24,7 @@
                     <button class="btn bg-light-blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ App::getLocale() == 'es' ? __('Español') : __('English') }}
                     </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px); z-index: 99999999">
                         @if (App::getLocale() == 'en')
                             <a class="dropdown-item" href="{{ route('frontend.page', ['locale' => 'es']) }}">{{ __('Español') }}</a>
                         @else
@@ -87,7 +87,7 @@
 
 @section('footer_scripts')
     <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5320741e1495deeb"></script>
-    <script src="/js/app.js?v15" defer></script>
+    <script src="/js/app.js?v19" defer></script>
     <!-- Global site tag (gtag.js) - Google Ads: 763964033 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-763964033"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-763964033'); </script>
     @yield('footer_extra_scripts')
