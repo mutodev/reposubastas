@@ -22,7 +22,7 @@ class OfferForm extends Form
             unset($typeOptions['Financed']);
         }
 
-        $this->add('offer', 'number', ['label' => false, 'rules' => 'required']);
+        $this->add('offer', 'number', ['label' => false, 'rules' => 'required', 'attr' => ['step' => 250]]);
         $this->add('type', 'select', [
             'rules' => 'required',
             'choices' => $typeOptions,

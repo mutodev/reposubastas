@@ -27,7 +27,7 @@
                 <div class="col-xs-12 col-sm-6">
                     <button class="selectProperty btn-block btn btn-primary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Save') }}</button>
                 </div>
-                <div class="col-xs-12 col-sm-6 text-right">
+                <div class="col-xs-12 col-sm-6">
                     @include('frontend.partials.bidding', ['id' => $property->id])
                 </div>
             </div>
@@ -112,26 +112,20 @@
 
                         @if($today->lt($endAt))
                             <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
-
                             <div class="property-remaining">
-                                @if($days)
-                                    <strong class="unit">{{number_format($days)}}</strong>
-                                    <span>d</span>
-                                @endif
-                                @if($hours)
-                                    @if($days)
-                                        <strong class="unit">:</strong>
-                                    @endif
-                                    <strong class="unit">{{number_format($hours)}}</strong>
-                                    <span>h</span>
-                                @endif
-                                @if($minutes)
-                                    @if($hours)
-                                        <strong class="unit">:</strong>
-                                    @endif
-                                    <strong class="unit">{{number_format($minutes)}}</strong>
-                                    <span>m</span>
-                                @endif
+                                <vue-countdown-timer
+                                        :start-time="{{$today->getTimestamp()}}"
+                                        :end-time="{{$endAt->addHours(4)->getTimestamp()}}"
+                                        :interval="1000"
+                                        :start-label="'Until start:'"
+                                        :end-label="''"
+                                        label-position="begin"
+                                        :end-text="'Auction ended!'"
+                                        :day-txt="'d'"
+                                        :hour-txt="'h'"
+                                        :minutes-txt="'m'"
+                                        :seconds-txt="'s'">
+                                </vue-countdown-timer>
                                 <br />
                                 @if($online)
                                     <strong>{{ __('Online Auction') }}: {{ Jenssegers\Date\Date::parse($property->end_at)->format('j M, g:ia')}}</strong>
@@ -160,19 +154,12 @@
                         ?>
 
                         @if($online && $today->lt($endAt))
-                            @if(@$bid->offer)
-                                <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
-                                    <br />
-                                    <strong class="unit">${{ number_format(intval($bid->offer ?? 0)) }}</strong>
-                                </div>
-                            @elseif($property->reserve)
-                                <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Starting bid') }}</strong>
-                                    <br />
-                                    <strong class="unit">${{ number_format(intval($property->reserve ?? 0)) }}</strong>
-                                </div>
-                            @endif
+
+                            <div class="price mt-3">
+                                <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>
+                                <br />
+                                <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
+                            </div>
 
                             <div class="price mt-3">
                                 <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
@@ -183,13 +170,13 @@
                             <div class="mt-3">
                                 {!! form($form) !!}
 
-                                <br />
+{{--                                <br />--}}
 
-                                @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))
-                                    {{ __('You must present your purchase intention by processing a minimum deposit') }}
-                                    <br />
-                                    @include('frontend.partials.paypal')
-                                @endif
+{{--                                @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))--}}
+{{--                                    {{ __('You must present your purchase intention by processing a minimum deposit') }}--}}
+{{--                                    <br />--}}
+{{--                                    @include('frontend.partials.paypal')--}}
+{{--                                @endif--}}
                             </div>
                         @endif
                     </div>

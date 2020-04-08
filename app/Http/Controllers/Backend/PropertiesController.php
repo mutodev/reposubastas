@@ -645,9 +645,9 @@ class PropertiesController extends Controller
         $bid->save();
 
         //Broadcast
-        if (!$bidId && $target == 'auction') {
-            event(new \App\Events\Bid($bid, $userEvent));
-        }
+//        if (!$bidId && $target == 'auction') {
+//            event(new \App\Events\Bid($bid, $userEvent));
+//        }
 
         Session::flash('success', __('Offer saved successfully!'));
 

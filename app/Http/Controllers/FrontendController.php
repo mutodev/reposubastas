@@ -314,22 +314,24 @@ class FrontendController extends Controller
                     $formValues['phone'] = \Auth::user()->phone;
 
                     //Attach deposit to property
-                    $userDeposit->property_id = $property->id;
-                    $userDeposit->save();
+                    if ($userDeposit->amount < 5000) {
+                        $userDeposit->property_id = $property->id;
+                        $userDeposit->save();
+                    }
 
-                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
+//                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
                     Session::flash('error', __('The offer must be greater than actual offer'));
-                    $bid = new Bid;
-                    $bid->user_id = \Auth::user()->id;
-                    $bid->property_id = $property->id;
-                    $bid->event_id = $property->event_id;
-                    $bid->offer = intval($formValues['offer']);
-                    $bid->type = $formValues['type'];
-                    $bid->is_winner = false;
-                    $bid->save();
+//                    $bid = new Bid;
+//                    $bid->user_id = \Auth::user()->id;
+//                    $bid->property_id = $property->id;
+//                    $bid->event_id = $property->event_id;
+//                    $bid->offer = intval($formValues['offer']);
+//                    $bid->type = $formValues['type'];
+//                    $bid->is_winner = false;
+//                    $bid->save();
                 }
             }
         }
@@ -455,10 +457,12 @@ class FrontendController extends Controller
 
     public function paypal(Request $request)
     {
+        $amount = $request->get('transactions')[0]['amount']['total'];
+
         //Deposit log
         $UserDeposit = new App\Models\UserDeposit();
         $UserDeposit->fill([
-            'amount' => (float)$request->get('transactions')[0]['amount']['total'] - 75,
+            'amount' => $amount < 5000 ? $amount - 75 : $amount,
             'user_id' => \Auth::user()->id
         ]);
         $UserDeposit->save();

@@ -7,6 +7,7 @@
 import * as VueGoogleMaps from "vue2-google-maps";
 import PayPal from 'vue-paypal-checkout';
 import axios from 'axios';
+import VueCountdownTimer from 'vuejs-countdown-timer';
 
 require('./bootstrap');
 
@@ -18,6 +19,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(VueCountdownTimer);
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyDN3LWxZqLR2kcGo8pCYj_7n9YJ0UGF7F0"
@@ -26,6 +29,7 @@ Vue.use(VueGoogleMaps, {
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('live-component', require('./components/LiveComponent.vue'));
+Vue.component('bid-component', require('./components/BidComponent.vue'));
 
 const app = new Vue({
   el: '#app',
@@ -43,6 +47,31 @@ const app = new Vue({
     credentials: {
       sandbox: 'AQX_h6Ta_g4OgiMreaa_K-x21lH604zbL3kkEBJXvsZ8c2U8sy2YPhlciMev8iMneLl82BkfJSlr6XR2',
       production: 'AeAml9Oxn5lzKF1Hk1slRa1ck-a0GbUIDUtk0jHHF9GKCqHrJbCrIaEyxYE2mKuL20-oZkwVxxk4VNps'
+    },
+    experienceOptions: {
+      input_fields: {
+        no_shipping: 1
+      }
+    },
+    myItems: {
+      single: [
+        {
+          "name": "Single bidding",
+          "description": "This will allow only to bid in one property",
+          "quantity": "1",
+          "price": "1575",
+          "currency": "USD"
+        }
+      ],
+      multiple: [
+        {
+          "name": "Multiple bidding",
+          "description": "This will allow to bid in multiple properties",
+          "quantity": "1",
+          "price": "5000",
+          "currency": "USD"
+        }
+      ]
     }
   },
   methods: {

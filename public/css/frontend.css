@@ -233,8 +233,8 @@ body {
     background-color: #F7292F;
 }
 
-.property-remaining .unit {
-    font-size: 2.5rem;
+.property-remaining span {
+    font-size: 2.3rem;
 }
 
 .property .unit {

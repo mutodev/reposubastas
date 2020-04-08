@@ -2,10 +2,19 @@
     <strong>Balance: ${{ number_format($depositAmount) }}</strong>
     @if(!Auth::guest())
         @if($depositAmount <= 0)
-            <br />{{ __('To be able to offer a deposit is required') }}
-            @include('frontend.partials.paypal')
+            <br />{{ __('To be able to offer a deposit is required') }}<br />
+        <table cellpadding="10">
+            <tr>
+                <td align="left">
+                    {{__('Single property')}}<br />@include('frontend.partials.paypal', ['mode' => 'single'])
+                </td>
+                <td align="left">
+                    {{__('Multiple properties')}}<br />@include('frontend.partials.paypal', ['mode' => 'multiple'])
+                </td>
+            </tr>
+        </table>
         @else
-            <br /><span>{{ __('You can bid on :offersLeft '. ($offersLeft > 1 ? 'properties' : 'property'), compact('offersLeft')) }}</span>
+            <br /><span>{{ __('You can bid on :left '. ($offersLeft > 1 ? 'properties' : 'property'), ['left' => $depositAmount < 5000 ? __('one property'): __('multiple properties') ]) }}</span>
         @endif
     @else
         <br />

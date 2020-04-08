@@ -29,6 +29,7 @@
         "pusher-js": "^4.2.2",
         "socket.io": "^2.1.0",
         "vue-paypal-checkout": "^3.2.0",
-        "vue2-google-maps": "^0.9.6"
+        "vue2-google-maps": "^0.9.6",
+        "vuejs-countdown-timer": "^2.1.2"
     }
 }

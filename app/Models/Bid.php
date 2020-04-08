@@ -30,7 +30,7 @@ class Bid extends Model
         parent::boot();
 
         static::created(function ($instance){
-
+            event(new \App\Events\Bid($instance));
         });
     }
 }

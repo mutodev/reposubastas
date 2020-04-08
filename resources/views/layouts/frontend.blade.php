@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="/css/frontend.css?v11" rel="stylesheet">
+    <link href="/css/frontend.css?v12" rel="stylesheet">
 @endsection
 
 @section('main')
