@@ -153,22 +153,22 @@
                             }
                         ?>
 
-                        @if($online && $today->lt($endAt))
+{{--                        @if($online && $today->lt($endAt))--}}
 
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>
-                                <br />
-                                <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
-                            </div>
+{{--                            <div class="price mt-3">--}}
+{{--                                <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>--}}
+{{--                                <br />--}}
+{{--                                <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>--}}
+{{--                            </div>--}}
 
-                            <div class="price mt-3">
-                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
-                            </div>
-                        @endif
+{{--                            <div class="price mt-3">--}}
+{{--                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
 
-                        @if($today->lt($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))
-                            <div class="mt-3">
-                                {!! form($form) !!}
+{{--                        @if($today->lt($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))--}}
+{{--                            <div class="mt-3">--}}
+{{--                                {!! form($form) !!}--}}
 
 {{--                                <br />--}}
 
@@ -177,8 +177,8 @@
 {{--                                    <br />--}}
 {{--                                    @include('frontend.partials.paypal')--}}
 {{--                                @endif--}}
-                            </div>
-                        @endif
+{{--                            </div>--}}
+{{--                        @endif--}}
                     </div>
                 </div>
             </div>
