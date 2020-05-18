@@ -107,6 +107,7 @@ class PropertiesController extends Controller
     {
         $startAt = $event->start_at;
         $endAt = $event->end_at;
+        $biddingStartAt = $event->bidding_start_at;
 
         if ($model) {
             $modelEvent = DB::table('property_event')
@@ -119,6 +120,7 @@ class PropertiesController extends Controller
 
             $startAt = $model->start_at;
             $endAt =$model->end_at;
+            $biddingStartAt =$model->bidding_start_at;
 
             if ($model->sold_closing_at) {
                 $model->sold_closing_at = date("Y-m-d", strtotime($model->sold_closing_at));
@@ -143,6 +145,7 @@ class PropertiesController extends Controller
 
         $model->start_at = date("Y-m-d\TH:i:s", strtotime($startAt));
         $model->end_at = date("Y-m-d\TH:i:s", strtotime($endAt));
+        $model->bidding_start_at = date("Y-m-d\TH:i:s", strtotime($biddingStartAt));
 
         $form = $formBuilder->create(EditForm::class, [
             'method' => 'POST',
@@ -190,6 +193,7 @@ class PropertiesController extends Controller
         }
 
         $formValues['start_at'] = date('Y-m-d H:i:s', strtotime($formValues['start_at']));
+        $formValues['bidding_start_at'] = date('Y-m-d H:i:s', strtotime($formValues['bidding_start_at']));
         $formValues['end_at'] = date('Y-m-d H:i:s', strtotime($formValues['end_at']));
 
 

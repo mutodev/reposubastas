@@ -70,6 +70,7 @@ class CreatePropertiesTable extends Migration
             $table->string('seller_broker')->nullable();
             $table->decimal('commission')->nullable();
             $table->dateTime('start_at')->nullable();
+            $table->dateTime('bidding_start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->boolean('is_cash_only');
             $table->dateTime('optioned_approved_at')->nullable();

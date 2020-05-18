@@ -108,6 +108,8 @@
                         $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
 
                         $today = new Carbon\Carbon();
+
+                        $biddingStartAt = new Carbon\Carbon($property->bidding_start_at);
                         ?>
 
                         @if($today->lt($endAt))
@@ -153,32 +155,34 @@
                             }
                         ?>
 
-{{--                        @if($online && $today->lt($endAt))--}}
+                        @if ($biddingStartAt)
+                            @if($online && $today->gte($biddingStartAt) && $today->lte($endAt))
 
-{{--                            <div class="price mt-3">--}}
-{{--                                <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>--}}
-{{--                                <br />--}}
-{{--                                <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>--}}
-{{--                            </div>--}}
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>
+                                    <br />
+                                    <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
+                                </div>
 
-{{--                            <div class="price mt-3">--}}
-{{--                                <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                                <div class="price mt-3">
+                                    <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
+                                </div>
+                            @endif
 
-{{--                        @if($today->lt($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))--}}
-{{--                            <div class="mt-3">--}}
-{{--                                {!! form($form) !!}--}}
+                            @if($today->gte($biddingStartAt) && $today->lte($endAt) && ($online || ($property->status_id && !in_array($property->status->slug, ['OPTIONED', 'SOLD']))))
+                                <div class="mt-3">
+                                    {!! form($form) !!}
 
-{{--                                <br />--}}
+                                    <br />
 
-{{--                                @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))--}}
-{{--                                    {{ __('You must present your purchase intention by processing a minimum deposit') }}--}}
-{{--                                    <br />--}}
-{{--                                    @include('frontend.partials.paypal')--}}
-{{--                                @endif--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                                    @if (!Auth::guest() && (!$userEvent || $userEvent->remaining_deposit <= 0))
+                                        {{ __('You must present your purchase intention by processing a minimum deposit') }}
+                                        <br />
+                                        @include('frontend.partials.paypal')
+                                    @endif
+                                </div>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

@@ -80,6 +80,7 @@ class Property extends Model
         'commission',
         'end_at',
         'start_at',
+        'bidding_start_at',
         'optioned_approved_at',
         'optioned_end_at',
         'optioned_price',
