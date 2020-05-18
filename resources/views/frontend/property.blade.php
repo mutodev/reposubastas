@@ -130,7 +130,7 @@
                                 </vue-countdown-timer>
                                 <br />
                                 @if($online)
-                                    <strong>{{ __('Online Auction') }}: {{ Jenssegers\Date\Date::parse($property->end_at)->format('j M, g:ia')}}</strong>
+                                    <strong>{{ __('Online Auction') }}: {{ Jenssegers\Date\Date::parse($property->bidding_start_at ? $property->bidding_start_at : $property->end_at)->format('j M, g:ia')}}</strong>
                                 @else
                                     <strong>{{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</strong>
                                 @endif
