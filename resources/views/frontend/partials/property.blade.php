@@ -51,7 +51,7 @@
             </li>
         @else
             <li class="list-group-item border-0 bg-light-blue">
-                {{ __('Online Auction Ends') }}: {{ Jenssegers\Date\Date::parse($property->end_at)->format('j M, g:ia')}}
+                {{ __('Online Auction') }}
             </li>
         @endif
         <li class="list-group-item border-0">
