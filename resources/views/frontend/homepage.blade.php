@@ -41,6 +41,58 @@
             </div>
         </div>
     </div>
+    <style>
+        .body-blackout {
+            position: absolute;
+            z-index: 1010;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .65);
+            display: none;
+        }
+
+        .body-blackout.is-blacked-out {
+            display: block;
+        }
+
+        .popup-modal {
+            height: 650px;
+            width: 650px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 300ms ease-in-out;
+            z-index: 1011;
+        }
+
+        .popup-modal.is--visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-modal__close {
+            position: absolute;
+            font-size: 1.2rem;
+            right: -10px;
+            top: -10px;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="body-blackout"></div>
+
+    <div class="popup-modal shadow" data-popup-modal="one">
+        <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
+
+        <img src="/images/satur-09.jpg" width="100%" />
+    </div>
 
 {{--    <div class="homepage-bottom text-center position-relative p-5">--}}
 {{--        <div class="container position-relative" style="margin-top: 100px !important;">--}}
@@ -87,5 +139,30 @@
 {{--        </table>--}}
 {{--    </div>--}}
 
+@endsection
+
+@section('footer_scripts')
+    <script type="text/javascript">
+      const modalCloseTrigger = document.querySelector('.popup-modal__close')
+      const bodyBlackout = document.querySelector('.body-blackout')
+
+      document.addEventListener("DOMContentLoaded", function(){
+        const popupModal = document.querySelector(`[data-popup-modal="one"]`)
+
+        popupModal.classList.add('is--visible')
+        bodyBlackout.classList.add('is-blacked-out')
+
+        popupModal.querySelector('.popup-modal__close').addEventListener('click', () => {
+          popupModal.classList.remove('is--visible')
+          bodyBlackout.classList.remove('is-blacked-out')
+        })
+
+        bodyBlackout.addEventListener('click', () => {
+          // TODO: Turn into a function to close modal
+          popupModal.classList.remove('is--visible')
+          bodyBlackout.classList.remove('is-blacked-out')
+        })
+      });
+    </script>
 @endsection
 
