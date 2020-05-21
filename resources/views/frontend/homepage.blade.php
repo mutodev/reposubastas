@@ -5,7 +5,7 @@
         <div class="carousel-inner">
             <div class="homepage-top">
                 <div class="container">
-                    <h1 class="homeText">{{ __('THE') }}<br /> <strong>{{ __('BIGGEST AUCTION') }} </strong><br />{{ __('OF THE YEAR') }}</h1>
+                    <h1 class="homeText">{{ __('BE SAFE.') }}<br /> <strong>{{ __('BID SAFE.') }} </strong></h1>
 
                     <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
 {{--                    <a class="btn btn-danger mt-3" target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}">{{ __('Download catalog') }}</a>--}}
