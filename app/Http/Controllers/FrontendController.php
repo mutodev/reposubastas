@@ -141,7 +141,7 @@ class FrontendController extends Controller
             return $pdf->download('properties.pdf');
         }
 
-        $properties = $query->orderBy('property_event.number')->paginate(9);
+        $properties = $query->orderBy('properties.updated_at', 'DESC')->paginate(9);
 
         $types = PropertyType::forSelect();
 
