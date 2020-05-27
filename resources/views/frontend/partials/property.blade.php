@@ -52,7 +52,7 @@
         @else
             <li class="list-group-item border-0 bg-light-blue">
                 @if($property->bidding_start_at)
-                    {{ __('Online Auction Start') }}: {{ Jenssegers\Date\Date::parse($property->bidding_start_at)->format('j M, g:ia')}}
+                    {{ __('Online Auction Starts') }}: <br />{{ Jenssegers\Date\Date::parse($property->bidding_start_at)->format('M j, g:ia')}}
                 @else
                     {{ __('Online Auction') }}
                 @endif
