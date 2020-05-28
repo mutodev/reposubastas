@@ -131,13 +131,17 @@
                                         :seconds-txt="'s'">
                                 </vue-countdown-timer>
                                 <br />
-                                <div class="alert alert-danger">
-                                    @if($online)
-                                        {{ __('Online Auction') }}: <br />{{ $biddingStartAtText }}
-                                    @else
-                                        {{ __('Live Auction') }}: <br />{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
+                                @if($online)
+                                    @if($property->bidding_start_at)
+                                        <div class="alert alert-danger">
+                                            {{ __('Online Auction') }}: <br />{{ $biddingStartAtText }}
+                                        </div>
                                     @endif
-                                </div>
+                                @else
+                                    <div class="alert alert-danger">
+                                        {{ __('Live Auction') }}: <br />{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
+                                    </div>
+                                @endif
                             </div>
                         @elseif($online)
                             <div class="alert alert-warning">
