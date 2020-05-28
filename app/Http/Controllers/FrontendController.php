@@ -254,7 +254,7 @@ class FrontendController extends Controller
             return;
         }
 
-        $today = date('Y-m-d H:i:s');
+        $today = (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(2)->format('Y-m-d H:i:s');
 
         $property = Property::select('properties.*', 'property_event.number', 'events.is_online as event_is_online', 'events.start_at as event_start_at', 'events.live_at as event_live_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
             ->join('property_event', function ($join) {

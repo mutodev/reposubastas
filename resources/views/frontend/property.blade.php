@@ -102,14 +102,14 @@
                     </div>
                     <div class="col p-0 pl-sm-4 pr-sm-4 pt-sm-4">
                         <?php
-                        $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at));
+                        $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at), 'America/Puerto_Rico');
                         $days = $endAt->diffInDays();
                         $hours = $endAt->diffInHours() - ($days * 24);
                         $minutes = $endAt->diffInMinutes() - ((($days * 24) + $hours) * 60);
 
-                        $today = new Carbon\Carbon();
+                        $today = new Carbon\Carbon(null, 'America/Puerto_Rico');
 
-                        $biddingStartAt = new Carbon\Carbon($property->bidding_start_at);
+                        $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
                         ?>
 
                         @if($today->lt($endAt))
@@ -117,7 +117,7 @@
                             <div class="property-remaining">
                                 <vue-countdown-timer
                                         :start-time="{{$today->getTimestamp()}}"
-                                        :end-time="{{$endAt->addHours(4)->getTimestamp()}}"
+                                        :end-time="{{$endAt->getTimestamp()}}"
                                         :interval="1000"
                                         :start-label="'Until start:'"
                                         :end-label="''"
