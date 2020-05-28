@@ -55,7 +55,7 @@
                     $online = $property->event_is_online;
                     $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at), 'America/Puerto_Rico');
                     $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
-                    $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('M j g:ia');
+                    $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
                 ?>
                 @if($property->bidding_start_at)
                     {{ __('Online Auction') }}: <br />{{ $biddingStartAtText  }}

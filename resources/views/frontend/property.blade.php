@@ -111,7 +111,7 @@
 
                         $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
 
-                        $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('M j g:ia');
+                        $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
                         ?>
 
                         @if($today->lt($endAt))
