@@ -110,6 +110,8 @@
                         $today = new Carbon\Carbon(null, 'America/Puerto_Rico');
 
                         $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
+
+                        $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j g:ia') . ' - ' . $endAt->format('M j g:ia');
                         ?>
 
                         @if($today->lt($endAt))
@@ -129,11 +131,17 @@
                                         :seconds-txt="'s'">
                                 </vue-countdown-timer>
                                 <br />
-                                @if($online)
-                                    <strong>{{ __('Online Auction') }}: {{ Jenssegers\Date\Date::parse($property->bidding_start_at ? $property->bidding_start_at : $property->end_at)->format('j M, g:ia')}}</strong>
-                                @else
-                                    <strong>{{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}</strong>
-                                @endif
+                                <div class="alert alert-danger">
+                                    @if($online)
+                                        {{ __('Online Auction') }}: <br />{{ $biddingStartAtText }}
+                                    @else
+                                        {{ __('Live Auction') }}: <br />{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
+                                    @endif
+                                </div>
+                            </div>
+                        @elseif($online)
+                            <div class="alert alert-warning">
+                                {{ __('Online Auction Ended') }}
                             </div>
                         @endif
 
