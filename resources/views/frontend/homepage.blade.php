@@ -58,8 +58,8 @@
         }
 
         .popup-modal {
-            height: 650px;
-            width: 650px;
+            max-height: 650px;
+            max-width: 650px;
             background-color: #fff;
             position: absolute;
             left: 50%;
@@ -69,7 +69,17 @@
             opacity: 0;
             pointer-events: none;
             transition: all 300ms ease-in-out;
-            z-index: 1011;
+            z-index: 9999999;
+        }
+
+        @media only screen and (max-width: 650px) {
+            .popup-modal {
+                max-height: 650px;
+                max-width: 650px;
+                left: 0;
+                top: 0;
+                transform: translate(0, 0);
+            }
         }
 
         .popup-modal.is--visible {
@@ -91,7 +101,7 @@
     <div class="popup-modal shadow" data-popup-modal="one">
         <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
 
-        <img src="/images/satur-09.jpg" width="100%" />
+        <img src="/images/popup.jpg" width="100%" />
     </div>
 
 {{--    <div class="homepage-bottom text-center position-relative p-5">--}}
