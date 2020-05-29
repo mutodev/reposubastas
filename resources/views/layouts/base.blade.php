@@ -27,7 +27,7 @@
     @yield('stylesheets')
 </head>
 <body>
-<div id="app">
+<div id="app" style="overflow: hidden;">
     @yield('main')
 </div>
 
