@@ -1,5 +1,5 @@
 <paypal
-        amount="{{@$mode ? ($mode === 'single' ? '1575.00': '5000.00') : '1575.00'}}"
+        amount="{{@$mode ? ($mode === 'single' ? '1575.00': '5075.00') : '1575.00'}}"
         currency="USD"
         env="{{ env('PAYPAL_ENV', 'production') }}"
         :client="credentials"

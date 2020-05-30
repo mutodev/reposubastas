@@ -15909,7 +15909,7 @@ var app = new Vue({
         "name": "Multiple bidding",
         "description": "This will allow to bid in multiple properties",
         "quantity": "1",
-        "price": "5000",
+        "price": "5075",
         "currency": "USD"
       }]
     }

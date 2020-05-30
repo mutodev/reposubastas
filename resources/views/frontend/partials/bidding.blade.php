@@ -14,7 +14,7 @@
             </tr>
         </table>
         @else
-            <br /><span>{{ __('You can bid on :left '. ($offersLeft > 1 ? 'properties' : 'property'), ['left' => $depositAmount < 5000 ? __('one property'): __('multiple properties') ]) }}</span>
+            <br /><span>{{ __('You can bid on :left '. ($offersLeft > 1 ? 'properties' : 'property'), ['left' => $depositAmount < 5075 ? __('one property'): __('multiple properties') ]) }}</span>
         @endif
     @else
         <br />
