@@ -66,7 +66,7 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="/js/app.js?v20" defer></script>
+    <script src="/js/app.js?v21" defer></script>
 
     <script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
 
