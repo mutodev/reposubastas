@@ -177,7 +177,7 @@
                                 </div>
 
                                 <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Make your offer') }}</strong>
+                                    <strong class="text-dark-blue">{{ __('Make your offer') }} (No ",", only numbers)</strong>
                                 </div>
                             @endif
 
