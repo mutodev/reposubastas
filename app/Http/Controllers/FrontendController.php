@@ -319,7 +319,7 @@ class FrontendController extends Controller
                         $userDeposit->save();
                     }
 
-//                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
+                    Mail::to(explode(',', 'reposubasta@realityrealtypr.com,perezg@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
                     Session::flash('success', __('Offer submitted'));
                 } else {
