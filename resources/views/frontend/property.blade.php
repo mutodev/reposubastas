@@ -116,7 +116,7 @@
 
                         @if($today->lt($endAt))
                             <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
-                            <div class="property-remaining">
+                            <div class="property-remaining" style="font-size: 13px;">
                                 <vue-countdown-timer
                                         :start-time="{{$today->getTimestamp()}}"
                                         :end-time="{{$endAt->getTimestamp()}}"
