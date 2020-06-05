@@ -414,3 +414,7 @@ body {
         margin-top: 150px;
     }
 }
+
+.blink-red {
+    background-color: #f8d7da;
+}

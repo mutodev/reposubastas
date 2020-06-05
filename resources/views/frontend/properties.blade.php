@@ -23,7 +23,7 @@
 
             <div class="row mb-3">
                 <div class="col-xs-12 col-sm-6">
-                    <a class="btn btn-block btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'bulk', 'locale' => \App::getLocale()]) }}">{{ __('Saved list') }}</a>
+                    <a class="btn btn-block btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'dashboard', 'locale' => \App::getLocale()]) }}">{{ __('Watch list') }}</a>
                 </div>
 
                 <div class="col-xs-12 col-sm-6 text-right">

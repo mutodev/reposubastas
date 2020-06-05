@@ -30,6 +30,7 @@ Vue.use(VueGoogleMaps, {
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('live-component', require('./components/LiveComponent.vue'));
 Vue.component('bid-component', require('./components/BidComponent.vue'));
+Vue.component('reserve-component', require('./components/ReserveComponent.vue'));
 
 const app = new Vue({
   el: '#app',
@@ -75,6 +76,9 @@ const app = new Vue({
     }
   },
   methods: {
+    endCallBack: function() {
+      window.location.reload();
+    },
     startSuspense: function() {
       if (this.auction.suspense) {
         this.stopSuspense();
@@ -113,13 +117,13 @@ Echo.channel('local')
   .listen('Auction', (e) => {
     app.auction = Object.assign(app.auction, e, {finished: false});
   })
-  .listen('Bid', (e) => {
-    //app.auction.finished = e.bid.is_winner;
-
-    if (!app.auction.finished && app.auction.property.id == e.bid.property_id) {
-      app.auction.bids = [e.bid].concat(app.auction.bids);
-    }
-  })
+  // .listen('Bid', (e) => {
+  //   //app.auction.finished = e.bid.is_winner;
+  //
+  //   if (!app.auction.finished && app.auction.property.id == e.bid.property_id) {
+  //     app.auction.bids = [e.bid].concat(app.auction.bids);
+  //   }
+  // })
   .listen('Suspense', (e) => {
       if (e.start) {
         app.startSuspense();

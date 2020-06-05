@@ -15874,6 +15874,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue2_google_maps__, {
 Vue.component('example-component', __webpack_require__(167));
 Vue.component('live-component', __webpack_require__(170));
 Vue.component('bid-component', __webpack_require__(173));
+Vue.component('reserve-component', __webpack_require__(183));
 
 var app = new Vue({
   el: '#app',
@@ -15915,6 +15916,9 @@ var app = new Vue({
     }
   },
   methods: {
+    endCallBack: function endCallBack() {
+      window.location.reload();
+    },
     startSuspense: function startSuspense() {
       if (this.auction.suspense) {
         this.stopSuspense();
@@ -15973,13 +15977,15 @@ var app = new Vue({
 
 Echo.channel('local').listen('Auction', function (e) {
   app.auction = Object.assign(app.auction, e, { finished: false });
-}).listen('Bid', function (e) {
-  //app.auction.finished = e.bid.is_winner;
-
-  if (!app.auction.finished && app.auction.property.id == e.bid.property_id) {
-    app.auction.bids = [e.bid].concat(app.auction.bids);
-  }
-}).listen('Suspense', function (e) {
+})
+// .listen('Bid', (e) => {
+//   //app.auction.finished = e.bid.is_winner;
+//
+//   if (!app.auction.finished && app.auction.property.id == e.bid.property_id) {
+//     app.auction.bids = [e.bid].concat(app.auction.bids);
+//   }
+// })
+.listen('Suspense', function (e) {
   if (e.start) {
     app.startSuspense();
   } else {
@@ -82701,7 +82707,143 @@ the specific language governing permissions and limitations under the Apache Lic
 /* 179 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Node Sass does not yet support your current environment: OS X 64-bit with Unsupported runtime (79)\nFor more information on which environments are supported please see:\nhttps://github.com/sass/node-sass/releases/tag/v4.8.3\n    at module.exports (/Users/ecosmez/Projects/reposubasta/node_modules/node-sass/lib/binding.js:13:13)\n    at Object.<anonymous> (/Users/ecosmez/Projects/reposubasta/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:1063:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1103:10)\n    at Module.load (internal/modules/cjs/loader.js:914:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:822:14)\n    at Module.require (internal/modules/cjs/loader.js:956:19)\n    at require (internal/modules/cjs/helpers.js:74:18)\n    at Object.<anonymous> (/Users/ecosmez/Projects/reposubasta/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:1063:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1103:10)\n    at Module.load (internal/modules/cjs/loader.js:914:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:822:14)\n    at Module.require (internal/modules/cjs/loader.js:956:19)\n    at require (internal/modules/cjs/helpers.js:74:18)\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModule.js:195:19\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:170:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:27:11)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Users/ecosmez/Projects/reposubasta/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/Compilation.js:151:10)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/Compilation.js:454:10\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModuleFactory.js:243:5\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModuleFactory.js:94:13\n    at /Users/ecosmez/Projects/reposubasta/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.<anonymous> (/Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/Users/ecosmez/Projects/reposubasta/node_modules/tapable/lib/Tapable.js:272:13)\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModuleFactory.js:69:10\n    at /Users/ecosmez/Projects/reposubasta/node_modules/webpack/lib/NormalModuleFactory.js:196:7\n    at processTicksAndRejections (internal/process/task_queues.js:75:11)");
+
+/***/ }),
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(184)
+/* template */
+var __vue_template__ = __webpack_require__(185)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ReserveComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f8b71550", Component.options)
+  } else {
+    hotAPI.reload("data-v-f8b71550", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['property', 'reserve', 'current', 'labelmet', 'labelnotmet'],
+  data: function data() {
+    return {
+      bid: null
+    };
+  },
+  methods: {
+    price: function price(n) {
+      return "$" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('.00', '');
+    },
+    met: function met() {
+      return this.bid && this.bid.offer >= this.reserve || this.current && this.current >= this.reserve;
+    },
+    activateBlinking: function activateBlinking() {
+      var blinkElements = jQuery('.blink-' + this.property);
+      var theinterval = setInterval(function () {
+        blinkElements.toggleClass('blink-red');
+      }, 500);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log(this, this.property, this.current, this.reserve);
+
+    Echo.channel('local').listen('Bid', function (e) {
+      if (_this.property === e.bid.property_id) {
+        _this.bid = e.bid;
+
+        if (_this.met()) {
+          _this.activateBlinking();
+        }
+      }
+    });
+
+    if (this.met()) {
+      this.activateBlinking();
+    }
+  }
+});
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.met()
+      ? _c("div", { staticClass: "alert alert-danger" }, [
+          _vm._v("\n        " + _vm._s(_vm.labelmet) + "\n    ")
+        ])
+      : _c("div", { staticClass: "alert alert-info" }, [
+          _vm._v(_vm._s(_vm.labelnotmet))
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f8b71550", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

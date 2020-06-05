@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('stylesheets')
-    <link href="/css/frontend.css?v12" rel="stylesheet">
+    <link href="/css/frontend.css?v14" rel="stylesheet">
 @endsection
 
 @section('main')
@@ -18,6 +18,7 @@
 {{--                    <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}"><strong class="text-danger">{{ __('Sign Up') }}</strong></a>--}}
                     <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'login']) }}">{{ __('Sign In') }}</a>
                 @else
+                    <a class="site-header-item py-2 d-inline-block mr-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'dashboard']) }}">{{ __('Dashboard') }}</a>
                     <a class="site-header-item py-2 d-inline-block mr-3" href="/logout">{{ __('Logout') }}</a>
                 @endif
                 <div class="btn-group">
@@ -51,6 +52,7 @@
                             <li><a class="text-muted" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'register']) }}">{{ __('Sign Up') }}</a></li>
 {{--                            <li><a class="text-muted" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'login']) }}">{{ __('Sign In') }}</a></li>--}}
                         @else
+                            <li><a class="text-muted" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'pageSlug' => 'dashboard']) }}">{{ __('Dashboard') }}</a></li>
                             <li><a class="text-muted" href="/logout">{{ __('Logout') }}</a></li>
                         @endif
 
@@ -87,7 +89,7 @@
 
 @section('footer_scripts')
     <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5320741e1495deeb"></script>
-    <script src="/js/app.js?v21" defer></script>
+    <script src="/js/app.js?v22" defer></script>
     <!-- Global site tag (gtag.js) - Google Ads: 763964033 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-763964033"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-763964033'); </script>
     @yield('footer_extra_scripts')

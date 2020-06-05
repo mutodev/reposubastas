@@ -9,7 +9,7 @@
 @section('content')
     {!! $page->content !!}
 
-    <div class="property pt-4 pb-4">
+    <div class="property pt-4 pb-4 blink-{{$property->id}}">
         <div class="container">
             @if (session('success'))
                 <div class="alert alert-success">
@@ -25,7 +25,8 @@
 
             <div class="row mb-3">
                 <div class="col-xs-12 col-sm-6">
-                    <button class="selectProperty btn-block btn btn-primary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Save') }}</button>
+                    <button class="selectProperty btn btn btn-primary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Add to Watchlist') }}</button>
+                    <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'dashboard', 'locale' => \App::getLocale()]) }}">{{ __('Watch list') }}</a>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     @include('frontend.partials.bidding', ['id' => $property->id])
@@ -111,6 +112,22 @@
 
                         $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
 
+                        $extended = 0;
+
+                        if ($bid) {
+                            $bidCreatedAt = new Carbon\Carbon($bid->created_at);
+
+                            if ($bidCreatedAt->gte((clone $endAt)->subMinutes(5)) && $bidCreatedAt->lte($endAt)) {
+                                $extended = 5;
+                            } elseif ($bidCreatedAt->gte($endAt) && $bidCreatedAt->lte((clone $endAt)->addMinutes(5))) {
+                                $extended = 8;
+                            } elseif ($bidCreatedAt->gte((clone $endAt)->addMinutes(5)) && $bidCreatedAt->lte((clone $endAt)->addMinutes(8))) {
+                                $extended = 9;
+                            }
+
+                            $endAt->addMinutes($extended);
+                        }
+
                         $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
                         ?>
 
@@ -175,6 +192,10 @@
                                     <br />
                                     <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
                                 </div>
+
+                                @if($property->reserve)
+                                    <reserve-component :labelmet="'{{__('Reserve met')}}'" :labelnotmet="'{{__('Reserve not met')}}'" :reserve='{{$property->reserve}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></reserve-component>
+                                @endif
 
                                 <div class="price mt-3">
                                     <strong class="text-dark-blue">{{ __('Make your offer') }} (No ",", only numbers)</strong>

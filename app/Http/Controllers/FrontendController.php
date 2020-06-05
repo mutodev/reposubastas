@@ -468,4 +468,114 @@ class FrontendController extends Controller
         $UserDeposit->save();
         die('done');
     }
+
+    public function dashboard(FormBuilder $formBuilder, Request $request) {
+        $ids = session()->get('selected', []);
+
+        $today = (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s');
+
+        $query = Property::select('properties.*', 'property_event.number', 'events.id as event_id', 'events.start_at as event_start_at', 'events.end_at as event_end_at', 'events.live_at as event_live_at', 'events.location as event_location', 'events.is_online as event_is_online')
+            ->join('property_event', function ($join) {
+                $join->on('property_event.property_id', '=', 'properties.id')
+                    ->where('property_event.is_active', '=', true);
+            })
+            ->leftJoin('property_tag_pivot', function ($join) {
+                $join->on('property_tag_pivot.property_id', '=', 'properties.id');
+            })
+            ->leftJoin('property_tag', function ($join) use ($today) {
+                $join->on('property_tag.id', '=', 'property_tag_pivot.property_tag_id');
+            })
+            ->join('events', function ($join) use ($today) {
+                $join->on('events.id', '=', 'property_event.event_id')
+                    ->where('events.is_active', '=', true);
+            })
+            ->where('properties.start_at', '<=', $today)
+            ->where('properties.end_at', '>', $today);
+
+        $query->whereIn('properties.id', $ids);
+
+        $properties = $query->orderBy('property_event.number')->paginate(100);
+
+        $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
+
+        //Handle post
+        if ($request->isMethod('post')) {
+            $property = Property::select('properties.*', 'property_event.number', 'events.is_online as event_is_online', 'events.start_at as event_start_at', 'events.live_at as event_live_at', 'events.end_at as event_end_at', 'events.id as event_id', 'events.location as event_location')
+                ->join('property_event', function ($join) {
+                    $join->on('property_event.property_id', '=', 'properties.id')
+                        ->where('property_event.is_active', '=', true);
+                })
+                ->join('events', function ($join) use ($today) {
+                    $join->on('events.id', '=', 'property_event.event_id')
+                        ->where('events.is_active', '=', true);
+                })
+                ->where('properties.start_at', '<=', $today)
+                ->where('properties.end_at', '>', $today)
+                ->where('properties.id', '=', $request->get('id'))->first();
+
+            //Get last bid
+            $bid = $property->getBids($property->event_id)->first();
+
+            if (\Auth::guest()) {
+                Session::flash('error', __('Please register to submit offer'));
+                return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
+            }
+
+            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+
+            if (!$userDeposit) {
+                Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
+            } else {
+                $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [], [
+                    'is_cash_only' => $property->is_cash_only
+                ]);
+
+                if (!$form->isValid()) {
+                    return redirect()->back()->withErrors($form->getErrors())->withInput();
+                }
+
+                $formValues = $form->getFieldValues();
+
+                $newOffer = intval($formValues['offer']);
+
+                if ($newOffer >= $property->reserve && (!$bid || $newOffer > intval($bid->offer))) {
+                    $bid = new Bid;
+                    $bid->user_id = \Auth::user()->id;
+                    $bid->property_id = $property->id;
+                    $bid->event_id = $property->event_id;
+                    $bid->offer = intval($formValues['offer']);
+                    $bid->type = $formValues['type'];
+                    $bid->is_winner = false;
+                    $bid->save();
+
+                    $formValues['property_number'] = $property->id;
+                    $formValues['user'] = \Auth::user()->name;
+                    $formValues['email'] = \Auth::user()->email;
+                    $formValues['phone'] = \Auth::user()->phone;
+
+                    //Attach deposit to property
+                    if ($userDeposit->amount < 5075) {
+                        $userDeposit->property_id = $property->id;
+                        $userDeposit->save();
+                    }
+
+                    Mail::to(explode(',', 'eduardito58@gmail.com,reposubasta@realityrealtypr.com,perezg@realityrealtypr.com,zavalai@realityrealtypr.com,serranomil@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
+
+                    Session::flash('success', __('Offer submitted'));
+                } else {
+                    Session::flash('error', __('The offer must be greater than actual offer'));
+//                    $bid = new Bid;
+//                    $bid->user_id = \Auth::user()->id;
+//                    $bid->property_id = $property->id;
+//                    $bid->event_id = $property->event_id;
+//                    $bid->offer = intval($formValues['offer']);
+//                    $bid->type = $formValues['type'];
+//                    $bid->is_winner = false;
+//                    $bid->save();
+                }
+            }
+        }
+
+        return compact('properties', 'formBuilder', 'userDeposit');
+    }
 }
