@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    props: ['property', 'current'],
+    props: ['property', 'current', 'user'],
     data: function() {
       return {
         bid: null
@@ -25,6 +25,10 @@
         .listen('Bid', (e) => {
           if (this.property === e.bid.property_id) {
             this.bid = e.bid;
+
+            if (this.bid.user_id !== this.user) {
+              jQuery('.winning-'+this.user+this.property).remove();
+            }
           }
         });
     }

@@ -61,5 +61,5 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="/js/app.js?v22" defer></script>
+    <script src="/js/app.js?v23" defer></script>
 @endsection

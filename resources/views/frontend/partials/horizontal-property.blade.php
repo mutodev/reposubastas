@@ -81,7 +81,7 @@ $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ?
                                     :seconds-txt="'s'">
                             </vue-countdown-timer>
                             @if($extended)
-                                <small>{{__('Extended :minutes minutes', ['minutes' => $extended])}}</small>
+                                <small>{{__('Extended :minutes minutes', ['minutes' => $extended])}}</small> @if($extended === 9) <strong>{{__('Final extension')}}</strong> @endif
                             @endif
                             <br />
                             @if($property->event_is_online)
@@ -120,8 +120,9 @@ $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ?
                     @if($property->event_is_online && $today->gte($biddingStartAt) && $today->lte($endAt))
 
                         <div class="price mt-1">
-                            <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
-                            <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
+                            <strong class="text-dark-blue">{{ __('Current offer') }} </strong>
+                            <strong class="unit"><bid-component :user='{{\Auth::user()->id}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></bid-component></strong>
+                            @if ($bid && $bid->user_id === \Auth::user()->id)<small class="winning winning-{{\Auth::user()->id.$property->id}}">({{__('Winning')}})</small> @endif
                         </div>
                     @endif
 

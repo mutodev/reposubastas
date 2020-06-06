@@ -79022,7 +79022,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['property', 'current'],
+  props: ['property', 'current', 'user'],
   data: function data() {
     return {
       bid: null
@@ -79041,6 +79041,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Echo.channel('local').listen('Bid', function (e) {
       if (_this.property === e.bid.property_id) {
         _this.bid = e.bid;
+
+        if (_this.bid.user_id !== _this.user) {
+          jQuery('.winning-' + _this.user + _this.property).remove();
+        }
       }
     });
   }

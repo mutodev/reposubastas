@@ -169,7 +169,7 @@
                         <div class="price mt-3">
                             <strong class="text-dark-blue">{{ __('Sale price') }}</strong>
                             <br />
-                            <strong class="unit">${{ number_format(intval($property->price)) }}</strong>
+                            <strong class="unit">${{ number_format(intval($property->price)) }} </strong>
                         </div>
 
                         <div class=" mt-3">
@@ -188,9 +188,11 @@
                             @if($online && $today->gte($biddingStartAt) && $today->lte($endAt))
 
                                 <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ @$bid->offer ? __('Current offer') : __('Starting bid') }}</strong>
+                                    <strong class="text-dark-blue">{{ __('Current offer') }}</strong>
                                     <br />
-                                    <strong class="unit"><bid-component :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : ($property->reserve ?? 0)) }}'></bid-component></strong>
+                                    <strong class="unit"><bid-component :user='{{\Auth::user()->id}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></bid-component></strong>
+
+                                    @if ($bid && $bid->user_id === \Auth::user()->id)<small class="winning winning-{{\Auth::user()->id.$property->id}}">({{__('Winning')}})</small> @endif
                                 </div>
 
                                 @if($property->reserve)

@@ -298,7 +298,7 @@ class FrontendController extends Controller
 
                 $newOffer = intval($formValues['offer']);
 
-                if ($newOffer >= $property->reserve && (!$bid || $newOffer > intval($bid->offer))) {
+                if (!$bid || $newOffer > intval($bid->offer)) {
                     $bid = new Bid;
                     $bid->user_id = \Auth::user()->id;
                     $bid->property_id = $property->id;
@@ -470,7 +470,7 @@ class FrontendController extends Controller
     }
 
     public function dashboard(FormBuilder $formBuilder, Request $request) {
-        $ids = session()->get('selected', []);
+        $ids = array_slice(session()->get('selected', []), 0,\Auth::user()->id == 3376 ? null : 5);
 
         $today = (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s');
 
@@ -538,7 +538,7 @@ class FrontendController extends Controller
 
                 $newOffer = intval($formValues['offer']);
 
-                if ($newOffer >= $property->reserve && (!$bid || $newOffer > intval($bid->offer))) {
+                if (!$bid || $newOffer > intval($bid->offer)) {
                     $bid = new Bid;
                     $bid->user_id = \Auth::user()->id;
                     $bid->property_id = $property->id;
