@@ -194,7 +194,7 @@
                                     <br />
                                     <strong class="unit"><bid-component :user='{{\Auth::guest() ? 'A' : \Auth::user()->id}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></bid-component></strong>
 
-                                    @if ($bid && $bid->user_id === \Auth::user()->id)<small class="winning winning-{{\Auth::user()->id.$property->id}}">({{__('Winning')}})</small> @endif
+                                    @if (!\Auth::guest() && $bid && $bid->user_id === \Auth::user()->id)<small class="winning winning-{{\Auth::user()->id.$property->id}}">({{__('Winning')}})</small> @endif
                                 </div>
 
                                 @if($property->reserve)
