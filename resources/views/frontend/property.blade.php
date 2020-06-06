@@ -25,8 +25,10 @@
 
             <div class="row mb-3">
                 <div class="col-xs-12 col-sm-6">
+                    @if(!\Auth::guest())
                     <button class="selectProperty btn btn btn-primary" data-url="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}">{{ __('Add to Watchlist') }}</button>
                     <a class="btn btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'dashboard', 'locale' => \App::getLocale()]) }}">{{ __('Watch list') }}</a>
+                    @endif
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     @include('frontend.partials.bidding', ['id' => $property->id])

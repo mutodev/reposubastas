@@ -23,7 +23,9 @@
 
             <div class="row mb-3">
                 <div class="col-xs-12 col-sm-6">
+                    @if(!\Auth::guest())
                     <a class="btn btn-block btn-primary" href="{{ route('frontend.page', ['pageSlug' => 'dashboard', 'locale' => \App::getLocale()]) }}">{{ __('Watch list') }}</a>
+                    @endif
                 </div>
 
                 <div class="col-xs-12 col-sm-6 text-right">
