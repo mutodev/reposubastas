@@ -564,16 +564,10 @@ class FrontendController extends Controller
                     Session::flash('success', __('Offer submitted'));
                 } else {
                     Session::flash('error', __('The offer must be greater than actual offer'));
-//                    $bid = new Bid;
-//                    $bid->user_id = \Auth::user()->id;
-//                    $bid->property_id = $property->id;
-//                    $bid->event_id = $property->event_id;
-//                    $bid->offer = intval($formValues['offer']);
-//                    $bid->type = $formValues['type'];
-//                    $bid->is_winner = false;
-//                    $bid->save();
                 }
             }
+
+            return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'dashboard']);
         }
 
         return compact('properties', 'formBuilder', 'userDeposit');
