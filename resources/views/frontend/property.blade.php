@@ -10,6 +10,11 @@
     {!! $page->content !!}
 
     <div class="property pt-4 pb-4 blink-{{$property->id}}">
+        @if ($property->reserve)
+            <div style="display: none">
+                <reserve-component :labelmet="'{{__('Reserve met')}}'" :labelnotmet="'{{__('Reserve not met')}}'" :reserve='{{$property->reserve}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></reserve-component>
+            </div>
+        @endif
         <div class="container">
             @if (session('success'))
                 <div class="alert alert-success">

@@ -1,4 +1,4 @@
-<a href="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}" class="card col-md-4 p-0 border-0">
+<a href="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}" class="card col-md-4 p-0 border-0 blink-{{$property->id}}">
     <div class="wm">
         @if($property->image1)
         <img class="card-img-top" height="200" src="{{ $property->getMainImage('_thumb') }}" alt="{{ $property->address }}" />
@@ -56,17 +56,23 @@
                     $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at), 'America/Puerto_Rico');
                     $biddingStartAt = new Carbon\Carbon($property->bidding_start_at, 'America/Puerto_Rico');
                     $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
+                    $bid = $property->getBids($property->event_id)->first();
                 ?>
                 @if($property->bidding_start_at)
                     {{ __('Online Auction') }}: <br />{{ $biddingStartAtText  }}
                 @else
                     {{ __('Online Auction') }}
                 @endif
+
+                @if ($property->reserve)
+                <div style="display: none">
+                    <reserve-component :labelmet="'{{__('Reserve met')}}'" :labelnotmet="'{{__('Reserve not met')}}'" :reserve='{{$property->reserve}}' :property='{{$property->id}}' :current='{{ intval(@$bid->offer ? $bid->offer : 0) }}'></reserve-component>
+                </div>
+                @endif
             </li>
         @endif
         <li class="list-group-item border-0">
             <span>{{ __('Sale price') }}: @if($property->price > 0) ${{ number_format($property->price) }} @else {{ __('Request price') }} @endif</span>
-
                 <br />
                 <small style="font-size: .5em">{{ __('Commission to be paid by the Buyer') }}: @if($property->buyer_prima){{ number_format(intval($property->buyer_prima)) }}%@else 1%@endif</small>
         </li>
