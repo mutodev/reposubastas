@@ -72,10 +72,12 @@ class FrontendController extends Controller
             })
             ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
-                    ->where('events.is_active', '=', true);
+                    ->where('events.is_active', '=', true)
+                    ->where('events.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
+                    ->where('events.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
             })
             ->where('properties.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
-            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s'));
+            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
 
         if ($type = $request->get('type')) {
             $query->where('properties.type_id', '=', $type);
@@ -263,10 +265,12 @@ class FrontendController extends Controller
             })
             ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
-                    ->where('events.is_active', '=', true);
+                    ->where('events.is_active', '=', true)
+                    ->where('events.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
+                    ->where('events.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
             })
             ->where('properties.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
-            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s'))
+            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'))
             ->where('properties.id', '=', $request->get('id'))->first();
 
         //Get last bid
