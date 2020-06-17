@@ -74,8 +74,8 @@ class FrontendController extends Controller
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true);
             })
-            ->where('properties.start_at', '<=', $today)
-            ->where('properties.end_at', '>', $today);
+            ->where('properties.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
+            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s'));
 
         if ($type = $request->get('type')) {
             $query->where('properties.type_id', '=', $type);
@@ -265,8 +265,8 @@ class FrontendController extends Controller
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true);
             })
-            ->where('properties.start_at', '<=', $today)
-            ->where('properties.end_at', '>', $today)
+            ->where('properties.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
+            ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s'))
             ->where('properties.id', '=', $request->get('id'))->first();
 
         //Get last bid
