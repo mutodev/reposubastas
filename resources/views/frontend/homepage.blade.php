@@ -96,27 +96,27 @@
         }
     </style>
 
-{{--    <div class="body-blackout"></div>--}}
+    <div class="body-blackout"></div>
 
-{{--    <div class="popup-modal shadow" data-popup-modal="one">--}}
-{{--        <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>--}}
-{{--        <img src="/images/popup2.jpg" width="100%" />--}}
-{{--    </div>--}}
+    <div class="popup-modal shadow" data-popup-modal="one">
+        <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
+        <img src="/images/everysat.jpg" width="100%" />
+    </div>
 
-{{--    <div class="homepage-bottom text-center position-relative p-5">--}}
-{{--        <div class="container position-relative" style="margin-top: 100px !important;">--}}
-{{--            <h1 class="display-6 text-uppercase font-weight-bold">{{ __('PARTICIPATING IN REPOSUBASTA IS EASY') }}<br /> {{ __('You just have to follow the steps:') }}</h1>--}}
+    <div class="homepage-bottom text-center position-relative p-5">
+        <div class="container position-relative" style="margin-top: 100px !important;">
+            <h1 class="display-6 text-uppercase font-weight-bold">{{ __('PARTICIPATING IN REPOSUBASTA IS EASY') }}<br /> {{ __('You just have to follow the steps:') }}</h1>
 
-{{--            <div class="btn-group btn-group-toggle mt-3 steps-control" data-toggle="buttons">--}}
-{{--                <button type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="false">--}}
-{{--                    {{ __('Live Auction') }}--}}
-{{--                </button>--}}
-{{--                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">--}}
-{{--                    {{ __('Online Auction') }}--}}
-{{--                </button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+            <div class="btn-group btn-group-toggle mt-3 steps-control" data-toggle="buttons">
+                <button type="button" class="btn btn-primary active" data-toggle="button" aria-pressed="false">
+                    {{ __('Live Auction') }}
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+                    {{ __('Online Auction') }}
+                </button>
+            </div>
+        </div>
+    </div>
 
 {{--    <div class="properties-search position-relative text-center p-5">--}}
 {{--        <h1 class="homeText">{{ __('NOW THE OPPORTUNITY IS AT REACH OF A CLICK') }}</h1>--}}
@@ -152,26 +152,26 @@
 
 @section('footer_scripts')
     <script type="text/javascript">
-      // const modalCloseTrigger = document.querySelector('.popup-modal__close')
-      // const bodyBlackout = document.querySelector('.body-blackout')
-      //
-      // document.addEventListener("DOMContentLoaded", function(){
-      //   const popupModal = document.querySelector(`[data-popup-modal="one"]`)
-      //
-      //   popupModal.classList.add('is--visible')
-      //   bodyBlackout.classList.add('is-blacked-out')
-      //
-      //   popupModal.querySelector('.popup-modal__close').addEventListener('click', () => {
-      //     popupModal.classList.remove('is--visible')
-      //     bodyBlackout.classList.remove('is-blacked-out')
-      //   })
-      //
-      //   bodyBlackout.addEventListener('click', () => {
-      //     // TODO: Turn into a function to close modal
-      //     popupModal.classList.remove('is--visible')
-      //     bodyBlackout.classList.remove('is-blacked-out')
-      //   })
-      // });
+      const modalCloseTrigger = document.querySelector('.popup-modal__close')
+      const bodyBlackout = document.querySelector('.body-blackout')
+
+      document.addEventListener("DOMContentLoaded", function(){
+        const popupModal = document.querySelector(`[data-popup-modal="one"]`)
+
+        popupModal.classList.add('is--visible')
+        bodyBlackout.classList.add('is-blacked-out')
+
+        popupModal.querySelector('.popup-modal__close').addEventListener('click', () => {
+          popupModal.classList.remove('is--visible')
+          bodyBlackout.classList.remove('is-blacked-out')
+        })
+
+        bodyBlackout.addEventListener('click', () => {
+          // TODO: Turn into a function to close modal
+          popupModal.classList.remove('is--visible')
+          bodyBlackout.classList.remove('is-blacked-out')
+        })
+      });
     </script>
 @endsection
 
