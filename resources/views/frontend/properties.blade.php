@@ -9,7 +9,7 @@
 
     <div class="properties-results bg-light-grey pt-4 pb-4">
         <div class="container">
-            <div class="alert alert-danger">{{__('New inventory in one hour')}}</div>
+{{--            <div class="alert alert-danger">{{__('New inventory in one hour')}}</div>--}}
 
             @if (session('success'))
                 <div class="alert alert-success">
