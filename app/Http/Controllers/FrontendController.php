@@ -143,7 +143,7 @@ class FrontendController extends Controller
             return $pdf->download('properties.pdf');
         }
 
-        $properties = $query->orderBy('properties.bidding_start_at', 'ASC')->paginate(9);
+        $properties = $query->orderByRaw('CASE WHEN properties.bidding_start_at IS NULL THEN 1 ELSE 0 END, properties.bidding_start_at ASC')->paginate(9);
 
         $types = PropertyType::forSelect();
 
