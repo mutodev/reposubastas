@@ -513,7 +513,9 @@ class FrontendController extends Controller
                 })
                 ->join('events', function ($join) use ($today) {
                     $join->on('events.id', '=', 'property_event.event_id')
-                        ->where('events.is_active', '=', true);
+                        ->where('events.is_active', '=', true)
+                        ->where('events.start_at', '<=', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->format('Y-m-d H:i:s'))
+                        ->where('events.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
                 })
                 ->where('properties.start_at', '<=', $today)
                 ->where('properties.end_at', '>', $today)
