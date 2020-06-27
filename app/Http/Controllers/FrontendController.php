@@ -474,7 +474,7 @@ class FrontendController extends Controller
     }
 
     public function dashboard(FormBuilder $formBuilder, Request $request) {
-        $ids = array_slice(session()->get('selected', []), 0,\Auth::user()->id == 3376 ? null : 5);
+        $ids = array_unique(array_slice(session()->get('selected', []), 0,\Auth::user()->id == 3376 ? null : 5));
 
         $today = (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subDay(1)->format('Y-m-d H:i:s');
 
