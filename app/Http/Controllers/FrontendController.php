@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+include(__DIR__.'/mailchimp/MailChimp.php');
+
 use App;
 use App\Mail\Contact;
 use App\Models\Bid;
@@ -384,6 +386,16 @@ class FrontendController extends Controller
             $user = new App\User;
             $user->fill($formValues);
             $user->save();
+
+            try {
+                $list_id = env('MAILCHIMP_LIST');
+                $MailChimp = new \DrewM\MailChimp\MailChimp(env('MAILCHIMP_KEY'));
+                $result = $MailChimp->post("lists/$list_id/members", [
+                    'email_address' => $user->email,
+                    'status' => 'subscribed',
+                    'merge_fields' => ['FNAME' => $user->name, 'PHONE' => $user->phone],
+                ]);
+            } catch (\Exception $e) {}
 
             //Add user to current event
             $event = App\Models\Event::orderBy('created_at', 'desc')->first();
