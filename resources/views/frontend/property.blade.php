@@ -138,39 +138,41 @@
                         $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
                         ?>
 
-                        @if($today->lt($endAt))
-                            <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
-                            <div class="property-remaining" style="font-size: 13px;">
-                                <vue-countdown-timer
-                                        :start-time="{{$today->getTimestamp()}}"
-                                        :end-time="{{$endAt->getTimestamp()}}"
-                                        :interval="1000"
-                                        :start-label="'Until start:'"
-                                        :end-label="''"
-                                        label-position="begin"
-                                        :end-text="'Auction ended!'"
-                                        :day-txt="'d'"
-                                        :hour-txt="'h'"
-                                        :minutes-txt="'m'"
-                                        :seconds-txt="'s'">
-                                </vue-countdown-timer>
-                                <br />
-                                @if($online)
-                                    @if($property->bidding_start_at)
+                        @if ($biddingStartAt)
+                            @if($today->lt($endAt))
+                                <strong class="text-dark-blue">{{ __('Event ends in') }}:</strong>
+                                <div class="property-remaining" style="font-size: 13px;">
+                                    <vue-countdown-timer
+                                            :start-time="{{$today->getTimestamp()}}"
+                                            :end-time="{{$endAt->getTimestamp()}}"
+                                            :interval="1000"
+                                            :start-label="'Until start:'"
+                                            :end-label="''"
+                                            label-position="begin"
+                                            :end-text="'Auction ended!'"
+                                            :day-txt="'d'"
+                                            :hour-txt="'h'"
+                                            :minutes-txt="'m'"
+                                            :seconds-txt="'s'">
+                                    </vue-countdown-timer>
+                                    <br />
+                                    @if($online)
+                                        @if($property->bidding_start_at)
+                                            <div class="alert alert-danger">
+                                                {{ __('Online Auction') }}: <br />{{ $biddingStartAtText }}
+                                            </div>
+                                        @endif
+                                    @else
                                         <div class="alert alert-danger">
-                                            {{ __('Online Auction') }}: <br />{{ $biddingStartAtText }}
+                                            {{ __('Live Auction') }}: <br />{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
                                         </div>
                                     @endif
-                                @else
-                                    <div class="alert alert-danger">
-                                        {{ __('Live Auction') }}: <br />{{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
-                                    </div>
-                                @endif
-                            </div>
-                        @elseif($online)
-                            <div class="alert alert-warning">
-                                {{ __('Online Auction Ended') }}
-                            </div>
+                                </div>
+                            @elseif($online)
+                                <div class="alert alert-warning">
+                                    {{ __('Online Auction Ended') }}
+                                </div>
+                            @endif
                         @endif
 
                         <div class="price mt-3">
