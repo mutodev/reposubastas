@@ -100,7 +100,7 @@
 
     <div class="popup-modal shadow" data-popup-modal="one">
         <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
-        <img src="/images/HoursPopUpRepoOnline.gif" width="100%" />
+        <img src="/images/popup2.jpg" width="100%" />
     </div>
 
     <div class="homepage-bottom text-center position-relative p-5">
