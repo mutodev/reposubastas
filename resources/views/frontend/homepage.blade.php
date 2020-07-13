@@ -100,7 +100,13 @@
 
     <div class="popup-modal shadow" data-popup-modal="one">
         <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
-        <img src="/images/popup2.jpg" width="100%" />
+{{--        <img src="/images/popup2.jpg" width="100%" />--}}
+
+        <video controls autoplay style="width: 100%">
+            <source src="/images/promo.ogg" type="video/ogg; codecs=dirac, speex">
+            <source src="/images/promo.mp4" type="video/mp4">
+            Tu navegador no implementa el elemento <code>video</code>.
+        </video>
     </div>
 
     <div class="homepage-bottom text-center position-relative p-5">
