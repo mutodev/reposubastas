@@ -593,6 +593,6 @@ class FrontendController extends Controller
             return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'dashboard']);
         }
 
-        return compact('properties', 'formBuilder', 'userDeposit');
+        return compact('properties', 'formBuilder');
     }
 }
