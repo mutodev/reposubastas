@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-6 text-right">
-                    <!-- @include('frontend.partials.bidding') -->
+                    @include('frontend.partials.bidding')
                 </div>
             </div>
 

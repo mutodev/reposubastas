@@ -19,7 +19,7 @@
     <div class="properties-results bg-light-grey pt-4 pb-4">
         <div class="container">
             <div class="text-right">
-                <!-- @include('frontend.partials.bidding') -->
+                @include('frontend.partials.bidding')
             </div>
 
             @if (session('success'))
