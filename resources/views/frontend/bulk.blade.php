@@ -18,7 +18,7 @@
             @endif
 
             <div class="text-right">
-                @include('frontend.partials.bidding')
+                <!-- @include('frontend.partials.bidding') -->
             </div>
 
             @if(!$properties->total())

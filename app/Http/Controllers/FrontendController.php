@@ -184,9 +184,10 @@ class FrontendController extends Controller
         //Handle post
         if ($request->isMethod('post')) {
 
-            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
+            // $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
 
-            if (!$userDeposit) {
+            // if (!$userDeposit) {
+            if (false) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
                 return redirect()->back()->withInput();
             }else {
@@ -287,9 +288,10 @@ class FrontendController extends Controller
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
             }
 
-            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+            // $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
 
-            if (!$userDeposit) {
+            // if (!$userDeposit) {
+            if (false) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
             } else {
                 $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [], [
@@ -320,10 +322,10 @@ class FrontendController extends Controller
                     $formValues['phone'] = \Auth::user()->phone;
 
                     //Attach deposit to property
-                    if ($userDeposit->amount < 5000) {
-                        $userDeposit->property_id = $property->id;
-                        $userDeposit->save();
-                    }
+                    // if ($userDeposit->amount < 5000) {
+                    //     $userDeposit->property_id = $property->id;
+                    //     $userDeposit->save();
+                    // }
 
                     Mail::to(explode(',', 'eduardito58@gmail.com,reposubasta@realityrealtypr.com,perezg@realityrealtypr.com,zavalai@realityrealtypr.com,serranomil@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 
@@ -514,7 +516,7 @@ class FrontendController extends Controller
 
         $properties = $query->orderBy('property_event.number')->paginate(100);
 
-        $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
+        // $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND user_deposit.property_id IS NULL', [\Auth::user()->id])->first();
 
         //Handle post
         if ($request->isMethod('post')) {
@@ -541,9 +543,10 @@ class FrontendController extends Controller
                 return redirect()->route('frontend.page', ['local' => App::getLocale(), 'pageSlug' => 'register']);
             }
 
-            $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
+            // $userDeposit = App\Models\UserDeposit::whereRaw('user_deposit.refunded IS NULL AND user_deposit.user_id = ? AND (user_deposit.property_id = ? OR user_deposit.property_id IS NULL)', [\Auth::user()->id, $property->id])->first();
 
-            if (!$userDeposit) {
+            if (false) {
+            // if (!$userDeposit) {
                 Session::flash('error', __('You must present your purchase intention by processing a minimum deposit') . view('frontend.partials.paypal')->render());
             } else {
                 $form = $formBuilder->create(App\Forms\Frontend\Property\OfferForm::class, [], [
@@ -574,10 +577,10 @@ class FrontendController extends Controller
                     $formValues['phone'] = \Auth::user()->phone;
 
                     //Attach deposit to property
-                    if ($userDeposit->amount < 5075) {
-                        $userDeposit->property_id = $property->id;
-                        $userDeposit->save();
-                    }
+                    // if ($userDeposit->amount < 5075) {
+                    //     $userDeposit->property_id = $property->id;
+                    //     $userDeposit->save();
+                    // }
 
                     Mail::to(explode(',', 'eduardito58@gmail.com,reposubasta@realityrealtypr.com,perezg@realityrealtypr.com,zavalai@realityrealtypr.com,serranomil@realityrealtypr.com'))->send(new Contact('REPOSUBASTA - Offer', $formValues));
 

@@ -36,7 +36,7 @@
                     @endif
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    @include('frontend.partials.bidding', ['id' => $property->id])
+                    <!-- @include('frontend.partials.bidding', ['id' => $property->id]) -->
                 </div>
             </div>
 
