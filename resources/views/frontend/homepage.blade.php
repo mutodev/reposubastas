@@ -96,18 +96,18 @@
         }
     </style>
 
-    <div class="body-blackout"></div>
+    <!-- <div class="body-blackout"></div>
 
     <div class="popup-modal shadow" data-popup-modal="one">
         <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close">X</i>
-        <!-- <img src="/images/popup2.jpg" width="100%" /> -->
+        <img src="/images/popup2.jpg" width="100%" />
 
         <video controls autoplay style="width: 100%">
             <source src="/images/promo.ogg" type="video/ogg; codecs=dirac, speex">
             <source src="/images/promo.mp4" type="video/mp4">
             Tu navegador no implementa el elemento <code>video</code>.
         </video>
-    </div>
+    </div> -->
 
     <div class="homepage-bottom text-center position-relative p-5">
         <div class="container position-relative" style="margin-top: 100px !important;">
@@ -157,7 +157,7 @@
 @endsection
 
 @section('footer_scripts')
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       const modalCloseTrigger = document.querySelector('.popup-modal__close')
       const bodyBlackout = document.querySelector('.body-blackout')
 
@@ -178,6 +178,6 @@
           bodyBlackout.classList.remove('is-blacked-out')
         })
       });
-    </script>
+    </script> -->
 @endsection
 
