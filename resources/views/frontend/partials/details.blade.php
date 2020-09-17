@@ -1,6 +1,6 @@
 <div class="property-details mt-4">
     <div class="container">
-        @if($property->description)
+        @if($property->description && $property->type->slug !== 'MORTGAGE-NOTE')
         <div class="row">
             <div class="col-12 p-0 col-md-8 mb-3">
                 <strong class="text-dark-blue">{{ __('Description') }}</strong>
@@ -9,14 +9,35 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="row">
+            <div class="col-12 p-0 mb-3">
+                <div>
+                    <strong>{{ __('Original Loan Amount') }}:</strong> <span>{{ $property->notes_original_loan_amount }}</span>
+                </div>
+
+                <div>
+                    <strong>{{ __('Current Balance') }}:</strong> <span>{{ $property->notes_current_balance }}</span>
+                </div>
+
+                <div>
+                    <strong>{{ __('Term/Lenght') }}:</strong> <span>{{ $property->notes_term }}</span>
+                </div>
+
+                <div>
+                    <strong>{{ __('CRIM Fee') }}:</strong> <span>{{ $property->notes_crim }}</span>
+                </div>
+
+                <br />
+
+                <strong>{{ __('***NO INSPECTION IS ALLOWED. THIS IS A MORTGAGE NOTE AUCTION AND DOES NOT REPRESENT COLLATERAL ADQUISITION. THIS COLLATERAL IS STILL PRIVATE PROPERTY AND SHOULD NOT BE TRESPASSED.***') }}</strong>
+            </div>
+        </div>
         @endif
         <div class="row">
             <div class="col-12 p-0 col-md-4 mb-3">
-                <strong class="text-dark-blue">{{ __('Details') }}</strong>
+                <strong class="text-dark-blue">{{ __('Collateral Details') }}</strong>
 
-                <div>
-                    <strong>{{ __('Property Type') }}:</strong> <span>{{ $property->type->name }}</span>
-                </div>
                 @if($property->zonification)
                     <div>
                         <strong>{{ __('Zonification') }}:</strong> <span>{{ $property->zonification }}</span>

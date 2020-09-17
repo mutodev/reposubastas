@@ -1,6 +1,3 @@
-@if($property->type->slug === 'MORTGAGE-NOTE')
-    @include('frontend.partials.note', compact('property'))
-@else
 <a href="{{ route('frontend.page', ['pageSlug' => 'property', 'locale' => \App::getLocale(), 'id' => $property->id]) }}" class="card col-md-4 p-0 border-0 blink-{{$property->id}}">
     <div class="wm">
         @if($property->image1)
@@ -21,7 +18,7 @@
         @endif
 
         @if($property->type_id && $property->type->slug === 'MORTGAGE-NOTE')
-            <span class="badge badge-warning">{{ $property->status->name }}</span>
+            <span class="badge badge-warning">{{ $property->type->name }}</span>
         @endif
 
         @if($property->tags->count() > 0)
@@ -29,25 +26,9 @@
         @endif
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ $property->address }}, {{ $property->city }}</h5>
+        <h5 class="card-title">{{ $property->description }}</h5>
         <p class="card-text text-muted">
-            {{ __('Type') }}: {{ $property->type->name }}
-
-            @if($property->bedrooms)
-                <br />{{ __('Beds') }}: {{ number_format($property->bedrooms) }}
-            @endif
-            @if($property->bathrooms)
-                <br />{{ __('Baths') }}: {{ number_format($property->bathrooms) }}
-            @endif
-            @if($property->sqf_area)
-                <br />{{ __('Square feets') }}: {{ round($property->sqf_area, 2) }}
-            @endif
-            @if($property->sqm_area)
-                <br />{{ __('Square meters') }}: {{ round($property->sqm_area, 2) }}
-            @endif
-            @if($property->cuerdas)
-                <br />{{ __('Cuerdas') }}: {{ round($property->cuerdas, 2) }}
-            @endif
+            {{ __('Collateral Location') }}: {{ $property->city }}, PR
         </p>
     </div>
 
@@ -57,7 +38,7 @@
                 {{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
             </li>
         @else
-            <li class="list-group-item border-0 bg-light-blue">
+            <li class="list-group-item border-0 bg-warning">
                 <?php
                     $online = $property->event_is_online;
                     $endAt = new Carbon\Carbon(($online ? $property->end_at : $property->event_live_at), 'America/Puerto_Rico');
@@ -79,10 +60,7 @@
             </li>
         @endif
         <li class="list-group-item border-0">
-            <span>{{ __('Sale price') }}: @if($property->price > 0) ${{ number_format($property->price) }} @else {{ __('Request price') }} @endif</span>
-                <br />
-                <small style="font-size: .5em">{{ __('Commission to be paid by the Buyer') }}: @if($property->buyer_prima){{ number_format(intval($property->buyer_prima)) }}%@else 1%@endif</small>
+            <small style="font-size: .5em">{{ __('*** Picture shown represents Mortgage Note Collateral.') }}</small>
         </li>
     </ul>
 </a>
-@endif

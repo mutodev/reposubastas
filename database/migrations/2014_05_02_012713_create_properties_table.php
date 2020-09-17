@@ -83,6 +83,24 @@ class CreatePropertiesTable extends Migration
             $table->decimal('optioned_price', 16)->nullable();
             $table->string('user_number')->nullable();
             $table->text('comments')->nullable();
+            $table->decimal('notes_original_loan_amount', 16)->nullable();
+            $table->string('notes_position', 16)->nullable();
+            $table->decimal('notes_current_balance', 16)->nullable();
+            $table->string('notes_loan_type', 16)->nullable();
+            $table->decimal('notes_interest_rate', 16)->nullable();
+            $table->integer('notes_term')->nullable();
+            $table->decimal('notes_monthly_payment', 16)->nullable();
+            $table->dateTime('notes_date_of_origination')->nullable();
+            $table->boolean('notes_title_report');
+            $table->boolean('notes_lien_judgements_against_property');
+            $table->boolean('notes_mortgage_note');
+            $table->string('notes_deed', 16)->nullable();
+            $table->string('notes_crim', 16)->nullable();
+            $table->string('notes_annual_payment', 16)->nullable();
+            $table->string('notes_hoa', 16)->nullable();
+            $table->string('notes_ley_seven', 16)->nullable();
+            $table->string('notes_crim_debt', 16)->nullable();
+            $table->string('notes_past_due_hoa', 16)->nullable();
             $table->timestamps();
 
             $table->foreign('status_id')->references('id')->on('property_status');

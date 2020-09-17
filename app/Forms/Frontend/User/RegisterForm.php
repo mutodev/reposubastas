@@ -53,6 +53,7 @@ class RegisterForm extends Form
             ]]);
             $this->add('accept_terms', 'accept', ['value' => 1, 'rules' => 'accepted', 'label' => __('I agree to REPOSUBASTA :terms', [
                 'terms' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'terms']).'">'.__('Terms and Conditions').'</a>',
+                'notes' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'notes-terms']).'">'.__('Mortgage Notes Terms and Conditions').'</a>',
                 'policy' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'policy']).'">'.__('Privacy Policy').'</a>'
             ])]);
         } else {

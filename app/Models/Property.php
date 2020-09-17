@@ -92,7 +92,25 @@ class Property extends Model
         'sold_closing_at',
         'comments',
         'is_cash_only',
-        'user_number'
+        'user_number',
+        'notes_original_loan_amount',
+        'notes_position',
+        'notes_current_balance',
+        'notes_loan_type',
+        'notes_interest_rate',
+        'notes_term',
+        'notes_monthly_payment',
+        'notes_date_of_origination',
+        'notes_title_report',
+        'notes_lien_judgements_against_property',
+        'notes_mortgage_note',
+        'notes_deed',
+        'notes_crim',
+        'notes_annual_payment',
+        'notes_hoa',
+        'notes_ley_seven',
+        'notes_crim_debt',
+        'notes_past_due_hoa',
     ];
 
     public function events()

@@ -40,8 +40,8 @@
                 </div>
             </div>
 
-            <strong class="text-dark-blue">{{ __('Property') }}</strong>
-            <h2 class="m-0">{{ $property->address }}</h2>
+            <strong class="text-dark-blue">{{ $property->type->slug !== 'MORTGAGE-NOTE' ? __('Property') : __('Mortgage Note') }}</strong>
+            <h2 class="m-0">{{ $property->description }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
 
             <div class="container">
