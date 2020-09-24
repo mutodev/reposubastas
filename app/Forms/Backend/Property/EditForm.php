@@ -118,12 +118,12 @@ class EditForm extends Form
             ->add('notes_lien_judgements_against_property', 'text')
             ->add('notes_mortgage_note', 'text')
             ->add('notes_deed', 'text')
-            ->add('notes_crim', 'text')
+            ->add('notes_crim', 'text', ['label' => __('Notes CRIM')])
             ->add('notes_annual_payment', 'number')
-            ->add('notes_hoa', 'text')
-            ->add('notes_ley_seven', 'text')
-            ->add('notes_crim_debt', 'text')
-            ->add('notes_past_due_hoa', 'text')
+            ->add('notes_hoa', 'text', ['label' => __('Notes HOA')])
+            ->add('notes_ley_seven', 'text', ['label' => __('Notes LEY 7')])
+            ->add('notes_crim_debt', 'text', ['label' => __('Notes CRIM debt')])
+            ->add('notes_past_due_hoa', 'text', ['label' => __('Notes past due HOA')])
             ->add('submit', 'submit', ['label' => __('Save')]);
     }
 }
