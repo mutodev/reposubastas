@@ -41,7 +41,7 @@
             </div>
 
             <strong class="text-dark-blue">{{ $property->type->slug !== 'MORTGAGE-NOTE' ? __('Property') : __('Mortgage Note') }}</strong>
-            <h2 class="m-0">{{ $property->description }}</h2>
+            <h2 class="m-0">{{ $property->type->slug !== 'MORTGAGE-NOTE' ? $property->address : $property->description }}</h2>
             <p class="text-muted">{{ $property->city }}</p>
 
             <div class="container">
