@@ -18,7 +18,7 @@ class OfferForm extends Form
             'Cash' => __('Cash')
         ];
 
-        if ($this->data['is_cash_only'] || ($this->data['property'] && $this->data['property']->type->slug === 'MORTGAGE-NOTE')) {
+        if ($this->data['is_cash_only'] || (isset($this->data['property']) && $this->data['property']->type->slug === 'MORTGAGE-NOTE')) {
             unset($typeOptions['Financed']);
         }
 
