@@ -83,6 +83,8 @@ class FrontendController extends Controller
 
         if ($type = $request->get('type')) {
             $query->where('properties.type_id', '=', $type);
+        } else {
+            $query->whereIn('properties.type_id', [1,2,3]);
         }
 
         if ($event = $request->get('event')) {
