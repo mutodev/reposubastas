@@ -5,7 +5,7 @@
         <div class="carousel-inner">
             <div class="homepage-top">
                 <div class="container">
-                    <h1 class="homeText">{{ __('BE SAFE.') }}<br /> <strong>{{ __('BID SAFE.') }} </strong></h1>
+                    <h1 class="homeText">{{ __('Turning Assets') }}<br /> <strong>{{ __('Into Sales') }} </strong></h1>
 
                     <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
                     <a class="btn btn-warning mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type=4">{{ __('View mortage notes') }}</a>
