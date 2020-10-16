@@ -215,6 +215,56 @@ class PropertiesController extends Controller
         return redirect()->route('backend.properties.index', ['event' => $event->id]);
     }
 
+    public function import(Request $request, Event $event)
+    {
+        $id = $request->get('id');
+
+        if (!$id) {
+            return redirect()->route('backend.properties.index', ['event' => $event->id]);
+        }
+
+        $property = json_decode(file_get_contents('https://realityrealtypr.com/reposubasta/?id='.$id), true);
+        $oldid = $property['id'];
+        unset($property['id']);
+
+        $startAt = $event->start_at;
+        $endAt = $event->end_at;
+        $biddingStartAt = $event->bidding_start_at;
+
+        $model = null;
+        $found = false;
+
+        if ($property['internal_number']) {
+            $model = Model::where('internal_number', '=', $property['internal_number'])->first();
+            $found = true;
+        }
+
+        if (!$model) {
+            $model = new Model;
+        }
+
+        $model->fill($property);
+        $model->start_at = date("Y-m-d\TH:i:s", strtotime($startAt));
+        $model->end_at = date("Y-m-d\TH:i:s", strtotime($endAt));
+        $model->bidding_start_at = date("Y-m-d\TH:i:s", strtotime($biddingStartAt));
+
+        if (!$found) {
+            for($i = 1; $i <= 10; $i++) {
+                if (isset($property['Photos'][$i-1])) {
+                    $model['image'.$i] = $property['Photos'][$i-1]['large'];
+                }
+            }
+
+            $model->proccessImportImages($oldid);
+        }
+
+        $model->save();
+        $model->addToEvent($event->id);
+        $model->addTag(7);
+
+        return redirect()->route('backend.properties.index', ['event' => $event->id]);
+    }
+
     public function logs(Request $request, Event $event, Model $model)
     {
         $models = App\Models\PropertyStatusLog::with(['oldStatus', 'newStatus', 'optionedBy'])

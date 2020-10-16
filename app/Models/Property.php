@@ -211,6 +211,37 @@ class Property extends Model
         return $bid;
     }
 
+    public function proccessImportImages($oldId)
+    {
+        $s3 = \Storage::disk('s3');
+
+        foreach(range(1, 10) as $index) {
+            $image = $this["image{$index}"];
+
+            if (!$image) {
+                continue;
+            }
+
+            $parts = pathinfo($image);
+            $image = Image::make($image);
+
+            $filename = "/rr/{$oldId}/{$parts['filename']}.{$parts['extension']}";
+            $s3->put($filename, (string)$image->encode($parts['extension']), 'public');
+
+            $this["image{$index}"] = $filename;
+
+            $image->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $thumbFilename = "/rr/{$oldId}/{$parts['filename']}_thumb.{$parts['extension']}";
+
+            $s3->put($thumbFilename, (string)$image->encode($parts['extension']), 'public');
+
+            $this["image{$index}_thumb"] = $thumbFilename;
+        }
+    }
+
     public function proccessImages()
     {
         $s3 = \Storage::disk('s3');

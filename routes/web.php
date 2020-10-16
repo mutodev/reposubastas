@@ -118,6 +118,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 
             Route::prefix('properties')->group(function () {
                 Route::get('/', 'Backend\PropertiesController@index')->name('backend.properties.index');
+                Route::get('import', 'Backend\PropertiesController@import')->name('backend.properties.import');
                 Route::get('edit/{model?}', 'Backend\PropertiesController@edit')->name('backend.properties.edit');
                 Route::get('delete/{model}', 'Backend\PropertiesController@delete')->name('backend.properties.delete');
                 Route::get('select/{model?}', 'Backend\PropertiesController@select')->name('backend.properties.select');

@@ -75,6 +75,16 @@
         </form>
     </div>
 
+    <h3>Import from Reality Realty</h3>
+    <form method="get" action="{{ route('backend.properties.import', ['event' => $event->id]) }}">
+        <div class="input-group mr-sm-2">
+            <input value="" name="id" type="text" class="form-control w-50" id="id" placeholder="{{ __('Property ID') }}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary bg-light-red border-0">{{ __('Import') }}</button>
+            </div>
+        </div>
+    </form>
+
     <div class="my-2 mx-2">
         {{ __('Total:') }} {{ $models->total() }}
     </div>
