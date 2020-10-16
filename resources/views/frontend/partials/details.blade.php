@@ -109,11 +109,13 @@
                     <strong>{{ __('Payment method') }}:</strong> <span>{{ $property->is_cash_only ? __('Cash only') : __('Cash, Financed') }}</span>
                 </div>
 
+                @if(!$property->tags->count() || $property->tags->get(0)->id != 7)
                 <strong class="text-dark-blue">{{ __('Event') }}</strong>
 
                 <div>
                     <strong>{{ $online ? __('Online Auction') : __('Live Auction') }}</strong>
                 </div>
+                @endif
 
                 @if(!$online)
                     <div>

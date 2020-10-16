@@ -25,7 +25,12 @@
         @endif
 
         @if($property->tags->count() > 0)
-            <span class="badge badge-danger">{{ $property->tags[0]['name_'.App::getLocale()] }}</span>
+            @if($property->tags->get(0)->id != 7)
+            <span class="badge badge-danger">
+            @else
+            <span class="badge badge-secondary">
+            @endif
+            {{ $property->tags[0]['name_'.App::getLocale()] }}</span>
         @endif
     </div>
     <div class="card-body">
@@ -56,7 +61,7 @@
             <li class="list-group-item border-0 bg-dark-blue">
                 {{ __('Live Auction') }}: {{ Jenssegers\Date\Date::parse($property->event_live_at)->format('j M, g:ia')}}
             </li>
-        @else
+        @elseif(!$property->tags->count() || $property->tags->get(0)->id != 7)
             <li class="list-group-item border-0 bg-light-blue">
                 <?php
                     $online = $property->event_is_online;
@@ -65,11 +70,13 @@
                     $biddingStartAtText = $biddingStartAt->format('M j') === $endAt->format('M j') ? $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('g:ia') : $biddingStartAt->format('M j, g:ia') . ' - ' . $endAt->format('M j, g:ia');
                     $bid = $property->getBids($property->event_id)->first();
                 ?>
+                
                 @if($property->bidding_start_at)
                     {{ __('Online Auction') }}: <br />{{ $biddingStartAtText  }}
                 @else
                     {{ __('Online Auction') }}
                 @endif
+            
 
                 @if ($property->reserve)
                 <div style="display: none">

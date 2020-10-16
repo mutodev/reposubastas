@@ -98,6 +98,15 @@
                             @if($property->status_id && $property->status->is_public)
                                 <span class="badge badge-danger">{{ $property->status->name }}</span>
                             @endif
+
+                            @if($property->tags->count() > 0)
+                                @if($property->tags->get(0)->id != 7)
+                                <span class="badge badge-danger">
+                                @else
+                                <span class="badge badge-secondary">
+                                @endif
+                                {{ $property->tags[0]['name_'.App::getLocale()] }}</span>
+                            @endif
                         </div>
 
                         <div class="addthis_inline_share_toolbox_zkje"></div>
