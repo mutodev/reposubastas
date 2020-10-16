@@ -225,7 +225,7 @@ class Property extends Model
             $parts = pathinfo($image);
             $image = Image::make($image);
 
-            $filename = "/rr/{$oldId}/{$parts['filename']}.{$parts['extension']}";
+            $filename = "rr/{$oldId}/{$parts['filename']}.{$parts['extension']}";
             $s3->put($filename, (string)$image->encode($parts['extension']), 'public');
 
             $this["image{$index}"] = $filename;
@@ -234,7 +234,7 @@ class Property extends Model
                 $constraint->aspectRatio();
             });
 
-            $thumbFilename = "/rr/{$oldId}/{$parts['filename']}_thumb.{$parts['extension']}";
+            $thumbFilename = "rr/{$oldId}/{$parts['filename']}_thumb.{$parts['extension']}";
 
             $s3->put($thumbFilename, (string)$image->encode($parts['extension']), 'public');
 
