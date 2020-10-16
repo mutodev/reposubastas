@@ -248,15 +248,13 @@ class PropertiesController extends Controller
         $model->end_at = date("Y-m-d\TH:i:s", strtotime($endAt));
         $model->bidding_start_at = date("Y-m-d\TH:i:s", strtotime($biddingStartAt));
 
-        if (!$found) {
-            for($i = 1; $i <= 10; $i++) {
-                if (isset($property['Photos'][$i-1])) {
-                    $model['image'.$i] = $property['Photos'][$i-1]['large'];
-                }
+        for($i = 1; $i <= 10; $i++) {
+            if (isset($property['Photos'][$i-1])) {
+                $model['image'.$i] = $property['Photos'][$i-1]['large'];
             }
-
-            $model->proccessImportImages($oldid);
         }
+
+        $model->proccessImportImages($oldid);
 
         $model->save();
         $model->addToEvent($event->id);
