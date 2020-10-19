@@ -308,7 +308,7 @@ class FrontendController extends Controller
 
                 $newOffer = intval($formValues['offer']);
 
-                if (!$bid || $newOffer > intval($bid->offer)) {
+                if (!$bid || $newOffer > intval($bid->offer ? $bid->offer : $property->starting_bid)) {
                     $bid = new Bid;
                     $bid->user_id = \Auth::user()->id;
                     $bid->property_id = $property->id;

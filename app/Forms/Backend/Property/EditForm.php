@@ -69,6 +69,7 @@ class EditForm extends Form
             ])
             ->add('investor_reference_id', 'text')
             ->add('internal_number', 'text')
+            ->add('starting_bid', 'number', ['label' => __('Starting Bid')])
             ->add('bidding_start_at', 'datetime-local', ['rules' => 'required'])
             ->add('start_at', 'datetime-local', ['rules' => 'required'])
             ->add('end_at', 'datetime-local', ['rules' => 'required'])

@@ -20,6 +20,7 @@ class Property extends Model
         'youtube_video',
         'investor_id',
         'optioned_by',
+        'starting_bid',
         'source_id',
         'investor_reference_id',
         'address',
