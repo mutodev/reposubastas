@@ -244,6 +244,8 @@ class PropertiesController extends Controller
         }
 
         $model->fill($property);
+        $model->region_en = $property['Area']['region_en'];
+        $model->region_es = $property['Area']['region_es'];
         $model->start_at = date("Y-m-d\TH:i:s", strtotime($startAt));
         $model->end_at = date("Y-m-d\TH:i:s", strtotime($endAt));
         $model->bidding_start_at = date("Y-m-d\TH:i:s", strtotime($biddingStartAt));
