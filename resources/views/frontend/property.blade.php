@@ -218,7 +218,7 @@
                                 @endif
 
                                 <div class="price mt-3">
-                                    <strong class="text-dark-blue">{{ __('Make your offer') }} (No ",", only numbers, Minimum Bid: ${{number_format($property->starting_bid)}}})</strong>
+                                    <strong class="text-dark-blue">{{ __('Make your offer') }} (No ",", only numbers, Minimum Bid: ${{number_format($property->starting_bid)}})</strong>
                                 </div>
                             @endif
 
