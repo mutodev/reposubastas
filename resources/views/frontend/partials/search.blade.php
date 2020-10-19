@@ -6,7 +6,7 @@
                 <div class="input-group mr-sm-2">
                     <select name="type" class="custom-select">
                         @foreach(App\Models\PropertyType::forSelect('All Properties') as $value => $label)
-                            <option @if($value == request()->get('type')) selected @endif value="{{ $value }}">{{ $label }}</option>
+                            <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
                     <input autocomplete="off" value="{{ request()->get('keywords') }}" name="keywords" type="text" class="form-control w-50" id="keywords" placeholder="{{ __('Address, region, city, Property ID') }}">

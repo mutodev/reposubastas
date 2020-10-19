@@ -72,6 +72,9 @@ class FrontendController extends Controller
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
             })
+            ->join('property_tag_pivot', function ($join) {
+                $join->on('property_tag_pivot.property_id', '=', 'properties.id');
+            })
             ->join('events', function ($join) use ($today) {
                 $join->on('events.id', '=', 'property_event.event_id')
                     ->where('events.is_active', '=', true)
@@ -82,9 +85,12 @@ class FrontendController extends Controller
             ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
 
         if ($type = $request->get('type')) {
-            $query->where('properties.type_id', '=', $type);
-        } else {
-            $query->whereIn('properties.type_id', [1,2,3]);
+            $query->whereIn('properties.type_id', $type);
+            $query->whereNull('property_tag_pivot.property_tag_id');
+        }
+
+        if ($tag = $request->get('tags')) {
+            $query->whereIn('property_tag_pivot.property_tag_id', $tag);
         }
 
         if ($event = $request->get('event')) {

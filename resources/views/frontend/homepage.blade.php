@@ -7,8 +7,9 @@
                 <div class="container">
                     <h1 class="homeText">{{ __('Turning Assets') }}<br /> <strong>{{ __('Into Cash') }} </strong></h1>
 
-                    <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">{{ __('View properties') }}</a>
-                    <a class="btn btn-warning mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type=4">{{ __('View mortage notes') }}</a>
+                    <a class="btn btn-primary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type[]=1&type[]=2&type[]=3">{{ __('Auction properties') }}</a>
+                    <a class="btn btn-secondary mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?tags[]=7">{{ __('Resale properties') }}</a>
+                    <a class="btn btn-warning mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type[]=4">{{ __('View mortage notes') }}</a>
 {{--                    <a class="btn btn-danger mt-3" target="_blank" href="https://pdfmyurl.com/saveaspdf?url={{ urlencode(route('frontend.page', array_merge(['pageSlug' => 'properties', 'locale' => App::getLocale(), 'pdftest' => 1], request()->all()))) }}">{{ __('Download catalog') }}</a>--}}
                     <a class="btn btn-outline-secondary ml-sm-2 mt-3" href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'register']) }}">{{ __('Register now!') }}</a>
                 </div>

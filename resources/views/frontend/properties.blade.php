@@ -37,7 +37,6 @@
 
             <div class="properties-filters">
                 <form method="get" action="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}">
-                    <input type="hidden" name="type" value="{{ request()->get('type') }}" />
                     <input type="hidden" name="keywords" value="{{ request()->get('keywords') }}" />
                     <div class="form-row">
 {{--                        <div class="float-left mb-3">--}}
