@@ -88,7 +88,7 @@ class EditForm extends Form
             //TODO Previous apraisal
             ->add('is_cash_only', 'checkbox', ['label' => __('Cash only')])
             ->add('bedrooms', 'number')
-            ->add('bathrooms', 'number')
+            ->add('bathrooms', 'text')
             ->add('sqm_area', 'text')
             ->add('cuerdas', 'text')
             ->add('sqf_area', 'text')
