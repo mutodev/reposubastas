@@ -72,7 +72,7 @@ class FrontendController extends Controller
                 $join->on('property_event.property_id', '=', 'properties.id')
                     ->where('property_event.is_active', '=', true);
             })
-            ->join('property_tag_pivot', function ($join) {
+            ->leftJoin('property_tag_pivot', function ($join) {
                 $join->on('property_tag_pivot.property_id', '=', 'properties.id');
             })
             ->join('events', function ($join) use ($today) {
