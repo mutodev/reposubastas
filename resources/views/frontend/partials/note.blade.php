@@ -51,9 +51,9 @@
                     $bid = $property->getBids($property->event_id)->first();
                 ?>
             @if($property->bidding_start_at)
-            {{ __('Online Auction') }}: <br />{{ $biddingStartAtText  }}
+            {{ __('Mortgage Note Sale') }}: <br />{{ $biddingStartAtText  }}
             @else
-            {{ __('Online Auction') }}
+            {{ __('Mortgage Note Sale') }}
             @endif
 
             @if ($property->reserve)

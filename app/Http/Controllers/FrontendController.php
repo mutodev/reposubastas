@@ -85,7 +85,7 @@ class FrontendController extends Controller
             ->where('properties.end_at', '>', (new \Carbon\Carbon(null, 'America/Puerto_Rico'))->subHours(2)->format('Y-m-d H:i:s'));
 
         if ($type = $request->get('type')) {
-            $query->whereIn('properties.type_id', $type);
+            $query->whereIn('properties.type_id', (array)$type);
             $query->whereNull('property_tag_pivot.property_tag_id');
         }
 

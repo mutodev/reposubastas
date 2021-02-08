@@ -86,7 +86,7 @@
   "Current offer": "Oferta actual",
   "Please register to submit offer": "Por favor regístrese para enviar la oferta",
   "The offer must be greater than actual offer": "La oferta debe ser mayor a la oferta actual",
-  "Sorry, no results were found": "Lo sentimos, no se encontraron resultados",
+  "Stay tune for New Inventory...coming soon!": "Pendiente, próximamente nuevo inventario",
   "F2": "P2",
   "M2": "M2",
   "Beds": "Cuartos",
@@ -119,11 +119,12 @@
   "Mortgage Note": "Nota Hipotecaria",
   "Original Loan Amount": "Pagaré Original",
   "Current Balance": "Saldo actual",
-  "Term/Lenght": "Término/Duración",
+  "Term/Length": "Término/Duración",
   "CRIM Fee": "Pago de CRIM",
   "***NO INSPECTION IS ALLOWED. THIS IS A MORTGAGE NOTE AUCTION AND DOES NOT REPRESENT COLLATERAL ADQUISITION. THIS COLLATERAL IS STILL PRIVATE PROPERTY AND SHOULD NOT BE TRESPASSED. IT IS REQUIRED TO SIGN A CONFIDENTIALITY AGREEMENT FOR MORE INFORMATION. 787-418-3100***": "*** NO SE PERMITE INSPECCIÓN. ESTA ES UNA SUBASTA DE NOTAS HIPOTECARIOS Y NO REPRESENTA LA ADQUISICIÓN DE EL COLATERAL. ESTA ES UNA PROPIEDAD PRIVADA Y NO PUEDE SER TRASPASADA. ES REQUISITO FIRMAR ACUERDO DE CONFIDENCIALIDAD PARA MAS INFORMACION. 787-418-3100 ***",
   "NOW THE OPPORTUNITY IS AT REACH OF A CLICK": "AHORA LA OPORTUNIDAD ESTÁ AL ALCANCE DE UN CLICK",
   "Financed": "Financiado",
+  "Mortgage Note Sale": "Venta de nota hipotecaria",
   "Cash": "Efectivo",
   "Cash/Financed": "Efectivo/Financiado",
   "Call for appointment": "Llamar para cita",
@@ -161,5 +162,6 @@
   "one property": "una propiedad",
   "multiple properties": "multiples propiedades",
   "Single property": "Una propiedad",
-  "Multiple properties": "Multiples propiedades"
+  "Multiple properties": "Multiples propiedades",
+  "*** Picture shown represents Mortgage Note Collateral.": "*** La imagen que se muestra representa el colateral que garantiza la nota."
 }
