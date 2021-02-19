@@ -10,7 +10,7 @@ class AddTagForm extends Form
     public function buildForm()
     {
         $events = PropertyTag::all()->toArray();
-        $eventsOptions = [];
+        $eventsOptions = ['REMOVE' => '-- None --'];
         foreach ($events as $k => $event) {
             $eventsOptions[$event['id']] = $event['name_en'];
         }

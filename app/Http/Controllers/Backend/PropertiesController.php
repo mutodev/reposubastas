@@ -396,9 +396,13 @@ class PropertiesController extends Controller
 
             $formValues = $form->getFieldValues();
 
-            $model->addTag($formValues['tag_id']);
+            if ($formValues['tag_id'] !== 'REMOVE') {
+                $model->addTag($formValues['tag_id']);
+            } else {
+                $model->tags()->detach();
+            }
 
-            Session::flash('success', __('Property added to tag!'));
+            Session::flash('success', __('Property added/removed to tag!'));
 
             return redirect()->route('backend.properties.index', ['event' => $event->id]);
         }
