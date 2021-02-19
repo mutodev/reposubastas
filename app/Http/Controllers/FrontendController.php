@@ -86,7 +86,7 @@ class FrontendController extends Controller
 
         if ($type = $request->get('type')) {
             $query->whereIn('properties.type_id', (array)$type);
-            $query->whereNull('property_tag_pivot.property_tag_id');
+            //$query->whereNull('property_tag_pivot.property_tag_id');
         }
 
         if ($tag = $request->get('tags')) {
