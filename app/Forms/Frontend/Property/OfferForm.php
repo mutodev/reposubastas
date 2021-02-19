@@ -29,7 +29,7 @@ class OfferForm extends Form
             'label' => __('Cash/Financed')
         ]);
         $this->add('accept_terms', 'accept', ['value' => 1, 'rules' => 'accepted', 'label' => __('I agree to REPOSUBASTA :terms', [
-            'terms' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'terms']).'">'.__('Terms').'</a>'
+            'terms' => '<a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'terms']).'">'.__('Terms').'</a>' . ' and <a href="'.route('frontend.page', ['locale' => \App::getLocale(), 'pageSlug' => 'mortgage-note-terms']).'">'.__('Mortgage Notes Terms').'</a>'
         ])]);
         $this->add('submit', 'submit', ['label' => __('Submit Offer'), 'attr' => [
             'class' => 'form-control border-0' . ((isset($this->data['property']) && $this->data['property']->type->slug === 'MORTGAGE-NOTE') ? ' bg-warning' : ' bg-light-blue')
