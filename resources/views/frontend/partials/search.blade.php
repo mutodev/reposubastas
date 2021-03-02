@@ -24,7 +24,7 @@
             <a class="btn btn-secondary mt-3"
                 href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?tags[]=7">{{ __('Resale properties') }}</a>
             <a class="btn btn-warning mt-3"
-                href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type[]=4">{{ __('View mortage notes') }}</a>
+                href="{{ route('frontend.page', ['locale' => App::getLocale(), 'page' => 'properties']) }}?type[]=4">{{ __('View mortgage notes') }}</a>
         </div>
     </div>
 </div>
