@@ -53,7 +53,8 @@ class PropertiesController extends Controller
         if ($keywords = $request->get('keywords')) {
             $keywords = "%{$keywords}%";
 
-            $query->whereRaw('(properties.investor_reference_id LIKE ? or properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or property_event.number LIKE ?)', [
+            $query->whereRaw('(properties.id LIKE ? or properties.investor_reference_id LIKE ? or properties.address LIKE ? or properties.city LIKE ? or properties.region_es LIKE ? or properties.region_en LIKE ? or property_event.number LIKE ?)', [
+                $keywords,
                 $keywords,
                 $keywords,
                 $keywords,
