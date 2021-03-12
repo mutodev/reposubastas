@@ -110,7 +110,7 @@
         <thead>
             <tr>
                 <th>
-                    {{ __('Number') }}
+                    {{ __('ID Number') }}
                 </th>
                 <th>
                     {{ __('Type') }}
@@ -139,7 +139,7 @@
             @foreach ($models as $model)
                 <tr class="{{ in_array($model->id, $selected) ? 'selected' : '' }}">
                     <td width="1">
-                        {{ $model->number }}
+                        {{ $model->id }}
                     </td>
                     <td>{{ $model->type->name }}</td>
                     <td>{{ $model->address }}</td>

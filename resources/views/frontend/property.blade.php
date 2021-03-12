@@ -101,11 +101,7 @@
                     </div>
 
                     <div class="property-badges">
-                        @if($property->number)
-                        <span class="badge badge-dark">{{ $property->number }}</span>
-                        @else
-                        <span class="badge badge-dark"><span class="oi oi-globe"></span></span>
-                        @endif
+                        <span class="badge badge-dark">{{ $property->id }}</span>
 
                         @if($property->status_id && $property->status->is_public)
                         <span class="badge badge-danger">{{ $property->status->name }}</span>
