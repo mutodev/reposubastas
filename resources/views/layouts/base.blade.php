@@ -38,7 +38,7 @@
 
 </head>
 <body>
-<div id="app" style="overflow: hidden;">
+<div id="app">
     @yield('main')
 </div>
 
